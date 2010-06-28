@@ -1,0 +1,22 @@
+Frame/Dialog
+
+Panel
+Button
+TextEditor
+List
+Icon
+Image
+
+Table
+
+Label
+	Text
+	Font
+Tree
+
+Menu
+	MenuItem
+
+ComboBox
+TabbedPane
+Toolbar

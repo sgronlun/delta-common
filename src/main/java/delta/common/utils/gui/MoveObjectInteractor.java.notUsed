@@ -1,0 +1,99 @@
+package delta.common.utils.gui;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import javax.swing.event.MouseInputAdapter;
+
+import delta.common.utils.graph.Graph;
+import delta.common.utils.graph.GraphNode;
+
+/**
+ * @author DAM
+ */
+public class MoveObjectInteractor extends DefaultInteractor
+{
+  private GraphicalObject _selectedObject;
+
+  /**
+   * 
+   */
+  private Dimension _delta;
+
+  public MoveObjectInteractor()
+  {
+    _selectedObject=null;
+  }
+
+  /**
+   * 
+   * @see delta.common.utils.gui.Interactor#handleMouseDragged(java.awt.event.MouseEvent)
+   */
+  public boolean handleMouseDragged(MouseEvent event)
+  {
+    Graphics g;
+
+    
+    if (_selectedObject!=null)
+    {
+      g.setXORMode(Color.GRAY);
+      _selectedObject.draw(g);
+      _selectedObject.moveTo(event.getX()-_delta.width,event.getY()-_delta.height);
+      _selectedObject.draw(g);
+    }
+    else
+    {
+      Graph<N,L> graph=_canvas.getGraph();
+      _selectedObject=graph.getNodeFromPoint(event.getX(),event.getY());
+      if (_selectedObject!=null)
+      {
+        Point origin=_selectedObject.getOrigin();
+        _delta=new Dimension(event.getX()-origin.x,event.getY()-origin.y);
+        g.setXORMode(Color.GRAY);
+        _selectedObject.draw(g);
+      }
+    }
+
+    
+    return false;
+  }
+
+  /**
+   * @see delta.common.utils.gui.Interactor#handleMouseReleased(java.awt.event.MouseEvent)
+   */
+  public boolean handleMouseReleased(MouseEvent event)
+  {
+    Graphics g;
+    Graph<N,L> graph=_canvas.getGraph();
+    if (_selectedObject!=null)
+    {
+      g.setXORMode(Color.GRAY);
+      _selectedObject.draw(g);
+      graph.selectNode(_selectedNode.getId());
+      Dimension d=new Dimension(_currentGhost.x,_currentGhost.y);
+      //d=_canvas.getTransformer().inverseTransform(d);
+      graph.setNodePosition(_selectedNode.getId(),d);
+      graph.selectNode(_selectedNode.getId());
+      _selectedObject=null;
+      _delta=null;
+      _canvas.repaint();
+    }
+    else
+    {
+      GraphNode<N> node=_canvas.getNodeFromPoint(event.getX(),event.getY());
+      if (node!=null)
+      {
+        graph.selectNode(node.getId());
+      }
+      else
+      {
+        graph.resetSelection();
+      }
+      _canvas.repaint();
+    }
+    return false;
+  }
+}

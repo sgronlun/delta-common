@@ -1,0 +1,211 @@
+<xml version="1.0" encoding="UTF-8">
+
+<configurationFileMetaModel>
+	<type name="NONE" typeHandler="flandres.cfgEditor.types.DataType">
+	</type>
+	<type name="CLOSED_LIST" typeHandler="flandres.cfgEditor.types.ClosedListType">
+		<parameter name="VALUES" mandatory="true" defaultValue="0|1"></parameter>
+	</type>
+	<type name="INTEGER" typeHandler="flandres.cfgEditor.types.IntegerType">
+		<parameter name="MIN" mandatory="false"></parameter>
+		<parameter name="MAX" mandatory="false"></parameter>
+	</type>
+	<type name="FLOAT" typeHandler="flandres.cfgEditor.types.FloatType">
+		<parameter name="MIN" mandatory="false"></parameter>
+		<parameter name="MAX" mandatory="false"></parameter>
+	</type>
+	<type name="REGEXP" typeHandler="flandres.cfgEditor.types.RegexpType">
+		<parameter name="REGEXP" mandatory="true" defaultValue="[0-9a-z_A-Z ]{0,60}"></parameter>
+	</type>
+	<type name="STRING" typeHandler="flandres.cfgEditor.types.StringType">
+		<parameter name="MIN_LENGTH" mandatory="false"></parameter>
+		<parameter name="MAX_LENGTH" mandatory="false"></parameter>
+	</type>
+
+	<section name="UNITS_DEFAULTS">
+		<variable name="ANGLE" type="CLOSED_LIST" defaultValue="DEGREES_0_360_GEO">
+			<parameter name="VALUES" value="DEGREES_0_360_GEO|DEGREES_-180_180_GEO|RADIAN_0_2P_GEO"></parameter>
+		</variable>
+		<variable name="HEADING" type="CLOSED_LIST" defaultValue="DEGREES_0_360_GEO">
+			<parameter name="VALUES" value="DEGREES_0_360_GEO|DEGREES_-180_180_GEO|RADIAN_0_2P_GEO"></parameter>
+		</variable>
+
+		<variable name="DISTANCE" type="CLOSED_LIST" defaultValue="KILOMETER">
+			<parameter name="VALUES" value="KILOMETER|METER"></parameter>
+		</variable>
+		<variable name="DISTANCE_AERO_MARITIM" type="CLOSED_LIST" defaultValue="MILE_NAUTICAL">
+			<parameter name="VALUES" value="KILOMETER|MILE|MILE_NAUTICAL"></parameter>
+		</variable>
+
+		<variable name="LENGTH" type="CLOSED_LIST" defaultValue="METER">
+			<parameter name="VALUES" value="METER|FOOT|INCH"></parameter>
+		</variable>
+
+		<variable name="LENGTH_MEDIUM_FLANDRES" type="CLOSED_LIST" defaultValue="METER">
+			<parameter name="VALUES" value="METER|CENTI_METER"></parameter>
+		</variable>
+
+		<variable name="LENGTH_GREAT_FLANDRES" type="CLOSED_LIST" defaultValue="METER">
+			<parameter name="VALUES" value="METER|KILOMETER"></parameter>
+		</variable>
+		
+		<variable name="ALTITUDE" type="CLOSED_LIST" defaultValue="METER">
+			<parameter name="VALUES" value="METER|FOOT"></parameter>
+		</variable>
+		<variable name="FLIGHT_LEVEL" type="CLOSED_LIST" defaultValue="FOOT">
+			<parameter name="VALUES" value="METER|FOOT|100FEET_FL"></parameter>
+		</variable>
+
+		<variable name="GUN_CALIBRE" type="CLOSED_LIST" defaultValue="MILLI_METER">
+			<parameter name="VALUES" value="INCH|MILLI_METER"></parameter>
+		</variable>
+
+		<variable name="MEASURE" type="CLOSED_LIST" defaultValue="METER">
+			<parameter name="VALUES" value="METER|KILOMETER|MILE_NAUTICAL|FOOT|MILE"></parameter>
+		</variable>
+
+		<variable name="MASS" type="CLOSED_LIST" defaultValue="KILOGRAMME">
+			<parameter name="VALUES" value="GRAMME|KILOGRAMME|TONNE"></parameter>
+		</variable>
+		<variable name="VEHICLE_MASS" type="CLOSED_LIST" defaultValue="KILOGRAMME">
+			<parameter name="VALUES" value="KILOGRAMME|TONNE"></parameter>
+		</variable>
+
+		<variable name="PRESSURE" type="CLOSED_LIST" defaultValue="HECTOPASCAL">
+			<parameter name="VALUES" value="HECTOPASCAL|INHG"></parameter>
+		</variable>
+
+		<variable name="POWER" type="CLOSED_LIST" defaultValue="HP">
+			<parameter name="VALUES" value="WATT|HP"></parameter>
+		</variable>
+		<variable name="VEHICLE_POWER" type="CLOSED_LIST" defaultValue="HP">
+			<parameter name="VALUES" value="WATT|HP"></parameter>
+		</variable>
+
+		<variable name="SURFACE" type="CLOSED_LIST" defaultValue="SQUARE_KILOMETER">
+			<parameter name="VALUES" value="SQUARE_KILOMETER|HECTARE|SQUARE_METER"></parameter>
+		</variable>
+
+		<variable name="VOLUME" type="CLOSED_LIST" defaultValue="CUBE_METER">
+			<parameter name="VALUES" value="CUBE_DECIMETER|CUBE_METER|CUBE_DECAMETER"></parameter>
+		</variable>
+
+		<variable name="SPEED_TERRESTRIAN" type="CLOSED_LIST" defaultValue="KILOMETER_PER_HOUR">
+			<parameter name="VALUES" value="KILOMETER_PER_HOUR|MILE_PER_HOUR|MILE_NAUTICAL_PER_HOUR"></parameter>
+		</variable>
+		<variable name="SPEED_AERO_MARITIM" type="CLOSED_LIST" defaultValue="MILE_NAUTICAL_PER_HOUR">
+			<parameter name="VALUES" value="KILOMETER_PER_HOUR|MILE_PER_HOUR|MILE_NAUTICAL_PER_HOUR"></parameter>
+		</variable>
+		<variable name="SPEED" type="CLOSED_LIST" defaultValue="KILOMETER_PER_HOUR">
+			<parameter name="VALUES" value="KILOMETER_PER_HOUR|MILE_PER_HOUR|MILE_NAUTICAL_PER_HOUR"></parameter>
+		</variable>
+
+		<variable name="MILLI_DURATION" type="CLOSED_LIST" defaultValue="MILLI_SECOND_MILLI">
+			<parameter name="VALUES" value="SECOND_MILLI|MILLI_SECOND_MILLI|MICRO_SECOND_MILLI|NANO_SECOND_MILLI"></parameter>
+		</variable>
+		<variable name="SHORT_DURATION" type="CLOSED_LIST" defaultValue="MILLI_SECOND_SHORT">
+			<parameter name="VALUES" value="SECOND_SHORT|MILLI_SECOND_SHORT|MICRO_SECOND_SHORT|NANO_SECOND_SHORT"></parameter>
+		</variable>
+		<variable name="LONG_DURATION" type="CLOSED_LIST" defaultValue="DAY_LONG_COMPO">
+			<parameter name="VALUES" value="DAY_LONG_COMPO"></parameter>
+		</variable>
+		<variable name="TIME" type="CLOSED_LIST" defaultValue="SECOND_COMPO">
+			<parameter name="VALUES" value="SECOND_COMPO"></parameter>
+		</variable>
+
+		<variable name="TEMPERATURE" type="CLOSED_LIST" defaultValue="CELSIUS">
+			<parameter name="VALUES" value="KELVIN|CELSIUS|FAHRENHEIT"></parameter>
+		</variable>
+		<variable name="WEATHER_TEMPERATURE" type="CLOSED_LIST" defaultValue="CELSIUS">
+			<parameter name="VALUES" value="CELSIUS|FAHRENHEIT"></parameter>
+		</variable>
+
+		<variable name="SIMPLE_FREQUENCY" type="CLOSED_LIST" defaultValue="KILO_HERTZ">
+			<parameter name="VALUES" value="HERTZ|KILO_HERTZ|MEGA_HERTZ|GIGA_HERTZ"></parameter>
+		</variable>
+		<variable name="LOW_FREQUENCY" type="CLOSED_LIST" defaultValue="KILO_HERTZ">
+			<parameter name="VALUES" value="HERTZ|KILO_HERTZ"></parameter>
+		</variable>
+		<variable name="MEDIUM_FREQUENCY" type="CLOSED_LIST" defaultValue="MEGA_HERTZ">
+			<parameter name="VALUES" value="KILO_HERTZ|MEGA_HERTZ"></parameter>
+		</variable>
+		<variable name="HIGH_FREQUENCY" type="CLOSED_LIST" defaultValue="GIGA_HERTZ">
+			<parameter name="VALUES" value="MEGA_HERTZ|GIGA_HERTZ"></parameter>
+		</variable>
+
+		<variable name="SIMPLE_BIT_RATE" type="CLOSED_LIST" defaultValue="KILO_BIT_SEC">
+			<parameter name="VALUES" value="BIT_SEC|KILO_BIT_SEC|MEGA_BIT_SEC|GIGA_BIT_SEC"></parameter>
+		</variable>
+		<variable name="LOW_BIT_RATE" type="CLOSED_LIST" defaultValue="KILO_BIT_SEC">
+			<parameter name="VALUES" value="BIT_SEC|KILO_BIT_SEC"></parameter>
+		</variable>
+		<variable name="MEDIUM_BIT_RATE" type="CLOSED_LIST" defaultValue="MEGA_BIT_SEC">
+			<parameter name="VALUES" value="KILO_BIT_SEC|MEGA_BIT_SEC"></parameter>
+		</variable>
+		<variable name="HIGH_BIT_RATE" type="CLOSED_LIST" defaultValue="GIGA_BIT_SEC">
+			<parameter name="VALUES" value="MEGA_BIT_SEC|GIGA_BIT_SEC"></parameter>
+		</variable>
+
+		<variable name="SIMPLE_BAUD_RATE" type="CLOSED_LIST" defaultValue="KILO_BAUD">
+			<parameter name="VALUES" value="BAUD_RATE|KILO_BAUD_RATE|MEGA_BAUD_RATE|GIGA_BAUD_RATE"></parameter>
+		</variable>
+		<variable name="LOW_BAUD_RATE" type="CLOSED_LIST" defaultValue="KILO_BAUD">
+			<parameter name="VALUES" value="BAUD_RATE|KILO_BAUD_RATE"></parameter>
+		</variable>
+		<variable name="MEDIUM_BAUD_RATE" type="CLOSED_LIST" defaultValue="MEGA_BAUD">
+			<parameter name="VALUES" value="KILO_BAUD_RATE|MEGA_BAUD_RATE"></parameter>
+		</variable>
+		<variable name="HIGH_BAUD_RATE" type="CLOSED_LIST" defaultValue="GIGA_BAUD">
+			<parameter name="VALUES" value="MEGA_BAUD_RATE|GIGA_BAUD_RATE"></parameter>
+		</variable>
+
+	</section>
+
+<!-- Section site filter sample
+	<section name="CS_SI_SRV_SHF" siteFilter="~C-SO">
+-->
+	<section name="CS_SI_SRV_SHF">
+		<!-- Variable site filter sample 
+			<variable name="flandres.shf.srv.evt.operationalMonitoring.exportPeriod" type="INTEGER" defaultValue="10" siteFilter="~C-SO">
+		-->
+		<variable name="flandres.shf.srv.evt.operationalMonitoring.exportPeriod" type="INTEGER" defaultValue="10">
+		</variable>
+		<variable name="flandres.shf.srv.evt.technicalMonitoring.exportPeriod" type="INTEGER" defaultValue="10">
+		</variable>
+		<variable name="flandres.shf.srv.evt.operationalMonitoring.flowPeriod" type="INTEGER" defaultValue="20">
+		</variable>
+		<variable name="flandres.shf.srv.evt.operationalMonitoring.maxThreshold" type="INTEGER" defaultValue="100">
+		</variable>
+		<variable name="flandres.shf.srv.evt.operationalMonitoring.periodMonitoring" type="INTEGER" defaultValue="65">
+		</variable>
+		<variable name="flandres.shf.srv.dsk.monitoringPeriod" type="INTEGER" defaultValue="25000">
+		</variable>
+		<variable name="flandres.shf.srv.dsk.mediumAlertLevel" type="INTEGER" defaultValue="70">
+		</variable>
+		<variable name="flandres.shf.srv.dsk.highAlertLevel" type="INTEGER" defaultValue="90">
+		</variable>
+	</section>
+
+	<section name="CS_SI_TRT_SHF">
+		<variable name="DELETE_INDEX_PERIOD" type="INTEGER" defaultValue="30">
+		</variable>
+		<variable name="ZIP_ACTIVE" type="INTEGER" defaultValue="1">
+			<parameter name="MIN" value="0"></parameter>
+			<parameter name="MAX" value="1"></parameter>
+		</variable>
+		<variable name="MAX_ZIP_ENTRIES" type="INTEGER" defaultValue="10">
+		</variable>
+	</section>
+
+	<section name="CS_SI_SSI_SHF">
+		<variable name="flandres.shf.ssi.Suivi.operMaxRecords" type="INTEGER" defaultValue="50">
+		</variable>
+		<variable name="flandres.shf.ssi.Suivi.techMaxRecords" type="INTEGER" defaultValue="50">
+		</variable>
+		<variable name="flandres.shf.ssi.Suivi.diskMaxRecords" type="INTEGER" defaultValue="1000">
+		</variable>
+	</section>
+	
+</configurationFileMetaModel>
+
+</xml>

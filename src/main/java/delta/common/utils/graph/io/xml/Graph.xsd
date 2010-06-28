@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:element name="GRAPHE" type="Graph" />
+	<xs:complexType name="Graph">
+		<xs:sequence>
+			<xs:element name="NOEUDS" type="Nodes" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LIENS" type="Links" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Node">
+		<xs:sequence>
+			<xs:element name="COULEUR" type="Color"/>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:string" use="required"/>
+		<xs:attribute name="TEXTE_HAUT" type="xs:string" use="required"/>
+		<xs:attribute name="TEXTE_BAS" type="xs:string" use="required"/>
+		<xs:attribute name="X" type="xs:int" use="required"/>
+		<xs:attribute name="Y" type="xs:int" use="required"/>
+		<xs:attribute name="DX" type="xs:int" use="required"/>
+		<xs:attribute name="DY" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Link">
+		<xs:attribute name="NOEUD1" type="xs:string" use="required"/>
+		<xs:attribute name="NOEUD2" type="xs:string" use="required"/>
+		<xs:attribute name="TEXTE" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Color">
+		<xs:attribute name="R" type="xs:int" use="required"/>
+		<xs:attribute name="G" type="xs:int" use="required"/>
+		<xs:attribute name="B" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Nodes">
+		<xs:sequence>
+			<xs:element name="NOEUD" type="Node" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Links">
+		<xs:sequence>
+			<xs:element name="LIEN" type="Link" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
