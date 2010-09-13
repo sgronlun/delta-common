@@ -109,6 +109,22 @@ public class NumericTools
    */
   public static Integer parseInteger(String value)
   {
+    return parseInteger(value,true);
+  }
+
+  /**
+   * Parse an integer.
+   * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Integer.MAX_VALUE</code>.
+   * <p>
+   * Otherwise, the <code>value</code> is parsed using <code>Integer.parseInt(String)</code>.
+   * <p>
+   * If it cannot be parsed to a numerical value, returns the <code>null</code>.
+   * @param value string to parse.
+   * @param doWarn Indicates if a warning is to be raised when the value is not valid.
+   * @return An <tt>Integer</tt> or <code>null</code>.
+   */
+  public static Integer parseInteger(String value, boolean doWarn)
+  {
     if ((value==null) || (value.length()==0))
     {
       return null;
@@ -125,7 +141,10 @@ public class NumericTools
     }
     catch(NumberFormatException nfe)
     {
-      _logger.error("Cannot parse int '"+value+"'",nfe);
+      if (doWarn)
+      {
+        _logger.error("Cannot parse int '"+value+"'",nfe);
+      }
       return null;
     }
   }

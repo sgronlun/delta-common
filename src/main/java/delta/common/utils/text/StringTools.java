@@ -83,6 +83,17 @@ public class StringTools
     return ret;
   }
 
+  public static String findAfter(String line, String before)
+  {
+    String ret=null;
+    int index=line.indexOf(before);
+    if (index!=-1)
+    {
+      ret=line.substring(index+before.length());
+    }
+    return ret;
+  }
+
   public static String findBetween(String line, String before, String after)
   {
     String ret=null;
