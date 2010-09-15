@@ -78,4 +78,10 @@ public class IntegerHolder
     }
     return false;
   }
+
+  @Override
+  public String toString()
+  {
+    return String.valueOf(_value);
+  }
 }
