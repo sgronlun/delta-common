@@ -24,11 +24,11 @@ public class TestDataTable extends TestCase
     DataTable table=new DataTable();
 
     // Name column
-    table.addColumn(NAME_COLUMN);
+    table.addColumn(NAME_COLUMN,String.class);
     DataTableColumn nameColumn=table.getColumnByName(NAME_COLUMN);
     Assert.assertNotNull(nameColumn);
     // Date column
-    table.addColumn(DATE_COLUMN);
+    table.addColumn(DATE_COLUMN,Date.class);
     DataTableColumn dateColumn=table.getColumnByName(DATE_COLUMN);
     Assert.assertNotNull(dateColumn);
 

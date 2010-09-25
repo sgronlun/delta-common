@@ -1,5 +1,10 @@
 package delta.common.framework.objects.data;
 
+/**
+ * Proxy for a data object.
+ * @author DAM
+ * @param <E> Type of the data object to manage.
+ */
 public class DataProxy<E extends DataObject<E>>
 {
   private long _primaryKey;
@@ -9,7 +14,7 @@ public class DataProxy<E extends DataObject<E>>
   /**
    * Full constructor.
    * @param primaryKey Object identifier.
-   * @param source Targeted objects source.
+   * @param source Parent objects source.
    */
   public DataProxy(long primaryKey, ObjectSource<E> source)
   {
@@ -21,25 +26,32 @@ public class DataProxy<E extends DataObject<E>>
     }
   }
 
-  public String getClassName()
-  {
-  	return _target.getClassName();
-  }
-
+  /**
+   * Get the data object managed by this proxy (load it if necessary).
+   * @return a data object or <code>null</code>.
+   */
   public E getDataObject()
   {
-    if((_target==null)&&(_primaryKey!=0))
+    if ((_target==null) && (_primaryKey!=0))
     {
       _target=_source.load(_primaryKey);
     }
     return _target;
   }
 
+  /**
+   * Get the objects source of this proxy.
+   * @return the objects source of this proxy.
+   */
   public ObjectSource<E> getSource()
   {
   	return _source;
   }
 
+  /**
+   * Get the primary key of the managed object.
+   * @return the primary key of the managed object.
+   */
   public long getPrimaryKey()
   {
     return _primaryKey;

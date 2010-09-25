@@ -6,26 +6,23 @@ import java.util.Comparator;
 /**
  * A comparator for <tt>DataObject</tt>s.
  * @author DAM
- * @param <E>
+ * @param <E> Type of the data objects to compare.
  */
-public class DataObjectComparator<E extends DataObject<E>> implements Comparator<Object>,Serializable
+public class DataObjectComparator<E extends DataObject<E>> implements Comparator<E>,Serializable
 {
   private static final long serialVersionUID=1L;
 
-  public int compareDataObjects(DataObject<E> do1, DataObject<E> do2)
+  /**
+   * Compare two data objects, using their label.
+   * @param do1 First object.
+   * @param do2 Other object.
+   * @return see {@link Comparator#compare(Object, Object)} 
+   */
+  public int compare(E do1, E do2)
   {
     String label1=do1.getLabel();
     String label2=do2.getLabel();
     int ret=label1.compareTo(label2);
-    return ret;
-  }
-
-  @SuppressWarnings("unchecked")
-  public int compare(Object o1, Object o2)
-  {
-    DataObject<E> do1=(DataObject<E>)o1;
-    DataObject<E> do2=(DataObject<E>)o2;
-    int ret=compareDataObjects(do1,do2);
     return ret;
   }
 }

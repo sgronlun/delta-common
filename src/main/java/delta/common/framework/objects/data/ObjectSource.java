@@ -6,12 +6,25 @@ import java.util.List;
 import delta.common.utils.configuration.Configuration;
 import delta.common.utils.configuration.Configurations;
 
+/**
+ * Objects source.
+ * Manages all the objects of a class in a single persistence system.
+ * @author DAM
+ * @param <E> Type of the data objects to manage.
+ */
 public class ObjectSource<E extends DataObject<E>>
 {
+  /**
+   * Number of load requests.
+   */
   public static long _nbGetRequests=0;
   private ObjectCache<E> _cache;
   private ObjectDriver<E> _driver;
 
+  /**
+   * Constructor.
+   * @param driver Driver to use to create/read/update/delete objects.
+   */
   public ObjectSource(ObjectDriver<E> driver)
   {
     _driver=driver;
@@ -24,6 +37,10 @@ public class ObjectSource<E extends DataObject<E>>
     }
   }
 
+  /**
+   * Create an object in the managed persistence system.
+   * @param object Object to create.
+   */
   public void create(E object)
   {
     _driver.create(object);
@@ -33,6 +50,10 @@ public class ObjectSource<E extends DataObject<E>>
     }
   }
 
+  /**
+   * Update an object in the managed persistence system.
+   * @param object Object to create.
+   */
   public void update(E object)
   {
     _driver.update(object);
@@ -42,6 +63,10 @@ public class ObjectSource<E extends DataObject<E>>
     }
   }
 
+  /**
+   * Delete an object in the managed persistence system.
+   * @param primaryKey Primary of the object to delete.
+   */
   public void delete(long primaryKey)
   {
     _driver.delete(primaryKey);
@@ -51,6 +76,11 @@ public class ObjectSource<E extends DataObject<E>>
     }
   }
 
+  /**
+   * Load an object (from cache or from the managed persistence system).
+   * @param primaryKey Identifying key for the targeted object.
+   * @return The loaded object or <code>null</code> if not found.
+   */
   public E load(long primaryKey)
   {
     E ret=null;
@@ -77,6 +107,13 @@ public class ObjectSource<E extends DataObject<E>>
     return ret;
   }
 
+  /**
+   * Partially load an object from the managed persistence system
+   * (that is: only load the main attributes of the object, and not
+   * other fields or aggregated objects).
+   * @param primaryKey Identifying key for the targeted object.
+   * @return The loaded object or <code>null</code> if not found.
+   */
   public E loadPartial(long primaryKey)
   {
     E ret=null;
@@ -87,6 +124,10 @@ public class ObjectSource<E extends DataObject<E>>
     return ret;
   }
 
+  /**
+   * Get all the objects of the managed class.
+   * @return a list of such objects.
+   */
   public List<E> loadAll()
   {
   	List<E> ret=new ArrayList<E>();
@@ -102,6 +143,14 @@ public class ObjectSource<E extends DataObject<E>>
   	return ret;
   }
 
+  /**
+   * Get the objects that belong to the designated set, using the given parameters
+   * (the number and types of the parameters depend on the nature of the designated
+   * set).
+   * @param setID Name of the set to use.
+   * @param parameters Parameters for this set.
+   * @return A list of such objects.
+   */
   public List<E> loadObjectSet(String setID, Object[] parameters)
   {
   	List<E> ret=null;
@@ -114,6 +163,11 @@ public class ObjectSource<E extends DataObject<E>>
 
   }
 
+  /**
+   * Get a series of objects of the managed class, designated by their primary key.
+   * @param primaryKeys Primary keys of the objects to get.
+   * @return a list of these objects.
+   */
   public List<E> loadAll(List<Long> primaryKeys)
   {
   	List<E> ret=new ArrayList<E>();
@@ -139,6 +193,12 @@ public class ObjectSource<E extends DataObject<E>>
   	return ret;
   }
 
+  /**
+   * Get a series of objects of the managed class, designated by their primary key.
+   * Each object is partially loaded (see loadPartial for further explanations).
+   * @param primaryKeys Primary keys of the objects to get.
+   * @return a list of these objects.
+   */
   public List<E> loadAllUsingPartials(List<Long> primaryKeys)
   {
     List<E> ret=new ArrayList<E>();
@@ -158,6 +218,13 @@ public class ObjectSource<E extends DataObject<E>>
     return ret;
   }
 
+  /**
+   * Get the objects related to object whose primary
+   * key is <code>primaryKey</code> using the designated relation.
+   * @param relationName Name of the relation to use.
+   * @param primaryKey Primary key of the root object.
+   * @return A list of such objects.
+   */
   public List<E> loadRelation(String relationName, long primaryKey)
   {
   	List<E> ret=null;
@@ -169,6 +236,14 @@ public class ObjectSource<E extends DataObject<E>>
     return ret;
   }
 
+  /**
+   * Get the objects related to object whose primary
+   * key is <code>primaryKey</code> using the designated relation.
+   * Each object is partially loaded (see loadPartial for further explanations).
+   * @param relationName Name of the relation to use.
+   * @param primaryKey Primary key of the root object.
+   * @return A list of such objects.
+   */
   public List<E> loadRelationUsingPartials(String relationName, long primaryKey)
   {
     List<E> ret=null;

@@ -5,13 +5,13 @@ import java.util.Comparator;
 /**
  * @author DAM
  */
-public class DataTableColumn
+public class DataTableColumn<E>
 {
   private int _index;
   private String _name;
-  private Comparator<Object> _comparator;
+  private Comparator<E> _comparator;
 
-  DataTableColumn(int index, String name, Comparator<Object> comparator)
+  DataTableColumn(int index, String name, Comparator<E> comparator)
   {
     _index=index;
     _name=name;
@@ -33,12 +33,12 @@ public class DataTableColumn
     _name=name;
   }
 
-  public Comparator<Object> getComparator()
+  public Comparator<E> getComparator()
   {
     return _comparator;
   }
 
-  public void setComparator(Comparator<Object> comparator)
+  public void setComparator(Comparator<E> comparator)
   {
     _comparator=comparator;
   }

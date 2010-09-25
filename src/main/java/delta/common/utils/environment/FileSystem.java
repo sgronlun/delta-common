@@ -3,6 +3,7 @@ package delta.common.utils.environment;
 import java.io.File;
 
 /**
+ * Represents the underlying filesystem.
  * @author DAM
  */
 public abstract class FileSystem

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * @author DAM
  */
@@ -25,14 +24,14 @@ public class DataTable
     _rows=new ArrayList<DataTableRow>();
   }
 
-  public void addColumn(String name)
+  public <E extends Comparable> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects)
   {
-    DataTableColumn column=getColumnByName(name);
+    DataTableColumn<E> column=getColumnByName(name);
     if (column==null)
     {
       int index=_columnsMap.size();
-      Comparator<Object> comparator=new ComparableComparator();
-      column=new DataTableColumn(index,name,comparator);
+      Comparator<E> comparator=new ComparableComparator<E>();
+      column=new DataTableColumn<E>(index,name,comparator);
       _columnsMap.put(name,column);
       _columns.add(column);
     }
@@ -40,6 +39,24 @@ public class DataTable
     {
       //todo warning Column already exists
     }
+    return column;
+  }
+
+  public <E> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects, Comparator<E> comparator)
+  {
+    DataTableColumn<E> column=getColumnByName(name);
+    if (column==null)
+    {
+      int index=_columnsMap.size();
+      column=new DataTableColumn<E>(index,name,comparator);
+      _columnsMap.put(name,column);
+      _columns.add(column);
+    }
+    else
+    {
+      //todo warning Column already exists
+    }
+    return column;
   }
 
   public DataTableColumn getColumn(int index)
