@@ -10,17 +10,22 @@ import delta.common.utils.files.iterator.AbstractFileIteratorCallback;
 import delta.common.utils.files.iterator.FileIterator;
 
 /**
+ * Main class for the encoding finder.
  * @author DAM
  */
 public class MainEncodingFinder extends AbstractFileIteratorCallback
 {
   private int _count=0;
 
+  /**
+   * Filter to use.
+   */
   private FileFilter _filter;
+
   @Override
   public void handleFile(File absolute, File relative)
   {
-    //if (_filter.accept(relative))
+    if ((_filter==null) || (_filter.accept(relative)))
     {
       TextEncodingFinder finder=new TextEncodingFinder(null);
       TextEncodingFinder.EncodingStats stats=finder.findEncoding(absolute);
@@ -43,7 +48,7 @@ public class MainEncodingFinder extends AbstractFileIteratorCallback
     }
   }
 
-  public MainEncodingFinder()
+  private MainEncodingFinder()
   {
     //UtilsLoggers.getUtilsLogger().setLevel(Level.INFO);
     File root=new File("/home/dm/data/dev/src/exportSVN/delta/data/cibles");

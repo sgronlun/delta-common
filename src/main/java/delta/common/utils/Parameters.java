@@ -2,60 +2,73 @@ package delta.common.utils;
 
 import java.util.HashMap;
 
+/**
+ * Simple parameters node that uses a hash map.
+ * @author DAM
+ */
 public class Parameters implements ParametersNode
 {
-  private Parameters _parent;
+  private ParametersNode _parent;
   private HashMap<String,Object> _infos;
 
+  /**
+   * Default constructor.
+   */
   public Parameters()
   {
     this(null);
   }
 
-  public Parameters(Parameters parentParameters)
+  /**
+   * Full constructor.
+   * @param parentParameters Parent parameters node.
+   */
+  public Parameters(ParametersNode parentParameters)
   {
     _parent=parentParameters;
     _infos=new HashMap<String,Object>();
   }
 
-  public int getIntParameter(String name, int defaultValue)
-  {
-    return ParameterFinder.getIntParameter(this,name,defaultValue);
-  }
-
+  /**
+   * Store the value of an integer parameter.
+   * @param name Parameter name.
+   * @param value Value to store.
+   */
   public void putIntParameter(String name, int value)
   {
     _infos.put(name,Integer.valueOf(value));
   }
 
-  public long getLongParameter(String name, long defaultValue)
-  {
-    return ParameterFinder.getLongParameter(this,name,defaultValue);
-  }
-
+  /**
+   * Store the value of a long parameter.
+   * @param name Parameter name.
+   * @param value Value to store.
+   */
   public void putLongParameter(String name, long value)
   {
     _infos.put(name,Long.valueOf(value));
   }
 
-  public String getStringParameter(String name, String defaultValue)
-  {
-    return ParameterFinder.getStringParameter(this,name,defaultValue);
-  }
-
+  /**
+   * Store the value of a string parameter.
+   * @param name Parameter name.
+   * @param value Value to store.
+   */
   public void putStringParameter(String name, String value)
   {
     _infos.put(name,value);
   }
 
-  public Object getParameter(String name, boolean useParent)
+  public Object getParameter(String name)
   {
-    Object ret=_infos.get(name);
-    if ((useParent) && (ret==null) && (_parent!=null))
-      ret=_parent.getParameter(name,true);
-    return ret;
+    return _infos.get(name);
   }
 
+  /**
+   * Store the value of a parameter.
+   * @param name Parameter name.
+   * @param value Value to store.
+   */
   public void putParameter(String name, Object value)
   {
     _infos.put(name,value);
