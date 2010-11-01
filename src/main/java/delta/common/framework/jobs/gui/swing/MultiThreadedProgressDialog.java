@@ -18,12 +18,23 @@ import delta.common.framework.jobs.JobState;
 import delta.common.framework.jobs.MultiThreadedJobExecutor;
 import delta.common.framework.jobs.Worker;
 
+/**
+ * A dialog that shows the progression of a multithreaded job executor.
+ * @author DAM
+ */
 public class MultiThreadedProgressDialog extends JDialog implements JobPoolListener
 {
   private transient MultiThreadedJobExecutor _executor;
   private transient JobPool _pool;
   private int _nbThreads;
+  private JLabel[] _labels;
+  private JProgressBar _progressBar;
 
+
+  /**
+   * Constructor.
+   * @param executor Associated executor.
+   */
   public MultiThreadedProgressDialog(MultiThreadedJobExecutor executor)
   {
     _executor=executor;
@@ -31,9 +42,6 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
     _nbThreads=executor.getNbThreads();
     buildGUI();
   }
-
-  private JLabel[] _labels;
-  private JProgressBar _progressBar;
 
   private void buildGUI()
   {
@@ -59,12 +67,18 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
     setModal(false);
   }
 
+  /**
+   * Show this dialog.
+   */
   public void start()
   {
     _pool.addJobPoolListener(this);
     setVisible(true);
   }
 
+  /**
+   * Hide and dispose this dialog.
+   */
   public void stop()
   {
     _pool.removeJobPoolListener(this);
@@ -90,10 +104,20 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
 
   public void jobStarted(Worker worker, Job job)
   {
-    Runnable r=new GUIUpdater(this);
+    Runnable r=new Runnable()
+    {
+      public void run()
+      {
+        updateGUI();
+      }
+    };
     SwingUtilities.invokeLater(r);
   }
 
+  /**
+   * Update the GUI to reflect the state of the
+   * underlying job executor.
+   */
   public void updateGUI()
   {
     int nb=_pool.getNbJobs(JobState.FINISHED);
@@ -120,19 +144,5 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
     {
       System.out.println("Finished !");
     }
-  }
-}
-
-class GUIUpdater implements Runnable
-{
-  private MultiThreadedProgressDialog _dialog;
-  public GUIUpdater(MultiThreadedProgressDialog d)
-  {
-    _dialog=d;
-  }
-
-  public void run()
-  {
-    _dialog.updateGUI();
   }
 }

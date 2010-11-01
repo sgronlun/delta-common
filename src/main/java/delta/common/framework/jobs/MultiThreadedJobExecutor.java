@@ -4,6 +4,10 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * Controller used to execute jobs on a pool of threads.
+ * @author DAM
+ */
 public class MultiThreadedJobExecutor
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
@@ -13,6 +17,11 @@ public class MultiThreadedJobExecutor
   private Thread[] _threads;
   private Worker[] _workers;
 
+  /**
+   * Constructor.
+   * @param pool Pool of jobs to execute.
+   * @param nbThreads Number of threads to use.
+   */
   public MultiThreadedJobExecutor(JobPool pool, int nbThreads)
   {
     if (nbThreads<=0)
@@ -48,12 +57,19 @@ public class MultiThreadedJobExecutor
     }
   }
 
+  /**
+   * Start jobs.
+   */
   public void start()
   {
     buildThreads();
     startThreads();
   }
 
+  /**
+   * Indicates if all jobs are finished or not.
+   * @return <code>true</code> if they are, <code>false</code> otherwise.
+   */
   public boolean isFinished()
   {
     int nbRunning=0;
@@ -72,6 +88,9 @@ public class MultiThreadedJobExecutor
     return (nbRunning==0);
   }
 
+  /**
+   * Wait for the completion of all jobs.
+   */
   public void waitForCompletion()
   {
     for(int i=0;i<_nbThreads;i++)
@@ -92,25 +111,29 @@ public class MultiThreadedJobExecutor
     }
   }
 
+  /**
+   * Get the associated job pool.
+   * @return the associated job pool.
+   */
   public JobPool getPool()
   {
      return _pool;
   }
 
+  /**
+   * Get the number of threads managed by this controller.
+   * @return a number of threads.
+   */
   public int getNbThreads()
   {
      return _nbThreads;
   }
 
-  public int getWorkerIndex(Worker w)
-  {
-    for(int i=0;i<_nbThreads;i++)
-    {
-      if (_workers[i]==w) return i;
-    }
-    return -1;
-  }
-
+  /**
+   * Get the worker associated with the given thread index.
+   * @param index A thread index (starting at 0, but less than the number of threads).
+   * @return A worker or <code>null</code> if the targeted thread has finished.
+   */
   public Worker getWorker(int index)
   {
     return _workers[index];
