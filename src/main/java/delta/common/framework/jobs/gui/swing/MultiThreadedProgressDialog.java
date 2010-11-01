@@ -93,7 +93,13 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
 
   public void jobFinished(Worker worker, Job job)
   {
-    Runnable r=new GUIUpdater(this);
+    Runnable r=new Runnable()
+    {
+      public void run()
+      {
+        updateGUI();
+      }
+    };
     SwingUtilities.invokeLater(r);
   }
 
