@@ -34,7 +34,7 @@ public class VerifiedDirectory
         {
           if(files[i].isFile())
           {
-            long crc=CRC.computeCRC(files[i].getPath());
+            long crc=CRC.computeCRC(files[i]);
             _nbItems++;
             System.out.println("File ["+files[i].getPath()+"]="+crc);
           }

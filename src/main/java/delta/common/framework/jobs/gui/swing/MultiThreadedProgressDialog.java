@@ -88,7 +88,7 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
 
   public void jobAdded(JobPool pool, Job job)
   {
-    System.out.println("jobAdded : "+job);
+    //System.out.println("jobAdded : "+job);
   }
 
   public void jobFinished(Worker worker, Job job)
@@ -105,7 +105,7 @@ public class MultiThreadedProgressDialog extends JDialog implements JobPoolListe
 
   public void jobRemoved(JobPool pool, Job job)
   {
-    System.out.println("jobRemoved : "+job);
+    //System.out.println("jobRemoved : "+job);
   }
 
   public void jobStarted(Worker worker, Job job)

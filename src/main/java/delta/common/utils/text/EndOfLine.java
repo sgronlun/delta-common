@@ -86,6 +86,12 @@ public final class EndOfLine
     return _value;
   }
 
+  @Override
+  public String toString()
+  {
+    return _value;
+  }
+
   /**
    * Get an end of line type by it's ID.
    * @param id ID of the end of line.

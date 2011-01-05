@@ -8,13 +8,17 @@ import java.util.zip.CRC32;
 
 import delta.common.utils.io.StreamTools;
 
+/**
+ * CRC computation methods.
+ * @author DAM
+ */
 public class CRC
 {
-  public static long computeCRC(String fileName)
-  {
-    return computeCRC(new File(fileName));
-  }
-
+  /**
+   * Compute the CRC of a file.
+   * @param fileName Target file.
+   * @return A CRC.
+   */
   public static long computeCRC(File fileName)
   {
     long result=0;

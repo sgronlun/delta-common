@@ -1,10 +1,13 @@
 package delta.common.utils.system.externalCommands;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -433,6 +436,24 @@ public class ExternalCommand
   public boolean isRunning()
   {
     return (_process!=null);
+  }
+
+  public void writeToStdin(String text)
+  {
+    if (_process!=null) {
+      try
+      {
+        OutputStream os=_process.getOutputStream();
+        OutputStreamWriter writer=new OutputStreamWriter(os);
+        BufferedWriter bWriter=new BufferedWriter(writer);
+        bWriter.append(text);
+        bWriter.flush();
+      }
+      catch(Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
   }
 
   private void startStreamReadingThreads()
