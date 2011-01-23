@@ -27,7 +27,7 @@ public class DirectoryIndexUpdater extends AbstractFileIteratorCallback
     {
       if (fd.getSize()!=absolute.length())
       {
-        long crc=CRC.computeCRC(name);
+        long crc=CRC.computeCRC(absolute);
         _index.addFile(absolute.getAbsolutePath(),absolute.length(),crc);
         //System.out.println("Changed : "+name);
       }
@@ -39,7 +39,7 @@ public class DirectoryIndexUpdater extends AbstractFileIteratorCallback
     else
     {
       //System.out.println("New : "+name);
-      long crc=CRC.computeCRC(name);
+      long crc=CRC.computeCRC(absolute);
       _index.addFile(absolute.getAbsolutePath(),absolute.length(),crc);
     }
   }

@@ -21,7 +21,7 @@ public class DirectoryIndexer extends AbstractFileIteratorCallback
   @Override
   public void handleFile(File absolute, File relative)
   {
-    long crc=CRC.computeCRC(absolute.getPath());
+    long crc=CRC.computeCRC(absolute);
     _index.addFile(absolute.getAbsolutePath(),absolute.length(),crc);
   }
 
