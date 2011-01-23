@@ -26,6 +26,7 @@ public class Trash
   /**
    * Constructor.
    * @param doDelete Do it for real.
+   * @param preTrashSize Size of pre-trash.
    */
   public Trash(boolean doDelete, int preTrashSize)
   {
@@ -38,6 +39,9 @@ public class Trash
     _preTrashSize=preTrashSize;
   }
 
+  /**
+   * Flush trash.
+   */
   public void flush()
   {
     for(int i=0;i<_preTrash.size();i++)
@@ -89,11 +93,13 @@ public class Trash
         _deleteFileSize+=size;
         _nbDeletedFiles++;
         System.out.println("Removed ["+file.getAbsolutePath()+"]");
+        /*
         File parent=file.getParentFile();
         if (parent.delete())
         {
           System.out.println("Removed directory ["+parent+"]");
         }
+        */
         ret=Boolean.TRUE;
       }
       else
