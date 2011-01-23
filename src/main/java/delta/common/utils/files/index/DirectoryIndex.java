@@ -27,6 +27,7 @@ public class DirectoryIndex
 
   public void addFile(String name, long size, long crc)
   {
+    name=name.replace("\n","\\n");
     FileData newData=new FileData(null,name,size,crc);
     FileData r=_files.put(name,newData);
     if (r==null)
