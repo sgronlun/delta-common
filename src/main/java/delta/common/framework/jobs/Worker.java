@@ -1,11 +1,17 @@
 package delta.common.framework.jobs;
 
+import org.apache.log4j.Logger;
+
+import delta.common.utils.traces.UtilsLoggers;
+
 /**
  * An object capable of running <tt>Job</tt>s from a <tt>JobPool</tt>.
  * @author DAM
  */
 public class Worker implements Runnable
 {
+  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+
   private JobPool _pool;
   private Job _currentJob;
 
@@ -29,7 +35,14 @@ public class Worker implements Runnable
       if (j==null) break;
       _currentJob=j;
       _pool.jobStarted(this,j);
-      j.doIt();
+      try
+      {
+        j.doIt();
+      }
+      catch(Throwable t)
+      {
+        _logger.error("Job execution crashed with an exception",t);
+      }
       _pool.jobFinished(this,j);
       _currentJob=null;
     }
