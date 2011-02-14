@@ -45,7 +45,7 @@ public class MultiThreadedJobExecutor
     for(int i=0;i<_nbThreads;i++)
     {
       _workers[i]=new Worker(_pool);
-      _threads[i]=new Thread(_workers[i]);
+      _threads[i]=new Thread(_workers[i],"Worker "+i);
     }
   }
 

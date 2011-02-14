@@ -37,7 +37,6 @@ public class JobPool
    * List of finished jobs.
    */
   private List<Job> _finished;
-
   /**
    * List of managed listeners.
    */
@@ -61,11 +60,37 @@ public class JobPool
    */
   public synchronized Job getNewJob()
   {
-    if (_toDo.size()==0) return null;
-    Job ret=_toDo.get(0);
-    _toDo.remove(0);
-    _reserved.add(ret);
-    return ret;
+    while(true)
+    {
+      int nb=_toDo.size()+_reserved.size()+_running.size();
+      if (nb>0)
+      {
+        if (_toDo.size()==0)
+        {
+          //System.out.println(Thread.currentThread().getName()+" : start to wait !");
+          try
+          {
+            wait(1000);
+          }
+          catch(InterruptedException ie)
+          {
+            _logger.error("Wait interrupted !",ie);
+          }
+          //System.out.println(Thread.currentThread().getName()+" : end of wait !");
+        }
+        else
+        {
+          Job ret=_toDo.get(0);
+          _toDo.remove(0);
+          _reserved.add(ret);
+          return ret;
+        }
+      }
+      else
+      {
+        return null;
+      }
+    }
   }
 
   /**
@@ -81,8 +106,16 @@ public class JobPool
     for(Iterator<JobPoolListener> it=_listeners.iterator();it.hasNext();)
     {
       listener=it.next();
-      listener.jobAdded(this,job);
+      try
+      {
+        listener.jobAdded(this,job);
+      }
+      catch(Throwable t)
+      {
+        _logger.error("Error in add callback for job ["+job.getLabel()+"]");
+      }
     }
+    notify();
     return job;
   }
 
@@ -104,8 +137,16 @@ public class JobPool
     for(Iterator<JobPoolListener> it=_listeners.iterator();it.hasNext();)
     {
       listener=it.next();
-      listener.jobStarted(worker,job);
+      try
+      {
+        listener.jobStarted(worker,job);
+      }
+      catch(Throwable t)
+      {
+        _logger.error("Error in start callback for job ["+job.getLabel()+"]");
+      }
     }
+    notify();
   }
 
   /**
@@ -126,8 +167,16 @@ public class JobPool
     for(Iterator<JobPoolListener> it=_listeners.iterator();it.hasNext();)
     {
       listener=it.next();
-      listener.jobFinished(worker,job);
+      try
+      {
+        listener.jobFinished(worker,job);
+      }
+      catch(Throwable t)
+      {
+        _logger.error("Error in finished callback for job ["+job.getLabel()+"]");
+      }
     }
+    notify();
   }
 
   /**
@@ -146,9 +195,17 @@ public class JobPool
       for(Iterator<JobPoolListener> it=_listeners.iterator();it.hasNext();)
       {
         listener=it.next();
-        listener.jobRemoved(this,job);
+        try
+        {
+          listener.jobRemoved(this,job);
+        }
+        catch(Throwable t)
+        {
+          _logger.error("Error in removed callback for job ["+job.getLabel()+"]");
+        }
       }
     }
+    notify();
   }
 
   /**
