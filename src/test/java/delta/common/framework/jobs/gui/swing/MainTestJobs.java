@@ -22,12 +22,11 @@ public class MainTestJobs
     Random r=new Random(System.currentTimeMillis());
     int nbJobs=r.nextInt(20);
     JobPool pool=new JobPool();
-    for (int i=0;i<nbJobs;i++)
+    for(int i=0;i<nbJobs;i++)
     {
       pool.addJob(new SleepJob(0,10000,(i%2==0)));
       SleepManager.sleep(10);
     }
-
     int nbThreads=10;
     if (nbThreads>nbJobs)
     {
