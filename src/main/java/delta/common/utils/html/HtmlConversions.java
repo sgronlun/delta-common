@@ -5,7 +5,7 @@ package delta.common.utils.html;
  */
 public class HtmlConversions
 {
-  public static String stringToHtml(String s)
+  public static String stringToHtml(String s, boolean escapeNewLines)
   {
     StringBuilder sb=new StringBuilder();
     int l=s.length();
@@ -17,7 +17,12 @@ public class HtmlConversions
       else if (c=='ê') sb.append("&ecirc;");
       else if (c=='à') sb.append("&agrave;");
       else if (c=='û') sb.append("&ucirc;");
-      else if (c=='\n') sb.append("<br>");
+      // ignore '\r'
+      else if (c=='\r') sb.append("");
+      else if (c=='\n')
+      {
+        if (escapeNewLines) sb.append("<br>"); else sb.append(' ');
+      }
       else if (c=='>') sb.append("&gt;");
       else if (c=='<') sb.append("&lt;");
       else if (c=='"') sb.append("&quot;");
