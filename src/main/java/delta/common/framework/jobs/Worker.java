@@ -41,7 +41,7 @@ public class Worker implements Runnable
       }
       catch(Throwable t)
       {
-        _logger.error("Job execution crashed with an exception",t);
+        _logger.error("Job ["+j.getLabel()+"] execution crashed with an exception",t);
       }
       _pool.jobFinished(this,j);
       _currentJob=null;
