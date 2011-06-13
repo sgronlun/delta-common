@@ -8,7 +8,7 @@ import java.util.Comparator;
  * @author DAM
  * @param <E> Type of objects to be compared.
  */
-public class ComparableComparator<E extends Comparable> implements Comparator<E>, Serializable
+public class ComparableComparator<E extends Comparable<E>> implements Comparator<E>, Serializable
 {
   private static final long serialVersionUID=1L;
 

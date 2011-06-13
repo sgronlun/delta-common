@@ -69,6 +69,16 @@ public class ChoiceType extends Type
   }
 
   /**
+   * Get the class of the values for this type.
+   * @return A class.
+   */
+  public Class<?> getValueType()
+  {
+    // TODO A ChoiceValue class...
+    return null;
+  }
+
+  /**
    * Indicates if multiple values are allowed.
    * @return <code>true</code> if they are, <code>false</code> otherwise.
    */

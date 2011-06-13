@@ -1,5 +1,6 @@
 package delta.common.framework.objects.data;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,7 +10,7 @@ import java.util.Iterator;
  * @author DAM
  * @param <E> Type of the data objects to manage.
  */
-public class ObjectCache<E extends DataObject<E>>
+public class ObjectCache<E extends Identifiable<Long>>
 {
   private HashMap<Long,E> _cache;
 
@@ -26,9 +27,9 @@ public class ObjectCache<E extends DataObject<E>>
    * @param primaryKey Primary key of the object to get.
    * @return An object or <code>null</code> if not found.
    */
-  public E get(long primaryKey)
+  public E get(Long primaryKey)
   {
-    E ret=_cache.get(Long.valueOf(primaryKey));
+    E ret=_cache.get(primaryKey);
     return ret;
   }
 
@@ -38,8 +39,8 @@ public class ObjectCache<E extends DataObject<E>>
    */
   public void put(E object)
   {
-    long id=object.getPrimaryKey();
-    _cache.put(Long.valueOf(id),object);
+    Long id=object.getPrimaryKey();
+    _cache.put(id,object);
   }
 
   /**
@@ -63,9 +64,8 @@ public class ObjectCache<E extends DataObject<E>>
    * Remove an object from this cache.
    * @param primaryKey Primary key of the object to remove.
    */
-  public void remove(long primaryKey)
+  public void remove(Long primaryKey)
   {
-    Long key=Long.valueOf(primaryKey);
-    _cache.remove(key);
+    _cache.remove(primaryKey);
   }
 }

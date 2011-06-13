@@ -1,13 +1,14 @@
 package delta.common.framework.objects.data;
 
+
 /**
  * Base class for data objects.
  * @author DAM
  * @param <E> Type of the data object.
  */
-public abstract class DataObject<E extends DataObject<E>>
+public abstract class DataObject<E extends Identifiable<Long>> implements Identifiable<Long>
 {
-  private long _primaryKey;
+  private Long _primaryKey;
   private ObjectSource<E> _source;
 
   /**
@@ -23,7 +24,7 @@ public abstract class DataObject<E extends DataObject<E>>
    * @param primaryKey Object identifier.
    * @param source Parent objects source.
    */
-  public DataObject(long primaryKey, ObjectSource<E> source)
+  public DataObject(Long primaryKey, ObjectSource<E> source)
   {
     _primaryKey=primaryKey;
     _source=source;
@@ -42,7 +43,7 @@ public abstract class DataObject<E extends DataObject<E>>
    * Get the primary key of this object.
    * @return the primary key of this object.
    */
-  public long getPrimaryKey()
+  public Long getPrimaryKey()
   {
     return _primaryKey;
   }
@@ -51,7 +52,7 @@ public abstract class DataObject<E extends DataObject<E>>
    * Set the primary key of this object.
    * @param primaryKey Primary key to set.
    */
-  public void setPrimaryKey(long primaryKey)
+  public void setPrimaryKey(Long primaryKey)
   {
     _primaryKey=primaryKey;
   }

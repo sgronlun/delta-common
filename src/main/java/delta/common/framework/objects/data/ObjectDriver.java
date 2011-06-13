@@ -13,7 +13,7 @@ import delta.common.utils.traces.UtilsLoggers;
  * @author DAM
  * @param <E> Type of the data objects to manage.
  */
-public class ObjectDriver<E extends DataObject<E>>
+public class ObjectDriver<E extends Identifiable<Long>>
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
 
@@ -30,7 +30,7 @@ public class ObjectDriver<E extends DataObject<E>>
    * @param primaryKey Identifying key for the targeted object.
    * @return The loaded object or <code>null</code> if not found.
    */
-  public E getByPrimaryKey(long primaryKey)
+  public E getByPrimaryKey(Long primaryKey)
   {
     return null;
   }
@@ -41,7 +41,7 @@ public class ObjectDriver<E extends DataObject<E>>
    * @param primaryKey Identifying key for the targeted object.
    * @return The loaded object or <code>null</code> if not found.
    */
-  public E getPartialByPrimaryKey(long primaryKey)
+  public E getPartialByPrimaryKey(Long primaryKey)
   {
     return getByPrimaryKey(primaryKey);
   }
@@ -71,7 +71,7 @@ public class ObjectDriver<E extends DataObject<E>>
     for(Iterator<Long> it=primaryKeys.iterator();it.hasNext();)
     {
       l=it.next();
-      element=getByPrimaryKey(l.longValue());
+      element=getByPrimaryKey(l);
       if (element!=null)
       {
         list.add(element);
@@ -91,7 +91,7 @@ public class ObjectDriver<E extends DataObject<E>>
    * @param primaryKey Primary key of the root object.
    * @return A list of primary keys.
    */
-  public List<Long> getRelatedObjectIDs(String relationName, long primaryKey)
+  public List<Long> getRelatedObjectIDs(String relationName, Long primaryKey)
   {
     return new ArrayList<Long>();
   }

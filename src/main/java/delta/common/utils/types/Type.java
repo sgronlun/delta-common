@@ -129,6 +129,12 @@ public abstract class Type
   }
 
   /**
+   * Get the class of the values for this type.
+   * @return A class.
+   */
+  public abstract Class<?> getValueType();
+
+  /**
    * Set the value of a parameter.
    * @param parameterName Parameter's name.
    * @param parameterValue Parameter's value.

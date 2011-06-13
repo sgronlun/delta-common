@@ -12,7 +12,7 @@ public abstract class Month
     for(int i=0;i<UK_MONTH_TRIGRAMS.length;i++)
     {
       if (UK_MONTH_TRIGRAMS[i].equals(month))
-        return i;
+        return i+1;
     }
     return 0;
   }

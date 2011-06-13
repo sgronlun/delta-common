@@ -61,6 +61,15 @@ public class IntegerType extends Type
   }
 
   /**
+   * Get the class of the values for this type.
+   * @return A class.
+   */
+  public Class<?> getValueType()
+  {
+    return Integer.class;
+  }
+
+  /**
    * Get the minimum value for objects of this type.
    * @return the minimum value for objects of this type.
    */

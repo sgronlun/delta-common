@@ -42,6 +42,15 @@ public class TypeType extends Type
   }
 
   /**
+   * Get the class of the values for this type.
+   * @return A class.
+   */
+  public Class<?> getValueType()
+  {
+    return Type.class;
+  }
+
+  /**
    * Set the value of a parameter.
    * @param parameterName Parameter's name.
    * @param parameterValue Parameter's value.

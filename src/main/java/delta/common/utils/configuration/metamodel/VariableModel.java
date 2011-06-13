@@ -2,7 +2,6 @@ package delta.common.utils.configuration.metamodel;
 
 import java.io.PrintStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -134,16 +133,15 @@ public class VariableModel
       out.print(' ');
     }
     out.println("Type ["+_typeModel.getName()+"]");
-    for(Iterator<?> it_l=_typeParameters.entrySet().iterator();it_l.hasNext();)
+    for(Map.Entry<String,String> entry : _typeParameters.entrySet())
     {
-      Map.Entry entry_l=(Map.Entry)(it_l.next());
-      String paramName_l=(String)(entry_l.getKey());
-      String paramValue_l=(String)(entry_l.getValue());
+      String paramName=entry.getKey();
+      String paramValue=entry.getValue();
       for(int i=0;i<nbSpaces+3;i++)
       {
         out.print(' ');
       }
-      out.println("Type parameter ["+paramName_l+"]=["+paramValue_l+"]");
+      out.println("Type parameter ["+paramName+"]=["+paramValue+"]");
     }
   }
 }

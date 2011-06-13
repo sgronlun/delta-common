@@ -18,7 +18,7 @@ public class DataTableComparator implements Comparator<DataTableRow>,Serializabl
   {
     _columnIndex=-1;
     _comparator=null;
-    DataTableColumn column=table.getColumnByName(columnName);
+    DataTableColumn<Object> column=table.getColumnByName(columnName);
     if (column!=null)
     {
       _columnIndex=column.getIndex();
@@ -54,4 +54,3 @@ public class DataTableComparator implements Comparator<DataTableRow>,Serializabl
     return factor;
   }
 }
-

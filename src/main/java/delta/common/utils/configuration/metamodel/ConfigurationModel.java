@@ -3,7 +3,6 @@ package delta.common.utils.configuration.metamodel;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +31,9 @@ public class ConfigurationModel
    * Register a new <tt>TypeModel</tt>.
    * @param type_p <tt>TypeModel</tt> to register.
    */
-  void addType(TypeModel type_p)
+  void addType(TypeModel type)
   {
-    _types.put(type_p.getName(),type_p);
+    _types.put(type.getName(),type);
   }
 
   /**
@@ -81,13 +80,13 @@ public class ConfigurationModel
    */
   public VariableModel getVariable(String sectionName, String variableName)
   {
-    VariableModel return_l=null;
-    SectionModel model_l=getSection(sectionName);
-    if (model_l!=null)
+    VariableModel ret=null;
+    SectionModel model=getSection(sectionName);
+    if (model!=null)
     {
-      return_l=model_l.getVariable(variableName);
+      ret=model.getVariable(variableName);
     }
-    return return_l;
+    return ret;
   }
 
   /**
@@ -107,27 +106,25 @@ public class ConfigurationModel
   private void computeVariables()
   {
     _variablesList=new ArrayList<String>();
-    for(Iterator<SectionModel> it_l=_sectionsList.iterator();it_l.hasNext();)
+    for(SectionModel section : _sectionsList)
     {
-      SectionModel section_l=(it_l.next());
-      ArrayList<VariableModel> variables_l=section_l.getVariables();
-      for(Iterator<VariableModel> it2_l=variables_l.iterator();it2_l.hasNext();)
+      ArrayList<VariableModel> variables=section.getVariables();
+      for(VariableModel variable : variables)
       {
-        VariableModel variable_l=(it2_l.next());
-        String newEntry_l=section_l.getName()+"@"+variable_l.getName();
-        _variablesList.add(newEntry_l);
+        String newEntry=section.getName()+"@"+variable.getName();
+        _variablesList.add(newEntry);
       }
     }
   }
 
   /**
    * Add a new <tt>SectionModel</tt>.
-   * @param section_p <tt>SectionModel</tt> to add.
+   * @param section <tt>SectionModel</tt> to add.
    */
-  void addSection(SectionModel section_p)
+  void addSection(SectionModel section)
   {
-    _sections.put(section_p.getName(),section_p);
-    _sectionsList.add(section_p);
+    _sections.put(section.getName(),section);
+    _sectionsList.add(section);
   }
 
   /**
@@ -140,19 +137,17 @@ public class ConfigurationModel
     for(int i=0;i<nbSpaces;i++)
       out.print(' ');
     out.println("Types : ");
-    for(Iterator<?> it_l=_types.entrySet().iterator();it_l.hasNext();)
+    for(Map.Entry<String,TypeModel> entry : _types.entrySet())
     {
-      Map.Entry entry_l=(Map.Entry)(it_l.next());
-      TypeModel type_l=(TypeModel)(entry_l.getValue());
-      type_l.prettyPrint(out,nbSpaces+3);
+      TypeModel type=entry.getValue();
+      type.prettyPrint(out,nbSpaces+3);
     }
     for(int i=0;i<nbSpaces;i++)
       out.print(' ');
     out.println("Sections : ");
-    for(Iterator<SectionModel> it_l=_sectionsList.iterator();it_l.hasNext();)
+    for(SectionModel section : _sectionsList)
     {
-      SectionModel section_l=(it_l.next());
-      section_l.prettyPrint(out,nbSpaces+3);
+      section.prettyPrint(out,nbSpaces+3);
     }
   }
 }

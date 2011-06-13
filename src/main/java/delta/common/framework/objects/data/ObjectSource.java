@@ -12,7 +12,7 @@ import delta.common.utils.configuration.Configurations;
  * @author DAM
  * @param <E> Type of the data objects to manage.
  */
-public class ObjectSource<E extends DataObject<E>>
+public class ObjectSource<E extends Identifiable<Long>>
 {
   /**
    * Number of load requests.
@@ -35,6 +35,27 @@ public class ObjectSource<E extends DataObject<E>>
     {
       _cache=new ObjectCache<E>();
     }
+  }
+
+  /**
+   * Build a proxy for an object of this source.
+   * @param key Identifier for the proxied object.
+   * @return A proxy.
+   */
+  public DataProxy<E> buildProxy(Long key)
+  {
+    return new DataProxy<E>(key,this);
+  }
+
+  /**
+   * Build a proxy for an object of this source.
+   * @param key Identifier for the proxied object.
+   * @return A proxy.
+   */
+  public DataProxy<E> buildProxy(long key)
+  {
+    Long idKey=(key!=0)?Long.valueOf(key):null;
+    return new DataProxy<E>(idKey,this);
   }
 
   /**
@@ -81,7 +102,7 @@ public class ObjectSource<E extends DataObject<E>>
    * @param primaryKey Identifying key for the targeted object.
    * @return The loaded object or <code>null</code> if not found.
    */
-  public E load(long primaryKey)
+  public E load(Long primaryKey)
   {
     E ret=null;
     if (_cache!=null)
@@ -225,7 +246,7 @@ public class ObjectSource<E extends DataObject<E>>
    * @param primaryKey Primary key of the root object.
    * @return A list of such objects.
    */
-  public List<E> loadRelation(String relationName, long primaryKey)
+  public List<E> loadRelation(String relationName, Long primaryKey)
   {
   	List<E> ret=null;
     if(_driver!=null)

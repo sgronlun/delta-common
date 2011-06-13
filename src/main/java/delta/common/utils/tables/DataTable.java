@@ -13,18 +13,18 @@ import java.util.Map;
  */
 public class DataTable
 {
-  private Map<String,DataTableColumn> _columnsMap;
-  private List<DataTableColumn> _columns;
+  private Map<String,DataTableColumn<?>> _columnsMap;
+  private List<DataTableColumn<?>> _columns;
   private List<DataTableRow> _rows;
 
   public DataTable()
   {
-    _columnsMap=new HashMap<String,DataTableColumn>();
-    _columns=new ArrayList<DataTableColumn>();
+    _columnsMap=new HashMap<String,DataTableColumn<?>>();
+    _columns=new ArrayList<DataTableColumn<?>>();
     _rows=new ArrayList<DataTableRow>();
   }
 
-  public <E extends Comparable> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects)
+  public <E extends Comparable<E>> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects)
   {
     DataTableColumn<E> column=getColumnByName(name);
     if (column==null)

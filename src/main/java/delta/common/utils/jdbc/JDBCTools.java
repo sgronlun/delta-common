@@ -17,16 +17,16 @@ public class JDBCTools
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
 
-  public static long getPrimaryKey(Connection connection, int index)
+  public static Long getPrimaryKey(Connection connection, int index)
   {
-    long primaryKey=-1;
+    Long primaryKey=null;
     Statement s=null;
     ResultSet rs=null;
     try
     {
       s=connection.createStatement();
       rs=s.executeQuery("CALL IDENTITY();");
-      primaryKey=rs.getInt(index);
+      primaryKey=Long.valueOf(rs.getLong(index));
     }
     catch(SQLException sqlException)
     {
