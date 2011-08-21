@@ -74,4 +74,33 @@ public abstract class DataObject<E extends Identifiable<Long>> implements Identi
   {
     return null;
   }
+
+  /**
+   * Indicates if the given key is not null.
+   * @param key Key to test.
+   * @return <code>true</code> if it is not null, <code>false</code> otherwise.
+   */
+  public static boolean isNotNull(Long key)
+  {
+    return ((key!=null) && (key.longValue()!=0)); 
+  }
+
+  /**
+   * Indicates if the given keys are equal or not.
+   * @param key1 One key.
+   * @param key2 Another key.
+   * @return <code>true</code> if they are, <code>false</code> otherwise.
+   */
+  public static boolean keysAreEqual(Long key1, Long key2)
+  {
+    if (key1!=null)
+    {
+      if (key2!=null)
+      {
+        return key1.longValue()==key2.longValue();
+      }
+      return false;
+    }
+    return key2==null;
+  }
 }

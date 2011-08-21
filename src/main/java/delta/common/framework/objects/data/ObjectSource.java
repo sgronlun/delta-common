@@ -196,10 +196,10 @@ public class ObjectSource<E extends Identifiable<Long>>
     {
       int nb=primaryKeys.size();
       E o=null;
-      long id;
+      Long id;
       for(int i=0;i<nb;i++)
       {
-        id=primaryKeys.get(i).longValue();
+        id=primaryKeys.get(i);
         o=load(id);
         if(o!=null)
         {
