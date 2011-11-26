@@ -2,7 +2,6 @@ package delta.common.utils.files;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -59,9 +58,9 @@ public class SearchAndReplace
       }
       tmp.delete();
     }
-    catch (IOException ioe)
+    catch (Exception e)
     {
-      _logger.error("",ioe);
+      _logger.error("",e);
       if (tmp!=null) tmp.delete();
       ret=false;
     }
