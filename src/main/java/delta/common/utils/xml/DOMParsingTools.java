@@ -1,5 +1,6 @@
 package delta.common.utils.xml;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -156,6 +157,23 @@ public abstract class DOMParsingTools
   }
 
   /**
+   * Get a long attribute from a map of node attributes.
+   * @param attrs Attributes to use.
+   * @param attrName Name of attribute to search.
+   * @param defaultValue Default value (returned if no such attribute is found, or if attribute's value does not parse as a long).
+   * @return A long value (found value or default value).
+   */
+  public static long getLongAttribute(NamedNodeMap attrs, String attrName, long defaultValue)
+  {
+    Node tmp=attrs.getNamedItem(attrName);
+    if (tmp!=null)
+    {
+      return NumericTools.parseLong(tmp.getNodeValue(),defaultValue);
+    }
+    return defaultValue;
+  }
+
+  /**
    * Get a boolean attribute from a map of node attributes.
    * @param attrs Attributes to use.
    * @param attrName Name of attribute to search.
@@ -186,6 +204,29 @@ public abstract class DOMParsingTools
       DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
       builder.setEntityResolver(new ClasspathEntityResolver());
       Document doc=builder.parse(uri);
+      Element root=doc.getDocumentElement();
+      return root;
+    }
+    catch (Exception e)
+    {
+      _logger.error("Parsing error",e);
+    }
+    return null;
+  }
+
+  /**
+   * Build a DOM tree from a file.
+   * @param source Source file
+   * @return The root element of parsed tree or <code>null</code> if any problem.
+   */
+  public static Element parse(File source)
+  {
+    if (source==null) return null;
+    try
+    {
+      DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
+      builder.setEntityResolver(new ClasspathEntityResolver());
+      Document doc=builder.parse(source);
       Element root=doc.getDocumentElement();
       return root;
     }
