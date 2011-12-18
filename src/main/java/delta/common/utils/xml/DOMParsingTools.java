@@ -58,6 +58,38 @@ public abstract class DOMParsingTools
    * Get a list of child elements that have the specified tag name.
    * @param e Root element.
    * @param tagName Name of tag.
+   * @param recursive <code>false</code> to search only in the direct children of the given element,
+   * <code>true</code> to search through all descendants, in document order.
+   * @return A possibly empty list of child elements.
+   */
+  public static List<Element> getChildTagsByName(Element e,String tagName, boolean recursive)
+  {
+    if (recursive)
+    {
+      return getChildTagsByName(e,tagName);
+    }
+    List<Element> ret=new ArrayList<Element>();
+    NodeList children=e.getChildNodes();
+    int nb=children.getLength();
+    for(int i=0;i<nb;i++)
+    {
+      Node child=children.item(i);
+      if (child instanceof Element)
+      {
+        Element childElement=(Element)child;
+        if (tagName.equals(childElement.getTagName()))
+        {
+          ret.add(childElement);
+        }
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * Get a list of child elements that have the specified tag name.
+   * @param e Root element.
+   * @param tagName Name of tag.
    * @return A possibly empty list of child elements.
    */
   public static List<Element> getChildTagsByName(Element e,String tagName)
