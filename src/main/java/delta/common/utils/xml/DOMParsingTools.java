@@ -1,6 +1,7 @@
 package delta.common.utils.xml;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import org.w3c.dom.NodeList;
 
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
+import delta.common.utils.io.StreamTools;
 import delta.common.utils.traces.UtilsLoggers;
 
 /**
@@ -254,17 +256,26 @@ public abstract class DOMParsingTools
   public static Element parse(File source)
   {
     if (source==null) return null;
+    FileInputStream fis=null;
     try
     {
       DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
       builder.setEntityResolver(new ClasspathEntityResolver());
-      Document doc=builder.parse(source);
+      fis=new FileInputStream(source);
+      Document doc=builder.parse(fis);
       Element root=doc.getDocumentElement();
       return root;
     }
     catch (Exception e)
     {
       _logger.error("Parsing error",e);
+    }
+    finally
+    {
+      if (fis!=null)
+      {
+        StreamTools.close(fis);
+      }
     }
     return null;
   }
