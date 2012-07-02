@@ -59,6 +59,28 @@ public abstract class FileCopy
   }
 
   /**
+   * Copy a file from an URL.
+   * @param fromURL URL to get bytes from.
+   * @param to Destination file (file to write).
+   * @return <code>true</code> if copy was successfull, <code>false</code>
+   * otherwise.
+   */
+  public static boolean copyFromURL(String fromURL, File to)
+  {
+    try
+    {
+      URL from=new URL(fromURL);
+      InputStream is=from.openStream();
+      return copy(is,to);
+    }
+    catch (IOException ioe)
+    {
+      _logger.error("",ioe);
+      return false;
+    }
+  }
+
+  /**
    * Copy a file.
    * @param from Source file (file to read).
    * @param to Destination file (file to write).
