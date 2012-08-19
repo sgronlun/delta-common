@@ -208,6 +208,23 @@ public abstract class DOMParsingTools
   }
 
   /**
+   * Get a float attribute from a map of node attributes.
+   * @param attrs Attributes to use.
+   * @param attrName Name of attribute to search.
+   * @param defaultValue Default value (returned if no such attribute is found, or if attribute's value does not parse as a float).
+   * @return A float value (found value or default value).
+   */
+  public static float getFloatAttribute(NamedNodeMap attrs, String attrName, float defaultValue)
+  {
+    Node tmp=attrs.getNamedItem(attrName);
+    if (tmp!=null)
+    {
+      return NumericTools.parseFloat(tmp.getNodeValue(),defaultValue);
+    }
+    return defaultValue;
+  }
+
+  /**
    * Get a boolean attribute from a map of node attributes.
    * @param attrs Attributes to use.
    * @param attrName Name of attribute to search.

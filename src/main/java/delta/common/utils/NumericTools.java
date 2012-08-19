@@ -18,6 +18,39 @@ public class NumericTools
   public static final String INFINITY="INFINITY";
 
   /**
+   * Parse a float.
+   * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Float.MAX_VALUE</code>.
+   * <p>
+   * Otherwise, the <code>value</code> is parsed using <code>Float.parseFloat(String)</code>.
+   * <p>
+   * If it cannot be parsed to a numerical value, returns the <code>defaultValue</code>.
+   * @param value string to parse
+   * @param defaultValue value to use if parsing fails.
+   * @return A float value.
+   */
+  public static float parseFloat(String value, float defaultValue)
+  {
+    if ((value==null) || (value.length()==0))
+    {
+      return defaultValue;
+    }
+    value=value.trim();
+    if (NumericTools.INFINITY.equals(value))
+    {
+      return Float.MAX_VALUE;
+    }
+    try
+    {
+      return Float.parseFloat(value);
+    }
+    catch(NumberFormatException nfe)
+    {
+      _logger.error("Cannot parse float '"+value+"'",nfe);
+      return defaultValue;
+    }
+  }
+
+  /**
    * Parse a double.
    * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Double.MAX_VALUE</code>.
    * <p>
