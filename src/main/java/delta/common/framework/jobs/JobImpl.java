@@ -15,5 +15,12 @@ public interface JobImpl
   /**
    * Perform the job.
    */
-  void doIt();
+  void doIt(JobSupport support);
+
+  /**
+   * Interrupt job.
+   * @return <code>true</code> if interrupt request was executed,
+   * <code>false</code> if interrupt is not supported.
+   */
+  boolean interrupt();
 }

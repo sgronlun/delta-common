@@ -68,6 +68,6 @@ public final class Job
    */
   public void doIt()
   {
-    _jobImpl.doIt();
+    _jobImpl.doIt(null);
   }
 }

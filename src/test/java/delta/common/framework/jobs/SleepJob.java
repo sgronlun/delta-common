@@ -59,12 +59,17 @@ public class SleepJob implements JobImpl
     return "Waiting for "+_jobDuration+"ms";
   }
 
-  public void doIt()
+  public void doIt(JobSupport support)
   {
     SleepManager.sleep(_jobDuration);
     if (_doCrash)
     {
       throw new NullPointerException();
     }
+  }
+
+  public boolean interrupt()
+  {
+    return false;
   }
 }
