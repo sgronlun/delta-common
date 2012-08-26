@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.commands.CommandsRegistry;
 import delta.common.utils.traces.UtilsLoggers;
 
 /**
@@ -44,9 +43,6 @@ public class ServicesManager
   private ServicesManager()
   {
     _knownServices=new ArrayList<Service>();
-    ServicesCommand commandImpl=new ServicesCommand();
-    CommandsRegistry registry=CommandsRegistry.getInstance();
-    registry.registerCommand(ServicesCommand.SERVICES_COMMAND,commandImpl);
   }
 
   /**
