@@ -1,4 +1,4 @@
-package delta.common.utils.crypto;
+package delta.common.utils.configuration;
 
 import delta.common.utils.misc.HexString2BufferCodec;
 

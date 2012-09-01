@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
-import delta.common.utils.crypto.SimpleCryptDecrypt;
 import delta.common.utils.misc.HexString2BufferCodec;
 import delta.common.utils.traces.UtilsLoggers;
 
