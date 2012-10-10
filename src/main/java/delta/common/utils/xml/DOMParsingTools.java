@@ -2,6 +2,7 @@ package delta.common.utils.xml;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -255,6 +256,29 @@ public abstract class DOMParsingTools
       DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
       builder.setEntityResolver(new ClasspathEntityResolver());
       Document doc=builder.parse(uri);
+      Element root=doc.getDocumentElement();
+      return root;
+    }
+    catch (Exception e)
+    {
+      _logger.error("Parsing error",e);
+    }
+    return null;
+  }
+
+  /**
+   * Build a DOM tree from an input stream.
+   * @param is Source input stream.
+   * @return The root element of parsed tree or <code>null</code> if any problem.
+   */
+  public static Element parse(InputStream is)
+  {
+    if (is==null) return null;
+    try
+    {
+      DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
+      builder.setEntityResolver(new ClasspathEntityResolver());
+      Document doc=builder.parse(is);
       Element root=doc.getDocumentElement();
       return root;
     }
