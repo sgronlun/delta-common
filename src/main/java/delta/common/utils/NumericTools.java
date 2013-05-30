@@ -51,6 +51,57 @@ public class NumericTools
   }
 
   /**
+   * Parse a float.
+   * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Float.MAX_VALUE</code>.
+   * <br>
+   * Otherwise, the <code>value</code> is parsed using <code>Float.valueOf(String)</code>.
+   * <br>
+   * If it cannot be parsed to a numerical value, returns the <code>null</code>.
+   * @param value string to parse.
+   * @return A float value or <code>null</code>.
+   */
+  public static Float parseFloat(String value)
+  {
+    return parseFloat(value,true);
+  }
+
+  /**
+   * Parse a float.
+   * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Float.MAX_VALUE</code>.
+   * <br>
+   * Otherwise, the <code>value</code> is parsed using <code>Float.valueOf(String)</code>.
+   * <br>
+   * If it cannot be parsed to a numerical value, returns the <code>null</code>.
+   * @param value string to parse.
+   * @param doWarn Indicates if a warning is to be raised when the value is not valid.
+   * @return A float value or <code>null</code>.
+   */
+  public static Float parseFloat(String value, boolean doWarn)
+  {
+    if ((value==null) || (value.length()==0))
+    {
+      return null;
+    }
+    value=value.trim();
+    if (NumericTools.INFINITY.equals(value))
+    {
+      return Float.valueOf(Float.MAX_VALUE);
+    }
+    try
+    {
+      return Float.valueOf(value);
+    }
+    catch(NumberFormatException nfe)
+    {
+      if (doWarn)
+      {
+        _logger.error("Cannot parse float '"+value+"'",nfe);
+      }
+      return null;
+    }
+  }
+
+  /**
    * Parse a double.
    * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Double.MAX_VALUE</code>.
    * <p>
@@ -116,6 +167,11 @@ public class NumericTools
     }
   }
 
+  /**
+   * Build an integer from an object value (String or Number).
+   * @param value Value to use.
+   * @return An integer value or <code>null</code> if conversion fails.
+   */
   public static Integer buildInteger(Object value)
   {
     if (value==null) return null;
