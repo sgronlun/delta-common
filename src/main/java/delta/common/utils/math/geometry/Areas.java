@@ -1,7 +1,7 @@
 package delta.common.utils.math.geometry;
 
 /**
- * Area compuation methods for various shapes.
+ * Area computation methods for various shapes.
  * @author DAM
  */
 public class Areas
