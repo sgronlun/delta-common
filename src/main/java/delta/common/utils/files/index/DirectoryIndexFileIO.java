@@ -6,8 +6,17 @@ import java.util.Iterator;
 import delta.common.utils.files.TextFileReader;
 import delta.common.utils.files.TextFileWriter;
 
+/**
+ * Read/write directory indexes.
+ * @author DAM
+ */
 public class DirectoryIndexFileIO
 {
+  /**
+   * Write a directory index to a file.
+   * @param f File to write to.
+   * @param index Index to write.
+   */
   public static void writeToFile(File f, DirectoryIndex index)
   {
     TextFileWriter writer=new TextFileWriter(f);
@@ -31,6 +40,11 @@ public class DirectoryIndexFileIO
     }
   }
 
+  /**
+   * Load an index from a file.
+   * @param indexFile Index file to read.
+   * @return A directory index.
+   */
   public static DirectoryIndex loadFromFile(File indexFile)
   {
     TextFileReader p=new TextFileReader(indexFile);

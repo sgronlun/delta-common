@@ -5,13 +5,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Finds duplicate files in a directory index.
+ * @author DAM
+ */
 public class DuplicatesFinder
 {
+  /**
+   * Find duplicates in a directory index.
+   * @param index Index to use.
+   * @return A list of duplicates. Each duplicates group is gathered
+   * in a list.
+   */
   public List<List<FileData>> findDuplicates(DirectoryIndex index)
   {
     List<List<FileData>> duplicates=new ArrayList<List<FileData>>();
     Set<Long> crcs=index.getCRCs();
-    //System.out.println("Number of CRCs : "+crcs.size());
     List<FileData> list;
     long crc;
     for(Iterator<Long> it=crcs.iterator();it.hasNext();)
@@ -26,28 +35,30 @@ public class DuplicatesFinder
     return duplicates;
   }
 
+  /**
+   * Find duplicates between two indexes.
+   * @param i1 An index.
+   * @param i2 Another index.
+   * @return A list of duplicates. Each duplicates group is gathered
+   * in a list and may contain files from both indexes.
+   */
   public List<List<FileData>> findDuplicates(DirectoryIndex i1, DirectoryIndex i2)
   {
     List<List<FileData>> duplicates=new ArrayList<List<FileData>>();
     Set<Long> crcs=i1.getCRCs();
     //System.out.println("Number of CRCs : "+crcs.size());
-    List<FileData> list;
-    List<FileData> list1;
-    List<FileData> list2;
-    long crc;
-    for(Iterator<Long> it=crcs.iterator();it.hasNext();)
+    for(Long crc : crcs)
     {
-      crc=it.next().longValue();
-      list2=i2.getEntriesWithCRC(crc);
+      List<FileData> list2=i2.getEntriesWithCRC(crc.longValue());
       if (list2!=null)
       {
-        list1=i1.getEntriesWithCRC(crc);
-        list=new ArrayList<FileData>();
+        List<FileData> list1=i1.getEntriesWithCRC(crc.longValue());
+        List<FileData> list=new ArrayList<FileData>();
         list.addAll(list1);
         list.addAll(list2);
         if(list.size()>=2)
         {
-          handleSameCRCFilesList(duplicates,crc,list);
+          handleSameCRCFilesList(duplicates,crc.longValue(),list);
         }
       }
     }

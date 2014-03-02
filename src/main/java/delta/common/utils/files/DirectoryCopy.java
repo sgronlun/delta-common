@@ -6,10 +6,17 @@ import delta.common.utils.files.iterator.AbstractFileIteratorCallback;
 import delta.common.utils.files.iterator.FileIterator;
 
 /**
+ * Recursively copy directories.
  * @author DAM
  */
 public class DirectoryCopy
 {
+  /**
+   * Copy a directory to another one.
+   * @param fromDir Directory to copy.
+   * @param toDir Target directory.
+   * @return <code>true</code> if it was sucessfull, <code>false</code> otherwise.
+   */
   public boolean copy(File fromDir, File toDir)
   {
     if (fromDir==null)
@@ -28,7 +35,7 @@ public class DirectoryCopy
     return true;
   }
 
-  static class Callback extends AbstractFileIteratorCallback
+  private static class Callback extends AbstractFileIteratorCallback
   {
     private File _toDir;
 
@@ -37,12 +44,6 @@ public class DirectoryCopy
       _toDir=toDir;
     }
 
-    /**
-     * Handle a directory.
-     * Creates directory <code>toDir</code>/<code>relative</code>.
-     * @param absolute Absolute path of directory to handle.
-     * @param relative Relative path of directory to handle.
-     */
     @Override
     public void handleDirectory(File absolute, File relative)
     {
@@ -50,12 +51,6 @@ public class DirectoryCopy
       toCreate.mkdirs();
     }
 
-    /**
-     * Handle a file.
-     * Copies file <code>absolute</code> to file <code>toDir</code>/<code>relative</code>.
-     * @param absolute Absolute path of file to handle.
-     * @param relative Relative path of file to handle.
-     */
     @Override
     public void handleFile(File absolute, File relative)
     {

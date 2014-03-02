@@ -2,6 +2,10 @@ package delta.common.utils.files.index;
 
 import java.io.File;
 
+/**
+ * Structured directory index.
+ * @author DAM
+ */
 public class StructuredDirectoryIndex
 {
   private File _rootDir;
@@ -9,12 +13,23 @@ public class StructuredDirectoryIndex
   private long _nbItems;
   private DirectoryData _rootDirData;
 
+  /**
+   * Constructor.
+   * @param rootDir Root directory of indexed files.
+   */
   public StructuredDirectoryIndex(File rootDir)
   {
     _rootDir=rootDir;
     clear();
   }
 
+  /**
+   * Add a file to this index.
+   * @param path Path of file.
+   * @param size Size of file.
+   * @param crc CRC of file contents.
+   * @return newly create file data.
+   */
   public FileData addFile(File path, long size, long crc)
   {
     FileData fd=null;
@@ -28,30 +43,13 @@ public class StructuredDirectoryIndex
     return fd;
   }
 
-/*
-  public DirectoryData findOrCreateDirectory(File path)
-  {
-    String name=path.getAbsolutePath();
-    DirectoryData ret=_directories.get(name);
-    if (ret==null)
-    {
-      File parentFile=path.getParentFile();
-      DirectoryData parentDirData=null;
-      if (parentFile!=null)
-      {
-        parentDirData=findOrCreateDirectory(parentFile);
-      }
-      ret=new DirectoryData(parentDirData,name);
-      if (parentDirData!=null)
-      {
-        parentDirData.addChild(ret);
-      }
-      _directories.put(name,ret);
-    }
-    return ret;
-  }
-*/
-
+  /**
+   * Get the directory data for a given path.
+   * @param path Directory path to search.
+   * @param createItIfNecessary Indicates if it shall be created if it does not
+   * exist in this index.
+   * @return A directory data or <code>null</code>.
+   */
   public DirectoryData getRelativeDirectory(File path, boolean createItIfNecessary)
   {
     if (path==null)
@@ -74,27 +72,47 @@ public class StructuredDirectoryIndex
     return ret;
   }
 
+  /**
+   * Clear the contents of this index.
+   */
   public void clear()
   {
     String name=_rootDir.getAbsolutePath();
     _rootDirData=new DirectoryData(null,name);
   }
 
+  /**
+   * Get the managed root directory.
+   * @return A directory.
+   */
   public File getRootDir()
   {
     return _rootDir;
   }
 
+  /**
+   * Get the total size of the indexed files.
+   * @return a size in bytes.
+   */
   public long getTotalSize()
   {
     return _totalSize;
   }
 
+  /**
+   * Get the total number of the indexed files.
+   * @return a number of files.
+   */
   public long getNbItems()
   {
     return _nbItems;
   }
 
+  /**
+   * Get the file data for a given path.
+   * @param relativeFile File path to search.
+   * @return A file data or <code>null</code>.
+   */
   public FileData getRelativeFile(File relativeFile)
   {
     FileData ret=null;

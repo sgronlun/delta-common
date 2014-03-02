@@ -13,6 +13,10 @@ import delta.common.utils.io.FileIO;
 import delta.common.utils.io.StreamTools;
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * Builds archive files.
+ * @author DAM
+ */
 public class ArchiveBuilder
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
@@ -22,11 +26,19 @@ public class ArchiveBuilder
   private BufferedOutputStream bos;
   private JarOutputStream jos;
 
+  /**
+   * Constructor.
+   * @param archiveFile Archive file to write.
+   */
   public ArchiveBuilder(File archiveFile)
   {
     _archiveFile=archiveFile;
   }
 
+  /**
+   * Initialize the build process.
+   * @return <code>true</code> if it was sucessfull, <code>false</code> otherwise.
+   */
   public boolean start()
   {
     boolean ok;
@@ -47,6 +59,12 @@ public class ArchiveBuilder
     return ok;
   }
 
+  /**
+   * Add a file to this archive.
+   * @param absolute File to add.
+   * @param archivePath Entry path in the archive.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
   public boolean addFile(File absolute, File archivePath)
   {
     boolean ok;
@@ -67,6 +85,12 @@ public class ArchiveBuilder
     return ok;
   }
 
+  /**
+   * Add a directory to this archive (and recursively all of its files).
+   * @param root Directory to add.
+   * @param localRoot Entry path of the root dir in the archive.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
   public boolean addDirectory(File root, File localRoot)
   {
     boolean ret=true;
@@ -97,6 +121,9 @@ public class ArchiveBuilder
     return ret;
   }
 
+  /**
+   * Finish the build process.
+   */
   public void terminate()
   {
     StreamTools.close(jos);

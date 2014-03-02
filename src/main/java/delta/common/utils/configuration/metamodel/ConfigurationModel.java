@@ -29,7 +29,7 @@ public class ConfigurationModel
 
   /**
    * Register a new <tt>TypeModel</tt>.
-   * @param type_p <tt>TypeModel</tt> to register.
+   * @param type <tt>TypeModel</tt> to register.
    */
   void addType(TypeModel type)
   {

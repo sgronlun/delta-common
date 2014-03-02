@@ -11,6 +11,10 @@ import org.apache.log4j.Logger;
 import delta.common.utils.files.FileCopy;
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * Archive deflater.
+ * @author DAM
+ */
 public class ArchiveDeflater
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
@@ -18,12 +22,21 @@ public class ArchiveDeflater
   private File _archivePath;
 	private File _root;
 
+	/**
+	 * Constructor.
+	 * @param archivePath Archive file.
+	 * @param root Root directory for the output files.
+	 */
 	public ArchiveDeflater(File archivePath, File root)
 	{
 		_archivePath=archivePath;
 		_root=root;
 	}
 
+	/**
+	 * Do the job.
+	 * @return <code>true</code> if it succeeded, <code>false</code> otherwise.
+	 */
   public boolean go()
   {
   	if (!_root.mkdirs())

@@ -35,11 +35,22 @@ public class ListOrderedMap<T> implements Iterable<T>
     return _list.contains(element);
   }
 
+  /**
+   * Indicates if this collection contains the specified element.
+   * @param value Value to test.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
   public boolean containsValue(T value)
   {
     return _list.contains(value);
   }
 
+  /**
+   * Put an item in this ordered list.
+   * @param name Name of item.
+   * @param element Item to add.
+   * @return An old item whose name is <code>name</code> or <code>null</code>.
+   */
   public T put(String name, T element)
   {
     T old=_map.put(name,element);
@@ -51,6 +62,11 @@ public class ListOrderedMap<T> implements Iterable<T>
     return old;
   }
 
+  /**
+   * Get an item using it name.
+   * @param name Name of the item to get.
+   * @return An item or <code>null</code> if not found.
+   */
   public T get(String name)
   {
     return _map.get(name);

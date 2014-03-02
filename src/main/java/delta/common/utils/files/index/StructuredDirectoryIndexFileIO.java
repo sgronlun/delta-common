@@ -4,8 +4,17 @@ import java.io.File;
 
 import delta.common.utils.files.TextFileReader;
 
+/**
+ * Read/write structured directory indexes.
+ * @author DAM
+ */
 public class StructuredDirectoryIndexFileIO
 {
+  /**
+   * Write a structured directory index to a file.
+   * @param f File to write to.
+   * @param index Index to write.
+   */
   public static void writeToFile(File f, StructuredDirectoryIndex index)
   {
 /*
@@ -24,6 +33,11 @@ public class StructuredDirectoryIndexFileIO
 */
   }
 
+  /**
+   * Load an index from a file.
+   * @param indexFile Index file to read.
+   * @return A directory index.
+   */
   public static StructuredDirectoryIndex loadFromFile(File indexFile)
   {
     StructuredDirectoryIndex index=null;
