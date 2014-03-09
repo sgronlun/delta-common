@@ -4,10 +4,18 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * Misc. tools.
+ * @author DAM
+ */
 public abstract class Tools
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
 
+  /**
+   * Sleep for a while.
+   * @param milliseconds Sleep duration (milliseconds).
+   */
   public static void sleep(final long milliseconds)
   {
     try
@@ -20,6 +28,11 @@ public abstract class Tools
     }
   }
 
+  /**
+   * Safe limited-time wait method.
+   * @param o Object to wait on.
+   * @param maxTime Maximum time to wait (0 for infinite duration).
+   */
   public static void startWaiting(final Object o, final long maxTime)
   {
     try
@@ -35,6 +48,10 @@ public abstract class Tools
     }
   }
 
+  /**
+   * Safe infinite wait method.
+   * @param o Object to wait on.
+   */
   public static void startWaiting(final Object o)
   {
     try
@@ -50,6 +67,10 @@ public abstract class Tools
     }
   }
 
+  /**
+   * Load a native library.
+   * @param libraryId Library identifier.
+   */
   public static void loadLibrary(final String libraryId)
   {
     try

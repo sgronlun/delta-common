@@ -1,10 +1,17 @@
 package delta.common.utils.html;
 
 /**
+ * HTML conversion facilities.
  * @author DAM
  */
 public class HtmlConversions
 {
+  /**
+   * Espace a string for inclusion in an HTML document.
+   * @param s String to escape.
+   * @param escapeNewLines <code>true</code> to escape new lines.
+   * @return the escaped string.
+   */
   public static String stringToHtml(String s, boolean escapeNewLines)
   {
     StringBuilder sb=new StringBuilder();

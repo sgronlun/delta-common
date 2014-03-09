@@ -1,5 +1,9 @@
 package delta.common.utils.math.geometry;
 
+/**
+ * Perimeters computations.
+ * @author DAM
+ */
 public class Perimeters
 {
   /**

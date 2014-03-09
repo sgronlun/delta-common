@@ -44,8 +44,8 @@ public class TestConfiguration extends TestCase
   public void testIfExists()
   {
     File cfgFile=buildIfExistsTestFile();
-    Configuration cfg=new Configuration();
-    ConfigurationFileIO.loadFile(cfgFile,cfg);
+    Configuration cfg=ConfigurationFileIO.loadFile(cfgFile);
+    Assert.assertNotNull(cfg);
     boolean resolution=cfg.resolveValues();
     Assert.assertEquals(true,resolution);
     String v1=cfg.getStringValue(IF_EXISTS_SECTION, VALUE1_VAR, null);

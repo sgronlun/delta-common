@@ -173,6 +173,9 @@ public class AnselCharset extends Charset
     // (Psili)
   }
 
+  /**
+   * Constructor.
+   */
   public AnselCharset()
   {
     super("ANSEL",null);

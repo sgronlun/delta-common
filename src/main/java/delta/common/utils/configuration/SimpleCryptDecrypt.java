@@ -2,6 +2,10 @@ package delta.common.utils.configuration;
 
 import delta.common.utils.misc.HexString2BufferCodec;
 
+/**
+ * Simple crypt/decrypt methods.
+ * @author DAM
+ */
 public class SimpleCryptDecrypt
 {
   /**

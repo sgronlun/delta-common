@@ -9,10 +9,19 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * File I/O methods.
+ * @author DAM
+ */
 public class FileIO
 {
   private static final Logger _logger=UtilsLoggers.getIOLogger();
 
+  /**
+   * Read the contents of a file into a byte buffer.
+   * @param f File to read.
+   * @return A byte buffer or <code>null</code> if the file cannot be read.
+   */
   public static byte[] readFile(File f)
   {
     byte[] ret=null;
@@ -41,13 +50,19 @@ public class FileIO
     return ret;
   }
 
-  public static boolean writeFile(File current, byte[] buffer)
+  /**
+   * Write a byte buffer to a file.
+   * @param f File to write to.
+   * @param buffer Buffer to use.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
+  public static boolean writeFile(File f, byte[] buffer)
   {
     boolean ok=false;
     FileOutputStream fos=null;
     try
     {
-      fos=new FileOutputStream(current);
+      fos=new FileOutputStream(f);
       fos.write(buffer);
       ok=true;
     }

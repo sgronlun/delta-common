@@ -8,31 +8,28 @@ import delta.common.utils.files.TextFileReader;
 import delta.common.utils.files.TextFileWriter;
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * I/O methods for configuration objects.
+ * @author DAM
+ */
 public class ConfigurationFileIO
 {
   private static final Logger _logger=UtilsLoggers.getCfgLogger();
 
-  public static boolean loadSection(File f, Configuration config, String sectionName)
-  {
-    config.removeSection(sectionName);
-    return readFromFile(f,config,sectionName);
-  }
-
-  public static boolean loadFile(File f, Configuration config)
-  {
-    config.clear();
-    return readFromFile(f,config,null);
-  }
-
-  private static boolean readFromFile(File f, Configuration config, String sectionToRead)
+  /**
+   * Load the contents of a file into a configuration.
+   * @param f File to read.
+   * @return A configuration or <code>null</code>.
+   */
+  public static Configuration loadFile(File f)
   {
     TextFileReader reader=new TextFileReader(f);
     if (!reader.start())
     {
       _logger.error("Configuration file not found or unreadable ["+f+"]");
-      return false;
+      return null;
     }
-
+    Configuration config=new Configuration();
     String section="bidon";
     String line=null;
     int lineNumber=0;
@@ -65,10 +62,7 @@ public class ConfigurationFileIO
         int index=line.indexOf('=');
         if(index!=-1)
         {
-          if((sectionToRead==null)||(sectionToRead.equals(section)))
-          {
-            config.putStringValue(section, line.substring(0, index), line.substring(index+1));
-          }
+          config.putStringValue(section, line.substring(0, index), line.substring(index+1));
         }
         else
         {
@@ -77,9 +71,15 @@ public class ConfigurationFileIO
       }
     }
     reader.terminate();
-    return true;
+    return config;
   }
 
+  /**
+   * Write a configuration to a file.
+   * @param f File to write to.
+   * @param config Configuration to use.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
   public static boolean writeToFile(File f, Configuration config)
   {
     if (f==null) return false;

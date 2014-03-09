@@ -438,6 +438,10 @@ public class ExternalCommand
     return (_process!=null);
   }
 
+  /**
+   * Write some text to standard input.
+   * @param text Text to write.
+   */
   public void writeToStdin(String text)
   {
     if (_process!=null) {

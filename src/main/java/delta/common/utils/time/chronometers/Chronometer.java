@@ -3,11 +3,15 @@ package delta.common.utils.time.chronometers;
 import java.io.PrintStream;
 import java.util.Date;
 
+/**
+ * Chronometer.
+ * @author DAM
+ */
 public class Chronometer
 {
   private String _id;
-  private long _startTime;
-  private long _stopTime;
+  private Long _startTime;
+  private Long _stopTime;
   private Chronometer _parent;
   private Chronometer _firstChild;
   private Chronometer _nextBrother;
@@ -20,19 +24,46 @@ public class Chronometer
     _nextBrother=null;
   }
 
+  /**
+   * Get the identifier for this chronometer.
+   * @return a string identifier.
+   */
   public String getId()
   {
     return _id;
   }
 
-  public long getStartTime() { return _startTime; }
-  public long getStopTime() { return _stopTime; }
-
-  public boolean isRunning()
+  /**
+   * Get the start time for this chronometer.
+   * @return A long value if was started, or <code>null</code>.
+   */
+  public Long getStartTime()
   {
-    return ((_startTime>0) && (_stopTime==0));
+    return _startTime;
   }
 
+  /**
+   * Get the stop time for this chronometer.
+   * @return A long value if was stopped, or <code>null</code>.
+   */
+  public Long getStopTime()
+  {
+    return _stopTime;
+  }
+
+  /**
+   * Indicates if this chronometer is running or not.
+   * @return <code>true</code> if it is, <code>false</code> otherwise.
+   */
+  public boolean isRunning()
+  {
+    return ((_startTime!=null) && (_stopTime==null));
+  }
+
+  /**
+   * Get the parent chronometer.
+   * @return A chronomter or <code>null</code> if it has no parent.
+   */
   public Chronometer getParent()
   {
     return _parent;
@@ -80,20 +111,24 @@ public class Chronometer
 
   void start()
   {
-    _startTime=System.currentTimeMillis();
-    _stopTime=0;
+    _startTime=Long.valueOf(System.currentTimeMillis());
+    _stopTime=null;
   }
 
   void stop()
   {
-    if (_stopTime==0)
+    if (_stopTime==null)
     {
-      _stopTime=System.currentTimeMillis();
+      _stopTime=Long.valueOf(System.currentTimeMillis());
       stopChildren();
       stopElderBrothers();
     }
   }
 
+  /**
+   * Detach this chronomter from its parent.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
   public boolean removeFromParent()
   {
     if ((_parent!=null) && (!isRunning()))
@@ -128,6 +163,9 @@ public class Chronometer
     return false;
   }
 
+  /**
+   * Dump this chronometer to standard output.
+   */
   public void dump()
   {
     recursiveDump(0,System.out);
@@ -138,20 +176,27 @@ public class Chronometer
     for(int i=0;i<level;i++) ps.print('\t');
     ps.print(_id);
     ps.print(' ');
-    if (_stopTime==0)
+    if (_stopTime==null)
     {
-      ps.print("(Running since ");
-      ps.print(new Date(_startTime));
-      ps.println(')');
+      if (_startTime==null)
+      {
+        ps.print("(Not started)");
+      }
+      else
+      {
+        ps.print("(Running since ");
+        ps.print(new Date(_startTime.longValue()));
+        ps.println(')');
+      }
     }
     else
     {
       ps.print("(Ran from ");
-      ps.print(new Date(_startTime));
+      ps.print(new Date(_startTime.longValue()));
       ps.print(" to ");
-      ps.print(new Date(_stopTime));
+      ps.print(new Date(_stopTime.longValue()));
       ps.print(" (");
-      ps.print(_stopTime-_startTime);
+      ps.print(_stopTime.longValue()-_startTime.longValue());
       ps.println("ms)");
     }
     Chronometer current=_firstChild;

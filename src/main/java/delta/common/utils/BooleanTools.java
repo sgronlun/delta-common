@@ -27,6 +27,11 @@ public class BooleanTools
     return ret.booleanValue();
   }
 
+  /**
+   * Build a boolean from an object value.
+   * @param value Value to use.
+   * @return A boolean instance or <code>null</code>.
+   */
   public static Boolean buildBoolean(Object value)
   {
     if (value==null) return null;

@@ -4,13 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import delta.common.utils.files.iterator.AbstractFileIteratorCallback;
 import delta.common.utils.files.iterator.FileIterator;
 
+/**
+ * Find and copy a selection of files from a source directory.
+ * @author DAM
+ */
 public class FindAndCopyFiles extends AbstractFileIteratorCallback
 {
   private List<String> _filesList;
@@ -23,7 +26,7 @@ public class FindAndCopyFiles extends AbstractFileIteratorCallback
   private boolean _flatTarget;
   private boolean _sourceFileGivesStructure;
 
-  private void traiterFichiers()
+  private void doIt()
   {
     FileIterator fi=new FileIterator(_srcDir,true,this);
     fi.run();
@@ -39,7 +42,7 @@ public class FindAndCopyFiles extends AbstractFileIteratorCallback
     }
   }
 
-  private void copierFichiers()
+  private void copyFiles()
   {
     _targetDir.mkdirs();
     File file=null;
@@ -47,10 +50,8 @@ public class FindAndCopyFiles extends AbstractFileIteratorCallback
     File srcFile;
     File parent;
     File targetDir;
-    String fileName;
-    for(Iterator<String> it=_filesList.iterator();it.hasNext();)
+    for(String fileName : _filesList)
     {
-      fileName=it.next();
       file=_foundFilesMap.get(fileName);
       if (file==null)
       {
@@ -93,7 +94,7 @@ public class FindAndCopyFiles extends AbstractFileIteratorCallback
     System.out.println("Nb fichiers : "+nb);
   }
 
-  private boolean parcourirFichier()
+  private boolean readInputFile()
   {
     TextFileReader reader=new TextFileReader(_filesListFile);
     if (!reader.start()) return false;
@@ -116,6 +117,15 @@ public class FindAndCopyFiles extends AbstractFileIteratorCallback
     return true;
   }
 
+  /**
+   * Constructor.
+   * @param filesListFile List of files to find.
+   * @param srcRoot Root directory for source files.
+   * @param targetDir Root directory for copied files.
+   * @param flatTarget Indicates if the target directory will contain
+   * flat files or 
+   * @param sourceFileGivesStructure
+   */
   public FindAndCopyFiles(String filesListFile, String srcRoot, String targetDir,
       boolean flatTarget, boolean sourceFileGivesStructure)
   {
@@ -129,11 +139,15 @@ public class FindAndCopyFiles extends AbstractFileIteratorCallback
     _filesToSearch=new HashSet<String>();
     _foundFilesMap=new HashMap<String,File>();
     _targetStructure=new HashMap<String,File>();
-    parcourirFichier();
-    traiterFichiers();
-    copierFichiers();
+    readInputFile();
+    doIt();
+    copyFiles();
   }
 
+  /**
+   * Main method for this tool.
+   * @param args Not used.
+   */
   public static void main(String[] args)
   {
     /*

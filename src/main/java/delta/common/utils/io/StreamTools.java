@@ -7,10 +7,15 @@ import java.io.Reader;
 import java.io.Writer;
 
 /**
+ * Tool methods related to I/O streams.
  * @author DAM
  */
 public class StreamTools
 {
+  /**
+   * Close an input stream.
+   * @param is Input stream to close.
+   */
   public static void close(InputStream is)
   {
     if (is!=null)
@@ -26,6 +31,10 @@ public class StreamTools
     }
   }
 
+  /**
+   * Close an output stream.
+   * @param os Output stream to close.
+   */
   public static void close(OutputStream os)
   {
     if (os!=null)
@@ -41,6 +50,10 @@ public class StreamTools
     }
   }
 
+  /**
+   * Close a reader.
+   * @param r Reader to close.
+   */
   public static void close(Reader r)
   {
     if (r!=null)
@@ -56,6 +69,10 @@ public class StreamTools
     }
   }
 
+  /**
+   * Close a writer.
+   * @param w Writer to close.
+   */
   public static void close(Writer w)
   {
     if (w!=null)

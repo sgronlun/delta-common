@@ -10,6 +10,10 @@ import org.apache.log4j.Logger;
 import delta.common.utils.misc.CRC;
 import delta.common.utils.traces.UtilsLoggers;
 
+/**
+ * Recursive diff tool.
+ * @author DAM
+ */
 public class RecursiveDiff
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
@@ -18,7 +22,12 @@ public class RecursiveDiff
   private File _f2;
   private boolean _useCRC;
 
-  public RecursiveDiff(String rootPath1, String rootPath2)
+  /**
+   * Constructor.
+   * @param rootPath1 Root directory.
+   * @param rootPath2 Another root directory.
+   */
+  private RecursiveDiff(String rootPath1, String rootPath2)
   {
     // Checkings
     if (!checkPath(rootPath1))
@@ -35,7 +44,12 @@ public class RecursiveDiff
     _useCRC=false;
   }
 
-  public boolean go()
+  /**
+   * Do the recursive diff.
+   * @return <code>true</code> if both directory contain the same data,
+   * <code>false</code> otherwise.
+   */
+  private boolean go()
   {
     FileComparator fc=new FileComparator();
     return makeDiff(_f1,_f2,fc);
@@ -108,8 +122,7 @@ public class RecursiveDiff
         else
         // (comp>0)
         {
-          System.out.println("File ["+child2.getName()+"] does not exist in ["
-              +f1.getAbsolutePath()+"]");
+          System.out.println("File ["+child2.getName()+"] does not exist in ["+f1.getAbsolutePath()+"]");
           index2++;
           ret=false;
         }
@@ -124,16 +137,23 @@ public class RecursiveDiff
     return (f.exists()&&f.canRead()&&f.isDirectory());
   }
 
+  /**
+   * Main method of this tool.
+   * @param args Two arguments:
+   * <ul>
+   * <li>Directory 1,
+   * <li>Directory 2.
+   * </ul>
+   */
   public static void main(String[] args)
   {
     if (args.length==2)
     {
-      new RecursiveDiff(args[0],args[1]);
+      new RecursiveDiff(args[0],args[1]).go();
     }
     else
     {
-      new RecursiveDiff("C:\\dada\\rhodes\\Rhodes 2005",
-          "\\\\Pcninie\\mamour (h)\\Photos\\Rhodes 2005").go();
+      System.err.println("Need 2 arguments!");
     }
   }
 

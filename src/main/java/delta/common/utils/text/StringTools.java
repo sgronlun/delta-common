@@ -54,6 +54,14 @@ public class StringTools
     return ret;
   }
 
+  /**
+   * Find all strings after string <code>before</code> and before string <code>after</code>
+   * in a line of text. 
+   * @param line Line to use.
+   * @param before String to search.
+   * @param after String to search after.
+   * @return A list of found strings.
+   */
   public static List<String> findAllBetween(String line, String before, String after)
   {
     List<String> ret=new ArrayList<String>();
@@ -83,6 +91,12 @@ public class StringTools
     return ret;
   }
 
+  /**
+   * Find the string after string <code>before</code> in a line of text. 
+   * @param line Line to use.
+   * @param before String to search.
+   * @return A string or <code>null</code> if <code>before</code> was not found.
+   */
   public static String findAfter(String line, String before)
   {
     String ret=null;
@@ -94,6 +108,13 @@ public class StringTools
     return ret;
   }
 
+  /**
+   * Find the string between string <code>before</code> and string <code>after</code> in a line of text. 
+   * @param line Line to use.
+   * @param before String to search before.
+   * @param after String to search after.
+   * @return A string or <code>null</code> if <code>before</code> or <code>after</code> was not found.
+   */
   public static String findBetween(String line, String before, String after)
   {
     String ret=null;
