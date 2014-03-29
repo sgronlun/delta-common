@@ -1,5 +1,10 @@
 package delta.common.utils.collections;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Represents a node of a tree.
  * @author DAM
@@ -296,6 +301,80 @@ public class TreeNode<E>
   public boolean isOnlyChild()
   {
     return((_superNode!=null)&&(_superNode._firstChild==this)&&(_nextBrother==null));
+  }
+
+  /**
+   * Sort the child nodes of this node using the specified comparator.
+   * @param comparator Comparator to use.
+   * @param recursive <code>true</code> for recursive sort, <code>false</code> otherwise.
+   */
+  public void sortChildren(Comparator<E> comparator, boolean recursive)
+  {
+    List<E> children=getChildren();
+    int nbChildren=children.size();
+    if (nbChildren>0)
+    {
+      List<TreeNode<E>> childNodes=getChildNodes();
+      if (nbChildren>1)
+      {
+        Collections.sort(children,comparator);
+        for(TreeNode<E> childNode : childNodes)
+        {
+          childNode.detachFromSuperNode();
+        }
+        for(int i=0;i<nbChildren;i++)
+        {
+          E data=children.get(i);
+          for(TreeNode<E> childNode : childNodes)
+          {
+            if (childNode._data==data)
+            {
+              addChildNode(childNode);
+              break;
+            }
+          }
+        }
+      }
+      if (recursive)
+      {
+        for(TreeNode<E> childNode : childNodes)
+        {
+          childNode.sortChildren(comparator,true);
+        }
+      }
+    }
+  }
+
+  /**
+   * Get all children data items.
+   * @return a list of data items.
+   */
+  public List<E> getChildren()
+  {
+    List<E> ret=new ArrayList<E>();
+    TreeNode<E> current=_firstChild;
+    while (current!=null)
+    {
+      ret.add(current._data);
+      current=current._nextBrother;
+    }
+    return ret;
+  }
+
+  /**
+   * Get all child nodes.
+   * @return a list of child nodes.
+   */
+  public List<TreeNode<E>> getChildNodes()
+  {
+    List<TreeNode<E>> ret=new ArrayList<TreeNode<E>>();
+    TreeNode<E> current=_firstChild;
+    while (current!=null)
+    {
+      ret.add(current);
+      current=current._nextBrother;
+    }
+    return ret;
   }
 
   /**
