@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
 
@@ -32,7 +33,8 @@ public class TextFileWriter
   /**
    * Encoding to use.
    */
-  private String _encoding;
+  //private String _encoding;
+  private Charset _charset;
 
   /**
    * End of line to use.
@@ -45,7 +47,7 @@ public class TextFileWriter
    */
   public TextFileWriter(File path)
   {
-    this(path,null,null);
+    this(path,null);
   }
 
   /**
@@ -66,8 +68,19 @@ public class TextFileWriter
    */
   public TextFileWriter(File path, String encoding, String endOfLine)
   {
+    this(path,(encoding!=null)?Charset.forName(encoding):Charset.defaultCharset(),endOfLine);      
+  }
+  
+  /**
+   * Full constructor.
+   * @param path of file to write to.
+   * @param charset Charset to use.
+   * @param endOfLine End of line (or <code>null</code> for default/native EOL).
+   */
+  public TextFileWriter(File path, Charset charset, String endOfLine)
+  {
     _file=path;
-    _encoding=encoding;
+    _charset=charset;
     String eof=endOfLine;
     if (eof==null)
     {
@@ -90,14 +103,7 @@ public class TextFileWriter
     try
     {
       _fos=new FileOutputStream(_file);
-      if (_encoding==null)
-      {
-        _osWriter=new OutputStreamWriter(_fos);
-      }
-      else
-      {
-        _osWriter=new OutputStreamWriter(_fos,_encoding);
-      }
+      _osWriter=new OutputStreamWriter(_fos,_charset);
       _bufferedWriter=new BufferedWriter(_osWriter);
     }
     catch (IOException ioException)
