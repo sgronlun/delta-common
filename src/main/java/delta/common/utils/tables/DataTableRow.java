@@ -3,12 +3,17 @@ package delta.common.utils.tables;
 import java.io.PrintStream;
 
 /**
+ * A row of data in a data table.
  * @author DAM
  */
 public class DataTableRow
 {
   private Object[] _data;
 
+  /**
+   * Constructor.
+   * @param nbColumns Number of columns to use.
+   */
   public DataTableRow(int nbColumns)
   {
     _data=new Object[nbColumns];

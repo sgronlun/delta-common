@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
+ * Compaator for data table rows.
  * @author DAM
  */
 public class DataTableComparator implements Comparator<DataTableRow>,Serializable
@@ -14,6 +15,12 @@ public class DataTableComparator implements Comparator<DataTableRow>,Serializabl
   private Comparator<Object> _comparator;
   private boolean _reverse;
 
+  /**
+   * Constructor.
+   * @param table Associated table.
+   * @param columnName Name of the column to use.
+   * @param reverse Sort order (<code>true</code> to reverse natural order).
+   */
   public DataTableComparator(DataTable table, String columnName, boolean reverse)
   {
     _columnIndex=-1;

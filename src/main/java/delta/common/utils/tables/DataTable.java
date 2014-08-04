@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Storage for the data in a table.
  * @author DAM
  */
 public class DataTable
@@ -17,6 +18,9 @@ public class DataTable
   private List<DataTableColumn<?>> _columns;
   private List<DataTableRow> _rows;
 
+  /**
+   * Constructor.
+   */
   public DataTable()
   {
     _columnsMap=new HashMap<String,DataTableColumn<?>>();
@@ -24,6 +28,12 @@ public class DataTable
     _rows=new ArrayList<DataTableRow>();
   }
 
+  /**
+   * Add a column.
+   * @param name Column name.
+   * @param classOfObjects Class of data items in this column.
+   * @return A data column object. 
+   */
   public <E extends Comparable<E>> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects)
   {
     DataTableColumn<E> column=getColumnByName(name);
@@ -42,6 +52,13 @@ public class DataTable
     return column;
   }
 
+  /**
+   * Add a column.
+   * @param name Column name.
+   * @param classOfObjects Class of data items in this column.
+   * @param comparator Comparator to use in this column.
+   * @return A data column object. 
+   */
   public <E> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects, Comparator<E> comparator)
   {
     DataTableColumn<E> column=getColumnByName(name);
