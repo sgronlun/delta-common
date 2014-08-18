@@ -141,29 +141,68 @@ public class NumericTools
    * Otherwise, the <code>value</code> is parsed using <code>Long.parseLong(String)</code>.
    * <p>
    * If it cannot be parsed to a numerical value, returns the <code>defaultValue</code>.
-   * @param value string to parse
+   * @param value string to parse.
    * @param defaultValue value to use if parsing fails.
    * @return A long value.
    */
   public static long parseLong(String value, long defaultValue)
   {
-    if ((value==null) || (value.length()==0))
+    Long ret=parseLong(value);
+    if (ret==null)
     {
       return defaultValue;
+    }
+    return ret.longValue();
+  }
+
+  /**
+   * Parse a long.
+   * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Long.MAX_VALUE</code>.
+   * <p>
+   * Otherwise, the <code>value</code> is parsed using <code>Long.parseLong(String)</code>.
+   * <p>
+   * If it cannot be parsed to a numerical value, returns the <code>null</code>.
+   * @param value string to parse.
+   * @return A <code>Long</code> value or <code>null</code>.
+   */
+  public static Long parseLong(String value)
+  {
+    return parseLong(value,true);
+  }
+
+  /**
+   * Parse a long.
+   * If the given <code>value</code> is equal to <code>INFINITY</code>, returns <code>Long.MAX_VALUE</code>.
+   * <p>
+   * Otherwise, the <code>value</code> is parsed using <code>Long.parseLong(String)</code>.
+   * <p>
+   * If it cannot be parsed to a numerical value, returns the <code>null</code>.
+   * @param value string to parse.
+   * @param doWarn Indicates if a warning is to be raised when the value is not valid.
+   * @return A <code>Long</code> value or <code>null</code>.
+   */
+  public static Long parseLong(String value, boolean doWarn)
+  {
+    if ((value==null) || (value.length()==0))
+    {
+      return null;
     }
     value=value.trim();
     if (NumericTools.INFINITY.equals(value))
     {
-      return Long.MAX_VALUE;
+      return Long.valueOf(Long.MAX_VALUE);
     }
     try
     {
-      return Long.parseLong(value);
+      return Long.valueOf(value);
     }
     catch(NumberFormatException nfe)
     {
-      _logger.error("Cannot parse long '"+value+"'",nfe);
-      return defaultValue;
+      if (doWarn)
+      {
+        _logger.error("Cannot parse long '"+value+"'",nfe);
+      }
+      return null;
     }
   }
 
