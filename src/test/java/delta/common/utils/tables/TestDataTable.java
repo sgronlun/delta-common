@@ -5,6 +5,10 @@ import java.util.Date;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+/**
+ * Test for data tables.
+ * @author DAM
+ */
 public class TestDataTable extends TestCase
 {
   private static final String NAME_COLUMN="NAME";
@@ -25,11 +29,11 @@ public class TestDataTable extends TestCase
 
     // Name column
     table.addColumn(NAME_COLUMN,String.class);
-    DataTableColumn nameColumn=table.getColumnByName(NAME_COLUMN);
+    DataTableColumn<?> nameColumn=table.getColumnByName(NAME_COLUMN);
     Assert.assertNotNull(nameColumn);
     // Date column
     table.addColumn(DATE_COLUMN,Date.class);
-    DataTableColumn dateColumn=table.getColumnByName(DATE_COLUMN);
+    DataTableColumn<?> dateColumn=table.getColumnByName(DATE_COLUMN);
     Assert.assertNotNull(dateColumn);
 
     return table;
@@ -37,9 +41,9 @@ public class TestDataTable extends TestCase
 
   private void fillTable(DataTable table)
   {
-    DataTableColumn nameColumn=table.getColumnByName(NAME_COLUMN);
+    DataTableColumn<?> nameColumn=table.getColumnByName(NAME_COLUMN);
     int nameIndex=nameColumn.getIndex();
-    DataTableColumn dateColumn=table.getColumnByName(DATE_COLUMN);
+    DataTableColumn<?> dateColumn=table.getColumnByName(DATE_COLUMN);
     int dateIndex=dateColumn.getIndex();
     for(int i=0;i<NB_ROWS;i++)
     {
@@ -49,6 +53,9 @@ public class TestDataTable extends TestCase
     }
   }
 
+  /**
+   * Test data table building.
+   */
   public void testBuildTable()
   {
     DataTable table=buildTable();
@@ -57,12 +64,15 @@ public class TestDataTable extends TestCase
     table.dump(System.out);
   }
 
+  /**
+   * Test data table sorting.
+   */
   public void testSortTable()
   {
     DataTable table=buildTable();
     fillTable(table);
     DataTableSort sort=new DataTableSort();
-    sort.addSort(DATE_COLUMN,Boolean.FALSE);
+    sort.addSort(DATE_COLUMN,false);
     table.sort(sort);
     table.dump(System.out);
   }

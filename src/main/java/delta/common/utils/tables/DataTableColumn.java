@@ -7,7 +7,7 @@ import java.util.Comparator;
  * @param <E> Type of the items in this column. 
  * @author DAM
  */
-public class DataTableColumn<E>
+public class DataTableColumn<E extends Object>
 {
   private int _index;
   private String _name;

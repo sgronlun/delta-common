@@ -19,13 +19,23 @@ public class DataTableRow
     _data=new Object[nbColumns];
   }
 
+  /**
+   * Get the data for the targeted cell.
+   * @param columnIndex Index of the targeted column.
+   * @return Some data.
+   */
   public Object getData(int columnIndex)
   {
     Object ret=_data[columnIndex];
     return ret;
   }
 
-  public boolean setData(int columnIndex, Object o)
+  /**
+   * Set data for the targeted cell.
+   * @param columnIndex Index of the targeted column.
+   * @param o Data to set.
+   */
+  public void setData(int columnIndex, Object o)
   {
     if (_data.length<columnIndex)
     {
@@ -34,9 +44,12 @@ public class DataTableRow
       _data=newData;
     }
     _data[columnIndex]=o;
-    return true;
   }
 
+  /**
+   * Dump the contents of this row to the given output stream.
+   * @param ps Output stream.
+   */
   public void dump(PrintStream ps)
   {
     int nb=_data.length;

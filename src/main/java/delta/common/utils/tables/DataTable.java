@@ -8,12 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import delta.common.utils.traces.UtilsLoggers;
+
 /**
  * Storage for the data in a table.
  * @author DAM
  */
 public class DataTable
 {
+  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+
   private Map<String,DataTableColumn<?>> _columnsMap;
   private List<DataTableColumn<?>> _columns;
   private List<DataTableRow> _rows;
@@ -36,20 +42,7 @@ public class DataTable
    */
   public <E extends Comparable<E>> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects)
   {
-    DataTableColumn<E> column=getColumnByName(name);
-    if (column==null)
-    {
-      int index=_columnsMap.size();
-      Comparator<E> comparator=new ComparableComparator<E>();
-      column=new DataTableColumn<E>(index,name,comparator);
-      _columnsMap.put(name,column);
-      _columns.add(column);
-    }
-    else
-    {
-      //todo warning Column already exists
-    }
-    return column;
+    return addColumn(name,classOfObjects,new ComparableComparator<E>());
   }
 
   /**
@@ -61,41 +54,67 @@ public class DataTable
    */
   public <E> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects, Comparator<E> comparator)
   {
-    DataTableColumn<E> column=getColumnByName(name);
+    DataTableColumn<E> ret=null;
+    DataTableColumn<?> column=getColumnByName(name);
     if (column==null)
     {
       int index=_columnsMap.size();
-      column=new DataTableColumn<E>(index,name,comparator);
-      _columnsMap.put(name,column);
-      _columns.add(column);
+      ret=new DataTableColumn<E>(index,name,comparator);
+      _columnsMap.put(name,ret);
+      _columns.add(ret);
     }
     else
     {
-      //todo warning Column already exists
+      _logger.warn("Column ["+name+"] already exists in this table!");
     }
-    return column;
+    return ret;
   }
 
-  public DataTableColumn getColumn(int index)
+  /**
+   * Get a column using its index.
+   * @param index An index, starting at zero.
+   * @return A table column.
+   */
+  public DataTableColumn<?> getColumn(int index)
   {
     return _columns.get(index);
   }
 
-  public DataTableColumn getColumnByName(String columnName)
+  /**
+   * Get a column using its name.
+   * @param columnName Name of the targeted column.
+   * @return A table column.
+   */
+  public DataTableColumn<?> getColumnByName(String columnName)
   {
     return _columnsMap.get(columnName);
   }
 
+  /**
+   * Get the number of columns in this table.
+   * @return A number of columns.
+   */
   public int getNbColumns()
   {
     return _columns.size();
   }
 
+  /**
+   * Get the number of rows in this table.
+   * @return A number of rows.
+   */
   public int getNbRows()
   {
     return _rows.size();
   }
 
+  /**
+   * Set data in a cell.
+   * @param rowIndex Row index, starting at zero.
+   * @param columnIndex Column index, starting at zero.
+   * @param data Data to set.
+   * @return <code>true</code> if it succeeded, <code>false</code> otherwise.
+   */
   public boolean setData(int rowIndex, int columnIndex, Object data)
   {
     DataTableRow row=getRow(rowIndex);
@@ -111,6 +130,10 @@ public class DataTable
     return false;
   }
 
+  /**
+   * Add a new row to this table.
+   * @return the newly added row.
+   */
   public DataTableRow addRow()
   {
     int nbColumns=_columns.size();
@@ -119,6 +142,12 @@ public class DataTable
     return row;
   }
 
+  /**
+   * Get the data in a cell.
+   * @param rowIndex Row index, starting at zero.
+   * @param columnIndex Column index, starting at zero.
+   * @return some data or <code>null</code> if out of bounds.
+   */
   public Object getData(int rowIndex, int columnIndex)
   {
     DataTableRow row=getRow(rowIndex);
@@ -130,6 +159,11 @@ public class DataTable
     return null;
   }
 
+  /**
+   * Get a row of data.
+   * @param rowIndex Index of the targeted row.
+   * @return A table row or <code>null</code> if out of bounds.
+   */
   public DataTableRow getRow(int rowIndex)
   {
     if ((rowIndex<0) || (rowIndex>=_rows.size()))
@@ -140,27 +174,40 @@ public class DataTable
     return row;
   }
 
+  /**
+   * Sort this table using the targeted column.
+   * @param name Name of the column to use for sorting.
+   * @param reverse <code>true</code> to reverse sort order.
+   */
   public void sort(String name, boolean reverse)
   {
     DataTableComparator comparator=new DataTableComparator(this,name,reverse);
     Collections.sort(_rows,comparator);
   }
 
+  /**
+   * Sort this table using the gien sort specification.
+   * @param sort Sort specification.
+   */
   public void sort(DataTableSort sort)
   {
     int nbColumns=sort.getNbColumns();
     String name;
-    Boolean order;
+    boolean order;
     boolean reverse;
     for(int i=nbColumns-1;i>=0;i--)
     {
       name=sort.getColumnName(i);
       order=sort.getColumnOrder(i);
-      reverse=!order.booleanValue();
+      reverse=!order;
       sort(name,reverse);
     }
   }
 
+  /**
+   * Dump the contents of this table to the given output stream.
+   * @param ps Output stream.
+   */
   public void dump(PrintStream ps)
   {
     int nbRows=getNbRows();
