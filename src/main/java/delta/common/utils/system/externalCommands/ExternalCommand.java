@@ -621,12 +621,13 @@ public class ExternalCommand
    */
   public synchronized void stopProcess()
   {
-    if (_process!=null)
+    Process p=_process;
+    if (p!=null)
     {
       _stopped=true;
-      _process.destroy();
-      StreamTools.close(_process.getInputStream());
-      StreamTools.close(_process.getErrorStream());
+      p.destroy();
+      StreamTools.close(p.getInputStream());
+      StreamTools.close(p.getErrorStream());
       waitForEndOfCommand(1000);
     }
   }

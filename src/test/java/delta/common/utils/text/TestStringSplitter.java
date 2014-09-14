@@ -5,6 +5,10 @@ import java.util.List;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+/**
+ * Test for the string splitter.
+ * @author DAM
+ */
 public class TestStringSplitter extends TestCase
 {
   /**
@@ -15,6 +19,9 @@ public class TestStringSplitter extends TestCase
     super("String splitter test");
   }
 
+  /**
+   * Test string splitting.
+   */
   public void testStringSplitter()
   {
     String[] samples= {"",",",",,",",,,",",adsd,bdff,","dfgf","dfgf,dds"};
