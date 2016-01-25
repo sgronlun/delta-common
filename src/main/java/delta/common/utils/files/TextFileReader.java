@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
@@ -20,11 +22,15 @@ public class TextFileReader
 {
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
 
+  // Charset to use
   private Charset _charset;
+  // Temp mechanics
   private BufferedReader _bufferedReader;
   private InputStreamReader _isR;
-  private FileInputStream _fis;
+  private InputStream _is;
+  // Source
   private File _path;
+  private URL _url;
 
   /**
    * Constructor.
@@ -44,14 +50,21 @@ public class TextFileReader
   public TextFileReader(File path, String encoding)
   {
     _path=path;
+    _charset=fromEncodingName(encoding);
+  }
+
+  private Charset fromEncodingName(String encoding)
+  {
+    Charset charset;
     if (encoding!=null)
     {
-      _charset=Charset.forName(encoding);
+      charset=Charset.forName(encoding);
     }
     else
     {
-      _charset=Charset.defaultCharset();      
+      charset=Charset.defaultCharset();
     }
+    return charset;
   }
 
   /**
@@ -66,6 +79,17 @@ public class TextFileReader
   }
 
   /**
+   * Constructor from an URL.
+   * @param url URL to use.
+   * @param encoding Encoding to use.
+   */
+  public TextFileReader(URL url, String encoding)
+  {
+    _url=url;
+    _charset=fromEncodingName(encoding);
+  }
+
+  /**
    * Start reading.
    * Several steps are involved :
    * <ul>
@@ -77,6 +101,7 @@ public class TextFileReader
   public boolean start()
   {
     boolean ret=true;
+    /*
     // Existenz test
     if(!_path.canRead())
     {
@@ -84,11 +109,12 @@ public class TextFileReader
       ret=false;
     }
     else
+    */
     {
       try
       {
-        _fis=new FileInputStream(_path);
-        _isR=new InputStreamReader(_fis,_charset);
+        _is=buildInputStream();
+        _isR=new InputStreamReader(_is,_charset);
         _bufferedReader=new BufferedReader(_isR);
       }
       catch(IOException ioException)
@@ -99,6 +125,20 @@ public class TextFileReader
       }
     }
     return ret;
+  }
+
+  private InputStream buildInputStream() throws IOException
+  {
+    InputStream is=null;
+    if (_path!=null)
+    {
+      is=new FileInputStream(_path);
+    }
+    else if (_url!=null)
+    {
+      is=_url.openStream();
+    }
+    return is;
   }
 
   /**
@@ -132,7 +172,7 @@ public class TextFileReader
     _bufferedReader=null;
     StreamTools.close(_isR);
     _isR=null;
-    StreamTools.close(_fis);
-    _fis=null;
+    StreamTools.close(_is);
+    _is=null;
   }
 }
