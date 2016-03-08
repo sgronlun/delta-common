@@ -55,14 +55,27 @@ public class TextUtils
    * Reads the contents of a text file as a series of lines.
    * @param path path of file to read.
    * @param encoding Encoding to use.
-   * @return a <tt>List</tt> of <tt>String</tt>s that reflects the contents of the given file or <code>null</code> if an error occurred.
+   * @return a <tt>List</tt> of <tt>String</tt>s that reflects the contents of the given file
+   * or <code>null</code> if an error occurred.
    */
   public static List<String> readAsLines(File path, String encoding)
+  {
+    TextFileReader reader=new TextFileReader(path,encoding);
+    List<String> ret=readAsLines(reader);
+    return ret;
+  }
+
+  /**
+   * Reads the contents of a text source as a series of lines.
+   * @param reader Text reader.
+   * @return a <tt>List</tt> of <tt>String</tt>s that reflects the contents of the given source
+   * or <code>null</code> if an error occurred.
+   */
+  public static List<String> readAsLines(TextFileReader reader)
   {
     List<String> ret=null;
     try
     {
-      TextFileReader reader=new TextFileReader(path,encoding);
       if (reader.start())
       {
         ret=new ArrayList<String>();
@@ -84,7 +97,7 @@ public class TextUtils
     }
     catch(Exception e)
     {
-      _logger.error("Error while reading text file contents : "+path,e);
+      _logger.error("Error while reading text file contents",e);
     }
     return ret;
   }
