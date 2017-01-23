@@ -309,7 +309,7 @@ public abstract class DOMParsingTools
     }
     catch (Exception e)
     {
-      _logger.error("Parsing error",e);
+      _logger.error("Parsing error with file " + source,e);
     }
     finally
     {
