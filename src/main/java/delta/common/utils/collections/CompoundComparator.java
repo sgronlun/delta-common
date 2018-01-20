@@ -1,6 +1,7 @@
 package delta.common.utils.collections;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Compound comparator: a comparator that uses a series of comparator.
@@ -9,13 +10,13 @@ import java.util.Comparator;
  */
 public class CompoundComparator<T> implements Comparator<T>
 {
-  private Comparator<T>[] _comparators;
+  private List<Comparator<T>> _comparators;
 
   /**
    * Constructor.
    * @param comparators Comparators to use.
    */
-  public CompoundComparator(Comparator<T>... comparators)
+  public CompoundComparator(List<Comparator<T>> comparators)
   {
     _comparators=comparators;
   }
