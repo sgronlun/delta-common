@@ -1,27 +1,6 @@
 <xml version="1.0" encoding="UTF-8">
 
 <configurationFileMetaModel>
-	<type name="NONE" typeHandler="flandres.cfgEditor.types.DataType">
-	</type>
-	<type name="CLOSED_LIST" typeHandler="flandres.cfgEditor.types.ClosedListType">
-		<parameter name="VALUES" mandatory="true" defaultValue="0|1"></parameter>
-	</type>
-	<type name="INTEGER" typeHandler="flandres.cfgEditor.types.IntegerType">
-		<parameter name="MIN" mandatory="false"></parameter>
-		<parameter name="MAX" mandatory="false"></parameter>
-	</type>
-	<type name="FLOAT" typeHandler="flandres.cfgEditor.types.FloatType">
-		<parameter name="MIN" mandatory="false"></parameter>
-		<parameter name="MAX" mandatory="false"></parameter>
-	</type>
-	<type name="REGEXP" typeHandler="flandres.cfgEditor.types.RegexpType">
-		<parameter name="REGEXP" mandatory="true" defaultValue="[0-9a-z_A-Z ]{0,60}"></parameter>
-	</type>
-	<type name="STRING" typeHandler="flandres.cfgEditor.types.StringType">
-		<parameter name="MIN_LENGTH" mandatory="false"></parameter>
-		<parameter name="MAX_LENGTH" mandatory="false"></parameter>
-	</type>
-
 	<section name="UNITS_DEFAULTS">
 		<variable name="ANGLE" type="CLOSED_LIST" defaultValue="DEGREES_0_360_GEO">
 			<parameter name="VALUES" value="DEGREES_0_360_GEO|DEGREES_-180_180_GEO|RADIAN_0_2P_GEO"></parameter>
@@ -41,14 +20,6 @@
 			<parameter name="VALUES" value="METER|FOOT|INCH"></parameter>
 		</variable>
 
-		<variable name="LENGTH_MEDIUM_FLANDRES" type="CLOSED_LIST" defaultValue="METER">
-			<parameter name="VALUES" value="METER|CENTI_METER"></parameter>
-		</variable>
-
-		<variable name="LENGTH_GREAT_FLANDRES" type="CLOSED_LIST" defaultValue="METER">
-			<parameter name="VALUES" value="METER|KILOMETER"></parameter>
-		</variable>
-		
 		<variable name="ALTITUDE" type="CLOSED_LIST" defaultValue="METER">
 			<parameter name="VALUES" value="METER|FOOT"></parameter>
 		</variable>
@@ -161,51 +132,6 @@
 
 	</section>
 
-<!-- Section site filter sample
-	<section name="CS_SI_SRV_SHF" siteFilter="~C-SO">
--->
-	<section name="CS_SI_SRV_SHF">
-		<!-- Variable site filter sample 
-			<variable name="flandres.shf.srv.evt.operationalMonitoring.exportPeriod" type="INTEGER" defaultValue="10" siteFilter="~C-SO">
-		-->
-		<variable name="flandres.shf.srv.evt.operationalMonitoring.exportPeriod" type="INTEGER" defaultValue="10">
-		</variable>
-		<variable name="flandres.shf.srv.evt.technicalMonitoring.exportPeriod" type="INTEGER" defaultValue="10">
-		</variable>
-		<variable name="flandres.shf.srv.evt.operationalMonitoring.flowPeriod" type="INTEGER" defaultValue="20">
-		</variable>
-		<variable name="flandres.shf.srv.evt.operationalMonitoring.maxThreshold" type="INTEGER" defaultValue="100">
-		</variable>
-		<variable name="flandres.shf.srv.evt.operationalMonitoring.periodMonitoring" type="INTEGER" defaultValue="65">
-		</variable>
-		<variable name="flandres.shf.srv.dsk.monitoringPeriod" type="INTEGER" defaultValue="25000">
-		</variable>
-		<variable name="flandres.shf.srv.dsk.mediumAlertLevel" type="INTEGER" defaultValue="70">
-		</variable>
-		<variable name="flandres.shf.srv.dsk.highAlertLevel" type="INTEGER" defaultValue="90">
-		</variable>
-	</section>
-
-	<section name="CS_SI_TRT_SHF">
-		<variable name="DELETE_INDEX_PERIOD" type="INTEGER" defaultValue="30">
-		</variable>
-		<variable name="ZIP_ACTIVE" type="INTEGER" defaultValue="1">
-			<parameter name="MIN" value="0"></parameter>
-			<parameter name="MAX" value="1"></parameter>
-		</variable>
-		<variable name="MAX_ZIP_ENTRIES" type="INTEGER" defaultValue="10">
-		</variable>
-	</section>
-
-	<section name="CS_SI_SSI_SHF">
-		<variable name="flandres.shf.ssi.Suivi.operMaxRecords" type="INTEGER" defaultValue="50">
-		</variable>
-		<variable name="flandres.shf.ssi.Suivi.techMaxRecords" type="INTEGER" defaultValue="50">
-		</variable>
-		<variable name="flandres.shf.ssi.Suivi.diskMaxRecords" type="INTEGER" defaultValue="1000">
-		</variable>
-	</section>
-	
 </configurationFileMetaModel>
 
 </xml>
