@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.StreamTools;
 import delta.common.utils.traces.LoggersRegistry;
@@ -194,6 +195,22 @@ public class TypedProperties
   }
 
   /**
+   * Get the value of an integer property.
+   * @param name Property name.
+   * @return An integer value or <code>null</code> if not found or not an integer.
+   */
+  public Integer getIntegerProperty(String name)
+  {
+    Integer ret=null;
+    String value=_props.getProperty(name,null);
+    if (value!=null)
+    {
+      ret=NumericTools.parseInteger(value);
+    }
+    return ret;
+  }
+
+  /**
    * Get the value of a long property.
    * @param name Property name.
    * @param defaultValue Default value, used if the property does not exist.
@@ -268,7 +285,7 @@ public class TypedProperties
    * Get the value of a string property.
    * @param name Property name.
    * @param defaultValue Default value, used if the property does not exist.
-   * @return A string value or <code>null</code> if not found.
+   * @return A string value or the default value.
    */
   public String getStringProperty(String name, String defaultValue)
   {
@@ -284,6 +301,28 @@ public class TypedProperties
   public void setStringProperty(String name, String value)
   {
     _props.put(name,value);
+  }
+
+  /**
+   * Get the value of a boolean property.
+   * @param name Property name.
+   * @param defaultValue Default value, used if the property does not exist.
+   * @return A boolean value or the default value.
+   */
+  public boolean getBooleanProperty(String name, boolean defaultValue)
+  {
+    String booleanStr=_props.getProperty(name,null);
+    return BooleanTools.parseBoolean(booleanStr,defaultValue);
+  }
+
+  /**
+   * Set the value of a boolean property.
+   * @param name Property name.
+   * @param value Value to set.
+   */
+  public void setBooleanProperty(String name, boolean value)
+  {
+    _props.put(name,Boolean.toString(value));
   }
 
   /**
@@ -326,5 +365,34 @@ public class TypedProperties
   {
     String value=r.x+","+r.y+","+r.width+","+r.height;
     _props.setProperty(name,value);
+  }
+
+  /**
+   * Remove property.
+   * @param name Property name.
+   */
+  public void removeProperty(String name)
+  {
+    _props.remove(name);
+  }
+
+
+  /**
+   * Remove property.
+   * @param name Property name.
+   */
+  public void removeListProperty(String name)
+  {
+    String countKey=name+".count";
+    Object countStr=_props.remove(countKey);
+    if (countStr!=null)
+    {
+      int nb=NumericTools.parseInt((String)countStr,0);
+      for(int i=0;i<nb;i++)
+      {
+        String key=name+"."+(i+1);
+        _props.remove(key);
+      }
+    }
   }
 }
