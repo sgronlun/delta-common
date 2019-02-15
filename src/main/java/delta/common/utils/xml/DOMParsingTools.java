@@ -33,6 +33,27 @@ public abstract class DOMParsingTools
   private static final Logger _logger=UtilsLoggers.getUtilsLogger();
 
   /**
+   * Get a list of child tags.
+   * @param e Root element.
+   * @return A possibly empty list of child tags.
+   */
+  public static List<Element> getChildTags(Element e)
+  {
+    List<Element> ret=new ArrayList<Element>();
+    NodeList children=e.getChildNodes();
+    int nb=children.getLength();
+    for(int i=0;i<nb;i++)
+    {
+      Node child=children.item(i);
+      if (child instanceof Element)
+      {
+        ret.add((Element)child);
+      }
+    }
+    return ret;
+  }
+
+  /**
    * Get a child element by its tag name.
    * @param e Root element.
    * @param tagName Name of tag.
