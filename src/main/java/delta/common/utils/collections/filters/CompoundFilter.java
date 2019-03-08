@@ -22,12 +22,21 @@ public class CompoundFilter<T> implements Filter<T>
   /**
    * Constructor.
    * @param operator Logical operator.
+   */
+  public CompoundFilter(Operator operator)
+  {
+    _operator=operator;
+    _filters=new ArrayList<Filter<T>>();
+  }
+
+  /**
+   * Constructor.
+   * @param operator Logical operator.
    * @param filters Sub-filters.
    */
   public CompoundFilter(Operator operator, List<Filter<T>> filters)
   {
-    _operator=operator;
-    _filters=new ArrayList<Filter<T>>();
+    this(operator);
     _filters.addAll(filters);
   }
 
@@ -39,8 +48,7 @@ public class CompoundFilter<T> implements Filter<T>
   @SafeVarargs
   public CompoundFilter(Operator operator, Filter<T>... filters)
   {
-    _operator=operator;
-    _filters=new ArrayList<Filter<T>>();
+    this(operator);
     for(Filter<T> filter : filters)
     {
       _filters.add(filter);
