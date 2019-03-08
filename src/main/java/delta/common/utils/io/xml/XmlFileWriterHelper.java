@@ -35,7 +35,7 @@ public class XmlFileWriterHelper
     FileOutputStream fos=null;
     try
     {
-      File parentFile=outFile.getParentFile();
+      File parentFile=outFile.getAbsoluteFile().getParentFile();
       if (!parentFile.exists())
       {
         parentFile.mkdirs();
