@@ -2,8 +2,6 @@ package delta.common.utils.misc;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Typed factory.
  * @author DAM
@@ -11,7 +9,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class SimpleGenericFactory<T>
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(SimpleGenericFactory.class);
 
   /**
    * Class used to build new instances.
@@ -39,7 +37,7 @@ public class SimpleGenericFactory<T>
       }
       catch(Exception e)
       {
-        _logger.error("Cannot use class : "+realClassName,e);
+        LOGGER.error("Cannot use class : "+realClassName,e);
       }
     }
   }
@@ -61,7 +59,7 @@ public class SimpleGenericFactory<T>
       }
       catch(Exception e)
       {
-        _logger.error("Cannot build object",e);
+        LOGGER.error("Cannot build object",e);
       }
     }
     return null;

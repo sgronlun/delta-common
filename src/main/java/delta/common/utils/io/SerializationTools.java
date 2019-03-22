@@ -8,15 +8,13 @@ import java.io.ObjectOutputStream;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Serialization/deserialization tools.
  * @author DAM
  */
 public class SerializationTools
 {
-  private static final Logger _logger=UtilsLoggers.getIOLogger();
+  private static final Logger LOGGER=Logger.getLogger(SerializationTools.class);
 
   /**
    * Serialization to a byte buffer.
@@ -41,7 +39,7 @@ public class SerializationTools
       }
       catch(Exception e)
       {
-        _logger.error("",e);
+        LOGGER.error("",e);
       }
       finally
       {
@@ -74,7 +72,7 @@ public class SerializationTools
       }
       catch(Exception e)
       {
-        _logger.error("",e);
+        LOGGER.error("",e);
       }
       finally
       {

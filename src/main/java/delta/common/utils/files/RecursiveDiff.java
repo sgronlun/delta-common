@@ -8,7 +8,6 @@ import java.util.Comparator;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.misc.CRC;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Recursive diff tool.
@@ -16,7 +15,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class RecursiveDiff
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(RecursiveDiff.class);
 
   private File _f1;
   private File _f2;
@@ -32,11 +31,11 @@ public class RecursiveDiff
     // Checkings
     if (!checkPath(rootPath1))
     {
-      _logger.error("Cannot read directory ["+rootPath1+"]");
+      LOGGER.error("Cannot read directory ["+rootPath1+"]");
     }
     if (!checkPath(rootPath2))
     {
-      _logger.error("Cannot read directory ["+rootPath2+"]");
+      LOGGER.error("Cannot read directory ["+rootPath2+"]");
     }
 
     _f1=new File(rootPath1);
@@ -92,7 +91,7 @@ public class RecursiveDiff
             }
             else if (_useCRC)
             {
-              _logger.info("CRC for "+child1.getAbsolutePath());
+              LOGGER.info("CRC for "+child1.getAbsolutePath());
               long crc1=CRC.computeCRC(child1);
               long crc2=CRC.computeCRC(child2);
               if (crc1!=crc2)
@@ -104,7 +103,7 @@ public class RecursiveDiff
           }
           else
           {
-            _logger.warn("Incompatible file types : file/directory");
+            LOGGER.warn("Incompatible file types : file/directory");
             ret=false;
           }
         }

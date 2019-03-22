@@ -17,7 +17,6 @@ import delta.common.utils.collections.CollectionTools;
 import delta.common.utils.io.StreamTools;
 import delta.common.utils.misc.MiscStringConstants;
 import delta.common.utils.text.StringSplitter;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Represents an external (system) command.
@@ -25,7 +24,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class ExternalCommand
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(ExternalCommand.class);
 
   private static int _counter=0;
 
@@ -251,7 +250,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.error("Command is running. Cannot change it's working directory.");
+      LOGGER.error("Command is running. Cannot change it's working directory.");
     }
   }
 
@@ -268,7 +267,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.error("Command is running. Cannot change _storeStdout flag.");
+      LOGGER.error("Command is running. Cannot change _storeStdout flag.");
     }
   }
 
@@ -285,7 +284,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.error("Command is running. Cannot change _storeStderr flag.");
+      LOGGER.error("Command is running. Cannot change _storeStderr flag.");
     }
   }
 
@@ -301,7 +300,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.error("Command is running. Cannot change it's environment.");
+      LOGGER.error("Command is running. Cannot change it's environment.");
     }
   }
 
@@ -319,7 +318,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.error("Command is running. Cannot change it's environment.");
+      LOGGER.error("Command is running. Cannot change it's environment.");
     }
   }
 
@@ -337,7 +336,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.error("Command is running. Cannot change stderr redirection.");
+      LOGGER.error("Command is running. Cannot change stderr redirection.");
     }
   }
 
@@ -355,7 +354,7 @@ public class ExternalCommand
       public void run()
       {
         waitForCompletion();
-        _logger.info("Thread [Monitoring "+_command+"] died !");
+        LOGGER.info("Thread [Monitoring "+_command+"] died !");
         _asyncExecThread=null;
       }
     };
@@ -394,14 +393,14 @@ public class ExternalCommand
         _process=_processBuilder.start();
         startStreamReadingThreads();
         _executionStatus=ExecutionStatus.RUNNING;
-        if (_logger.isInfoEnabled())
+        if (LOGGER.isInfoEnabled())
         {
-          _logger.info("Command ["+cmdLine+"] started !");
+          LOGGER.info("Command ["+cmdLine+"] started !");
         }
       }
       catch (IOException ioe)
       {
-        _logger.error("",ioe);
+        LOGGER.error("",ioe);
         _executionStatus=ExecutionStatus.EXECUTION_FAILED;
         _endDate=_startDate;
         destroyProcess();
@@ -410,7 +409,7 @@ public class ExternalCommand
     }
     else
     {
-      _logger.warn("Command is already running !");
+      LOGGER.warn("Command is already running !");
       ret=false;
     }
     return ret;
@@ -510,7 +509,7 @@ public class ExternalCommand
     }
     catch (InterruptedException ie)
     {
-      _logger.error("",ie);
+      LOGGER.error("",ie);
       _exitCode=null;
       _executionStatus=ExecutionStatus.EXECUTION_INTERRUPTED;
     }
@@ -521,10 +520,10 @@ public class ExternalCommand
       destroyProcess();
       _process=null;
       _endDate=Long.valueOf(System.currentTimeMillis());
-      if (_logger.isInfoEnabled())
+      if (LOGGER.isInfoEnabled())
       {
         String cmdLine=getCommandAndArgs();
-        _logger.info("Command ["+cmdLine+"] ended !");
+        LOGGER.info("Command ["+cmdLine+"] ended !");
       }
     }
   }
@@ -536,7 +535,7 @@ public class ExternalCommand
   {
     if (_process!=null)
     {
-      _logger.info("Killing process for command ["+_name+"]");
+      LOGGER.info("Killing process for command ["+_name+"]");
       _process.destroy();
       _process=null;
     }
@@ -568,7 +567,7 @@ public class ExternalCommand
       }
       catch(InterruptedException ie)
       {
-        _logger.error("Interrupted !",ie);
+        LOGGER.error("Interrupted !",ie);
       }
     }
     else
@@ -731,7 +730,7 @@ public class ExternalCommand
         }
         catch(Exception e)
         {
-          _logger.warn("Pb while initialising stdout/stderr reader thread",e);
+          LOGGER.warn("Pb while initialising stdout/stderr reader thread",e);
           return;
         }
         // Read stream
@@ -762,9 +761,9 @@ public class ExternalCommand
         StreamTools.close(isr);
         isr=null;
       }
-      if (_logger.isInfoEnabled())
+      if (LOGGER.isInfoEnabled())
       {
-        _logger.info("Thread ["+getName()+"] died !");
+        LOGGER.info("Thread ["+getName()+"] died !");
       }
     }
   }

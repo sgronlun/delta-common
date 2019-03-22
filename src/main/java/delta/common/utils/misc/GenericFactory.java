@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Typed factory.
  * @author DAM
@@ -14,7 +12,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class GenericFactory<T>
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(GenericFactory.class);
 
   /**
    * Map of product names to constructors.
@@ -73,7 +71,7 @@ public class GenericFactory<T>
           }
           catch(Exception e)
           {
-            _logger.error("Cannot find class : "+productClassName,e);
+            LOGGER.error("Cannot find class : "+productClassName,e);
           }
           if (c!=null)
           {
@@ -87,7 +85,7 @@ public class GenericFactory<T>
               }
               catch(Exception e)
               {
-                _logger.error("Cannot find constructor with appropriate parameters for class "+tClass,e);
+                LOGGER.error("Cannot find constructor with appropriate parameters for class "+tClass,e);
               }
               if (constructor!=null)
               {
@@ -96,23 +94,23 @@ public class GenericFactory<T>
             }
             else
             {
-              _logger.error("Cannot use class : "+productClassName+" that is not a subclass of "+_productBaseClass);
+              LOGGER.error("Cannot use class : "+productClassName+" that is not a subclass of "+_productBaseClass);
             }
           }
         }
         else
         {
-          _logger.error("Product class name is null or empty !");
+          LOGGER.error("Product class name is null or empty !");
         }
       }
       else
       {
-        _logger.error("Product ["+productName+"] already defined with product class ["+oldConstructor.getClass().getName()+"]");
+        LOGGER.error("Product ["+productName+"] already defined with product class ["+oldConstructor.getClass().getName()+"]");
       }
     }
     else
     {
-      _logger.error("Product name is null or empty !");
+      LOGGER.error("Product name is null or empty !");
     }
     return ret;
   }
@@ -135,12 +133,12 @@ public class GenericFactory<T>
       }
       catch(Exception e)
       {
-        _logger.error("Cannot build product ["+productName+"]",e);
+        LOGGER.error("Cannot build product ["+productName+"]",e);
       }
     }
     else
     {
-      _logger.error("Unknown product ["+productName+"]");
+      LOGGER.error("Unknown product ["+productName+"]");
     }
     return ret;
   }

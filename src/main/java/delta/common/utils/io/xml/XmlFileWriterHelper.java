@@ -20,7 +20,7 @@ import delta.common.utils.io.StreamTools;
  */
 public class XmlFileWriterHelper
 {
-  private static final Logger _logger=Logger.getLogger(XmlFileWriterHelper.class);
+  private static final Logger LOGGER=Logger.getLogger(XmlFileWriterHelper.class);
 
   /**
    * Write some XML data to a file.
@@ -55,7 +55,7 @@ public class XmlFileWriterHelper
     }
     catch (Exception exception)
     {
-      _logger.error("Cannot write XML data to file " + outFile,exception);
+      LOGGER.error("Cannot write XML data to file " + outFile,exception);
       ret=false;
     }
     finally

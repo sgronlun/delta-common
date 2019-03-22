@@ -13,7 +13,6 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.io.StreamTools;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * File copy tools.
@@ -21,7 +20,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public abstract class FileCopy
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(FileCopy.class);
 
   private static final int BUFFER_SIZE=8192*4;
 
@@ -53,7 +52,7 @@ public abstract class FileCopy
     }
     catch (IOException ioe)
     {
-      _logger.error("",ioe);
+      LOGGER.error("",ioe);
       return false;
     }
   }
@@ -75,7 +74,7 @@ public abstract class FileCopy
     }
     catch (IOException ioe)
     {
-      _logger.error("",ioe);
+      LOGGER.error("",ioe);
       return false;
     }
   }
@@ -96,7 +95,7 @@ public abstract class FileCopy
     }
     catch (FileNotFoundException fnfe)
     {
-      _logger.error("",fnfe);
+      LOGGER.error("",fnfe);
       return false;
     }
   }

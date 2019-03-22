@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Manages a cache that uses strong references.
  * @author DAM
@@ -17,7 +15,8 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class StrongReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(StrongReferencesCache.class);
+
   private HashMap<KEY_TYPE, TYPE> _objects;
 
   /**
@@ -43,7 +42,7 @@ public class StrongReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
     }
     else
     {
-      _logger.error("Cannot register a null object.");
+      LOGGER.error("Cannot register a null object.");
     }
   }
 

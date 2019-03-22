@@ -7,15 +7,13 @@ import java.util.zip.ZipEntry;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Manages access to an archive file.
  * @author DAM
  */
 public class ArchiveManager
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(ArchiveManager.class);
 
   private File _archiveFile;
   private JarFile _archive;
@@ -44,7 +42,7 @@ public class ArchiveManager
     }
     catch(Exception e)
     {
-      _logger.error("Cannot open archive file ["+_archiveFile+"]");
+      LOGGER.error("Cannot open archive file ["+_archiveFile+"]");
       _archive=null;
     }      
     return ok;
@@ -69,7 +67,7 @@ public class ArchiveManager
         }
         catch(Exception e)
         {
-          _logger.error("Cannot open archive entry ["+name+"] in file ["+_archiveFile+"]");
+          LOGGER.error("Cannot open archive entry ["+name+"] in file ["+_archiveFile+"]");
           is=null;
         }      
       }
@@ -90,7 +88,7 @@ public class ArchiveManager
       }
       catch(Exception e)
       {
-        _logger.error("Cannot close archive file ["+_archiveFile+"]");
+        LOGGER.error("Cannot close archive file ["+_archiveFile+"]");
         _archive=null;
       }      
     }

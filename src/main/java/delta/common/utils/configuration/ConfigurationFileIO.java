@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.files.TextFileReader;
 import delta.common.utils.files.TextFileWriter;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * I/O methods for configuration objects.
@@ -14,7 +13,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class ConfigurationFileIO
 {
-  private static final Logger _logger=UtilsLoggers.getCfgLogger();
+  private static final Logger LOGGER=Logger.getLogger(ConfigurationFileIO.class);
 
   /**
    * Load the contents of a file into a configuration.
@@ -26,7 +25,7 @@ public class ConfigurationFileIO
     TextFileReader reader=new TextFileReader(f);
     if (!reader.start())
     {
-      _logger.error("Configuration file not found or unreadable ["+f+"]");
+      LOGGER.error("Configuration file not found or unreadable ["+f+"]");
       return null;
     }
     Configuration config=new Configuration();
@@ -54,7 +53,7 @@ public class ConfigurationFileIO
         }
         else
         {
-          _logger.error("Invalid line "+lineNumber);
+          LOGGER.error("Invalid line "+lineNumber);
         }
       }
       else
@@ -66,7 +65,7 @@ public class ConfigurationFileIO
         }
         else
         {
-          _logger.error("Invalid line "+lineNumber);
+          LOGGER.error("Invalid line "+lineNumber);
         }
       }
     }

@@ -2,8 +2,6 @@ package delta.common.utils.misc;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Object capable of finding classes that inherit from a superclass.
  * @author DAM
@@ -11,7 +9,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class ClassResolver<T>
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(ClassResolver.class);
 
   private Class<? extends T> _targetClass;
 
@@ -42,12 +40,12 @@ public class ClassResolver<T>
       }
       else
       {
-        _logger.error("Class "+className+" is not a subclass of "+_targetClass.getName());
+        LOGGER.error("Class "+className+" is not a subclass of "+_targetClass.getName());
       }
     }
     catch (Exception e)
     {
-      _logger.error("Cannot load class "+className,e);
+      LOGGER.error("Cannot load class "+className,e);
     }
     return ret;
   }

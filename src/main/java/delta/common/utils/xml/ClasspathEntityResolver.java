@@ -8,15 +8,13 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * This class looks for entities in the classpath when the parser can't find them locally.
  * @author DAM
  */
 public class ClasspathEntityResolver implements EntityResolver
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(ClasspathEntityResolver.class);
 
   /**
    * Resolve entities by looking in the classpath.
@@ -28,9 +26,9 @@ public class ClasspathEntityResolver implements EntityResolver
    */
   public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
   {
-    if (_logger.isDebugEnabled())
+    if (LOGGER.isDebugEnabled())
     {
-      _logger.debug("Trying to resolve publicId=["+publicId+"], systemId=["+systemId+"]");
+      LOGGER.debug("Trying to resolve publicId=["+publicId+"], systemId=["+systemId+"]");
     }
 
     // Handle cases that we decide to forward to the default implementation :
@@ -67,9 +65,9 @@ public class ClasspathEntityResolver implements EntityResolver
     InputSource result=new InputSource(aStream);
     //result.setSystemId(aStreamSystemId);
 
-    if (_logger.isDebugEnabled())
+    if (LOGGER.isDebugEnabled())
     {
-      _logger.debug("Resolved ["+systemId+"] to ["+aStreamSystemId+"]");
+      LOGGER.debug("Resolved ["+systemId+"] to ["+aStreamSystemId+"]");
     }
     return result;
   }

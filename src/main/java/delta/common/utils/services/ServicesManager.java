@@ -7,15 +7,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Manager for all services.
  * @author DAM
  */
 public class ServicesManager
 {
-  private static final Logger _logger=UtilsLoggers.getServicesLogger();
+  private static final Logger LOGGER=Logger.getLogger(ServicesManager.class);
 
   /**
    * Reference to the sole instance of this class
@@ -82,7 +80,7 @@ public class ServicesManager
     for(int i=nbServices-1;i>=0;i--)
     {
       service=services.get(i);
-      _logger.info("Stopping service ["+service.getName()+"]");
+      LOGGER.info("Stopping service ["+service.getName()+"]");
       stopService(service);
     }
   }
@@ -106,7 +104,7 @@ public class ServicesManager
     }
     catch(Throwable t)
     {
-      _logger.error("",t);
+      LOGGER.error("",t);
     }
   }
 

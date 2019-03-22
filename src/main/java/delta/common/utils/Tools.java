@@ -2,15 +2,13 @@ package delta.common.utils;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Misc. tools.
  * @author DAM
  */
 public abstract class Tools
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(Tools.class);
 
   /**
    * Sleep for a while.
@@ -85,9 +83,9 @@ public abstract class Tools
       }
       catch (Exception ex2)
       {
-        _logger.error("",ex2);
+        LOGGER.error("",ex2);
       }
-      _logger.error("",ex);
+      LOGGER.error("",ex);
     }
   }
 }

@@ -9,7 +9,6 @@ import java.util.jar.JarFile;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.files.FileCopy;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Archive deflater.
@@ -17,7 +16,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class ArchiveDeflater
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(ArchiveDeflater.class);
 
   private File _archivePath;
 	private File _root;
@@ -41,7 +40,7 @@ public class ArchiveDeflater
   {
   	if (!_root.mkdirs())
   	{
-      _logger.error("Cannot create root dir ["+_root+"]");
+  	  LOGGER.error("Cannot create root dir ["+_root+"]");
   		return false;
   	}
   	boolean ok=true;
@@ -61,7 +60,7 @@ public class ArchiveDeflater
         {
         	if (!current.mkdirs())
         	{
-        		_logger.error("Cannot create directory ["+current+"]");
+        		LOGGER.error("Cannot create directory ["+current+"]");
         		ok=false;
         		break;
         	}
@@ -81,7 +80,7 @@ public class ArchiveDeflater
     }
     catch(Exception e)
     {
-      _logger.error("",e);
+      LOGGER.error("",e);
     	ok=false;
     }
     return ok;

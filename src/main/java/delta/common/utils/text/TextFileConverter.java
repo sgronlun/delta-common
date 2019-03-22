@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import delta.common.utils.files.TextFileReader;
 import delta.common.utils.files.TextFileWriter;
 import delta.common.utils.misc.MiscStringConstants;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Text file converter.
@@ -16,7 +15,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class TextFileConverter
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(TextFileConverter.class);
 
   private String _sourceEncoding;
   private String _destEncoding;
@@ -82,7 +81,7 @@ public class TextFileConverter
       else
       {
         ret=EncodingNames.DEFAULT_ENCODING;
-        _logger.warn("No encoding specified and cannot find out the encoding of file ["+sourceFile+"]. Using default platform encoding ["+ret+"].");
+        LOGGER.warn("No encoding specified and cannot find out the encoding of file ["+sourceFile+"]. Using default platform encoding ["+ret+"].");
       }
     }
     else

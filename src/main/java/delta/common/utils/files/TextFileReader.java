@@ -12,7 +12,6 @@ import java.nio.charset.Charset;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.io.StreamTools;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Reader to read a text file line by line.
@@ -20,7 +19,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class TextFileReader
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(TextFileReader.class);
 
   // Charset to use
   private Charset _charset;
@@ -105,7 +104,7 @@ public class TextFileReader
     // Existenz test
     if(!_path.canRead())
     {
-      _logger.error("File not found or unreadable ["+_path.getAbsolutePath()+"]");
+      LOGGER.error("File not found or unreadable ["+_path.getAbsolutePath()+"]");
       ret=false;
     }
     else
@@ -119,7 +118,7 @@ public class TextFileReader
       }
       catch(IOException ioException)
       {
-        _logger.error("Error when starting a TextFileReader !",ioException);
+        LOGGER.error("Error when starting a TextFileReader !",ioException);
         terminate();
         ret=false;
       }
@@ -157,7 +156,7 @@ public class TextFileReader
     }
     catch(IOException ioException)
     {
-      _logger.error("Error while reading file : "+_path.getAbsolutePath(),ioException);
+      LOGGER.error("Error while reading file : "+_path.getAbsolutePath(),ioException);
     }
     return line_l;
   }

@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.files.TextFileReader;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Tool to find encoding used by text files.
@@ -16,7 +15,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class TextEncodingFinder
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(TextEncodingFinder.class);
 
   private List<String> _encodings;
 
@@ -44,7 +43,7 @@ public class TextEncodingFinder
       tmp=getDefaultEncodings();
     }
     _encodings=new ArrayList<String>(tmp);
-    _verbose=_logger.isInfoEnabled();
+    _verbose=LOGGER.isInfoEnabled();
   }
 
   /**
@@ -64,9 +63,9 @@ public class TextEncodingFinder
       for(int i=0;i<nbEncodings;i++)
       {
         encoding=_encodings.get(i);
-        if (_logger.isDebugEnabled())
+        if (LOGGER.isDebugEnabled())
         {
-          _logger.debug("Trying encoding : "+encoding);
+          LOGGER.debug("Trying encoding : "+encoding);
         }
         result=evaluateEncoding(f,encoding);
         results.add(result);
@@ -99,7 +98,7 @@ public class TextEncodingFinder
       {
         foundEncoding=bestEncoding.getEncoding();
       }
-      _logger.info(f.getPath()+"\t"+foundEncoding);
+      LOGGER.info(f.getPath()+"\t"+foundEncoding);
       StringBuilder sb=new StringBuilder();
       String encoding;
       TextEncodingFinder.EncodingStats result;
@@ -123,7 +122,7 @@ public class TextEncodingFinder
         }
       }
       String msg=sb.toString();
-      _logger.info(msg);
+      LOGGER.info(msg);
     }
     return bestEncoding;
   }
@@ -163,10 +162,10 @@ public class TextEncodingFinder
               {
                 if (!foundOne)
                 {
-                  _logger.info("Using encoding ["+encoding+"]");
+                  LOGGER.info("Using encoding ["+encoding+"]");
                   foundOne=true;
                 }
-                _logger.info("Found ["+chars[i]+"] in line "+lineNumber+" ["+line+"]");
+                LOGGER.info("Found ["+chars[i]+"] in line "+lineNumber+" ["+line+"]");
               }
               nbLines++;
             }
@@ -178,7 +177,7 @@ public class TextEncodingFinder
     catch(Exception e)
     {
       String msg="Error while reading file ["+f.getName()+"] with encoding ["+encoding+"]";
-      _logger.error(msg,e);
+      LOGGER.error(msg,e);
     }
     finally
     {

@@ -8,15 +8,13 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Reader to read a binary file.
  * @author DAM
  */
 public class BinaryFileReader
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(BinaryFileReader.class);
 
   private DataInputStream _dis;
   private BufferedInputStream _bis;
@@ -97,7 +95,7 @@ public class BinaryFileReader
     }
     catch (IOException ioException)
     {
-      _logger.error("Cannot close file : "+_file,ioException);
+      LOGGER.error("Cannot close file : "+_file,ioException);
     }
   }
 }

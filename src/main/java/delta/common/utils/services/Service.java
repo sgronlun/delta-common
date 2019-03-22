@@ -4,15 +4,13 @@ import java.io.PrintStream;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Base class for services.
  * @author DAM
  */
 public class Service
 {
-  private static final Logger _logger=UtilsLoggers.getServicesLogger();
+  private static final Logger LOGGER=Logger.getLogger(Service.class);
 
   private String _name;
   private ServiceState _state;
@@ -55,7 +53,7 @@ public class Service
    */
   public void start()
   {
-    _logger.error("This method is not implemented for service ["+_name+"]");
+    LOGGER.error("This method is not implemented for service ["+_name+"]");
   }
 
   /**
@@ -69,7 +67,7 @@ public class Service
     }
     else if (_state==ServiceState.OUT_OF_ORDER)
     {
-      _logger.warn("Service ["+_name+"] is out of order. Cannot start it.");
+      LOGGER.warn("Service ["+_name+"] is out of order. Cannot start it.");
     }
   }
 
@@ -79,7 +77,7 @@ public class Service
    */
   public void stop()
   {
-    _logger.error("This method is not implemented for service ["+_name+"]");
+    LOGGER.error("This method is not implemented for service ["+_name+"]");
   }
 
   /**

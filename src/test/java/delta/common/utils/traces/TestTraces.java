@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  */
 public class TestTraces extends TestCase
 {
-  private static final Logger _logger=LoggersRegistry.getInstance().getLoggerByName("TEST",true);
+  private static final Logger LOGGER=Logger.getLogger(TestTraces.class);
 
   /**
    * Constructor.
@@ -30,7 +30,7 @@ public class TestTraces extends TestCase
     long now1=System.currentTimeMillis();
     for(int i=0;i<NB;i++)
     {
-      _logger.info("titi");
+      LOGGER.info("titi");
     }
     long now2=System.currentTimeMillis();
     long delta=now2-now1;

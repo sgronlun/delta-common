@@ -10,8 +10,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Manages a cache that uses weak references.
  * @author DAM
@@ -20,7 +18,8 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class WeakReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(WeakReferencesCache.class);
+
   private HashMap<KEY_TYPE, WeakReference<TYPE>> _objects;
 
   /**
@@ -47,7 +46,7 @@ public class WeakReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
     }
     else
     {
-      _logger.error("Cannot register a null object.");
+      LOGGER.error("Cannot register a null object.");
     }
   }
 

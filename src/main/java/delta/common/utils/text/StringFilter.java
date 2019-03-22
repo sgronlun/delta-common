@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.BooleanTools;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Filter that selects strings through equals/starts with/ends with/contains matches.
@@ -13,7 +12,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class StringFilter
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(StringFilter.class);
 
   private String _model;
   private MatchType _matchType;
@@ -110,7 +109,7 @@ public class StringFilter
     }
     catch(Exception e)
     {
-      _logger.error("Bad string filter definition",e);
+      LOGGER.error("Bad string filter definition",e);
     }
     return ret;
   }

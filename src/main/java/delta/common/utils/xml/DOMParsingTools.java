@@ -22,7 +22,6 @@ import org.w3c.dom.NodeList;
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.StreamTools;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Set of tool methods related to DOM trees parsing.
@@ -30,7 +29,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public abstract class DOMParsingTools
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(DOMParsingTools.class);
 
   /**
    * Get a list of child tags.
@@ -173,7 +172,7 @@ public abstract class DOMParsingTools
           }
           else
           {
-            _logger.warn("No value for attribute ["+attrValue+"] on element ["+tagName+"]");
+            LOGGER.warn("No value for attribute ["+attrValue+"] on element ["+tagName+"]");
           }
         }
       }
@@ -282,7 +281,7 @@ public abstract class DOMParsingTools
     }
     catch (Exception e)
     {
-      _logger.error("Parsing error",e);
+      LOGGER.error("Parsing error",e);
     }
     return null;
   }
@@ -305,7 +304,7 @@ public abstract class DOMParsingTools
     }
     catch (Exception e)
     {
-      _logger.error("Parsing error",e);
+      LOGGER.error("Parsing error",e);
     }
     return null;
   }
@@ -330,7 +329,7 @@ public abstract class DOMParsingTools
     }
     catch (Exception e)
     {
-      _logger.error("Parsing error with file " + source,e);
+      LOGGER.error("Parsing error with file " + source,e);
     }
     finally
     {

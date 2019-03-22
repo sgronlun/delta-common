@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
 import delta.common.utils.misc.HexString2BufferCodec;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * This class is a tool that reads a Windows '.ini' like configuration file and
@@ -44,7 +43,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class Configuration
 {
-  private static final Logger _logger=UtilsLoggers.getCfgLogger();
+  private static final Logger LOGGER=Logger.getLogger(Configuration.class);
 
   private HashMap<String,HashMap<String,String>> _infos;
   private SimpleCryptDecrypt _cryptManager;
@@ -279,7 +278,7 @@ public class Configuration
     if (nbUnresolved>0)
     {
       ret=false;
-      _logger.error("!!! "+nbUnresolved+" entries unresolved !");
+      LOGGER.error("!!! "+nbUnresolved+" entries unresolved !");
     }
     return ret;
   }
@@ -305,7 +304,7 @@ public class Configuration
       {
         if ((sectionEntry[0].equals(sectionName)) &&(sectionEntry[1].equals(entryName)))
         {
-          _logger.error("Self reference for entry ["+entryName+"] of section ["+sectionName+"]");
+          LOGGER.error("Self reference for entry ["+entryName+"] of section ["+sectionName+"]");
           ret=false; // Even if resolve took place : this is a fatal error
           break;
         }
@@ -348,7 +347,7 @@ public class Configuration
         }
         else
         {
-          _logger.error("Entry unresolved ["+sectionEntry[0]+SECTION_ENTRY_SEPARATOR+sectionEntry[1]+"]");
+          LOGGER.error("Entry unresolved ["+sectionEntry[0]+SECTION_ENTRY_SEPARATOR+sectionEntry[1]+"]");
           break;
         }
       }

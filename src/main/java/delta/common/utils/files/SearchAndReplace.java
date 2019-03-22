@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import delta.common.utils.files.filter.ExtensionPredicate;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Search and replace some text in a series of files.
@@ -15,7 +14,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class SearchAndReplace
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(SearchAndReplace.class);
 
   /**
    * Constructor.
@@ -63,14 +62,14 @@ public class SearchAndReplace
       boolean copyOK=FileCopy.copy(tmp,f);
       if (!copyOK)
       {
-        _logger.error("Could not copy ["+tmp.getAbsolutePath()+"] to ["+f.getAbsolutePath()+"]");
+        LOGGER.error("Could not copy ["+tmp.getAbsolutePath()+"] to ["+f.getAbsolutePath()+"]");
         ret=false;
       }
       tmp.delete();
     }
     catch (Exception e)
     {
-      _logger.error("",e);
+      LOGGER.error("",e);
       if (tmp!=null) tmp.delete();
       ret=false;
     }

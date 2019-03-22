@@ -2,15 +2,13 @@ package delta.common.utils;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Tools related to numeric values management.
  * @author DAM
  */
 public class NumericTools
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(NumericTools.class);
 
   /**
    * String that indicates an infinite positive value.
@@ -45,7 +43,7 @@ public class NumericTools
     }
     catch(NumberFormatException nfe)
     {
-      _logger.error("Cannot parse float '"+value+"'",nfe);
+      LOGGER.error("Cannot parse float '"+value+"'",nfe);
       return defaultValue;
     }
   }
@@ -95,7 +93,7 @@ public class NumericTools
     {
       if (doWarn)
       {
-        _logger.error("Cannot parse float '"+value+"'",nfe);
+        LOGGER.error("Cannot parse float '"+value+"'",nfe);
       }
       return null;
     }
@@ -129,7 +127,7 @@ public class NumericTools
     }
     catch(NumberFormatException nfe)
     {
-      _logger.error("Cannot parse double '"+value+"'",nfe);
+      LOGGER.error("Cannot parse double '"+value+"'",nfe);
       return defaultValue;
     }
   }
@@ -200,7 +198,7 @@ public class NumericTools
     {
       if (doWarn)
       {
-        _logger.error("Cannot parse long '"+value+"'",nfe);
+        LOGGER.error("Cannot parse long '"+value+"'",nfe);
       }
       return null;
     }
@@ -271,7 +269,7 @@ public class NumericTools
     {
       if (doWarn)
       {
-        _logger.error("Cannot parse int '"+value+"'",nfe);
+        LOGGER.error("Cannot parse int '"+value+"'",nfe);
       }
       return null;
     }
@@ -326,7 +324,7 @@ public class NumericTools
     }
     catch(NumberFormatException nfe)
     {
-      _logger.error("Cannot parse short '"+value+"'",nfe);
+      LOGGER.error("Cannot parse short '"+value+"'",nfe);
       return defaultValue;
     }
   }

@@ -10,8 +10,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * The <tt>TranslatorsManager</tt> manages a all <tt>Translator</tt>
  * instances.
@@ -26,7 +24,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class TranslatorsManager
 {
-  private static final Logger _logger=UtilsLoggers.getI18NLogger();
+  private static final Logger LOGGER=Logger.getLogger(TranslatorsManager.class);
 
   /**
    * Reference to the sole instance of this class.
@@ -104,13 +102,13 @@ public class TranslatorsManager
       }
       else
       {
-        _logger.warn("Cannot build translator : "+name);
+        LOGGER.warn("Cannot build translator : "+name);
         ret=null;
       }
     }
     else
     {
-      _logger.warn("Cannot create already existing translator : "+name);
+      LOGGER.warn("Cannot create already existing translator : "+name);
     }
     return ret;
   }
@@ -146,7 +144,7 @@ public class TranslatorsManager
       {
         if (useDefaultInCaseOfFailure)
         {
-          _logger.warn("Cannot get or create specified translator ("+name+"). Using default one.");
+          LOGGER.warn("Cannot get or create specified translator ("+name+"). Using default one.");
           ret=getDefaultTranslator();
         }
       }

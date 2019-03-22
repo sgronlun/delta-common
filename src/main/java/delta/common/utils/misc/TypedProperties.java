@@ -26,7 +26,7 @@ import delta.common.utils.traces.LoggersRegistry;
  */
 public class TypedProperties
 {
-  private static final Logger _logger=LoggersRegistry.getLogger(TypedProperties.class.getName());
+  private static final Logger LOGGER=LoggersRegistry.getLogger(TypedProperties.class.getName());
 
   private Properties _props;
 
@@ -54,7 +54,7 @@ public class TypedProperties
     }
     catch(IOException ioe)
     {
-      _logger.error("Cannot load properties from file ["+inFile+"]!",ioe);
+      LOGGER.error("Cannot load properties from file ["+inFile+"]!",ioe);
     }
     return ret;
   }
@@ -80,7 +80,7 @@ public class TypedProperties
     catch(IOException ioe)
     {
       ret=false;
-      _logger.error("Cannot load properties!",ioe);
+      LOGGER.error("Cannot load properties!",ioe);
     }
     finally
     {
@@ -107,7 +107,7 @@ public class TypedProperties
     catch(IOException ioe)
     {
       ret=false;
-      _logger.error("Cannot save properties to file ["+outFile+"]!",ioe);
+      LOGGER.error("Cannot save properties to file ["+outFile+"]!",ioe);
     }
     finally
     {
@@ -350,7 +350,7 @@ public class TypedProperties
       }
       if (r==null)
       {
-        _logger.error("Wrong rectangle format ["+propValue+"]");
+        LOGGER.error("Wrong rectangle format ["+propValue+"]");
       }
     }
     return r;

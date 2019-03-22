@@ -5,15 +5,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * A tools class to parse GNU-style command line options.
  * @author DAM
  */
 public class CommandLineOptions
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(CommandLineOptions.class);
 
   /**
    * Option seed
@@ -140,7 +138,7 @@ public class CommandLineOptions
         }
         else
         {
-          _logger.warn("Ignored arg ["+arg+"]");
+          LOGGER.warn("Ignored arg ["+arg+"]");
           ret=false;
         }
       }

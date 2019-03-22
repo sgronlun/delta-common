@@ -10,8 +10,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * A <tt>Translator</tt> is used to translate keys into messages in a given
  * language.
@@ -23,7 +21,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class Translator
 {
-  private static final Logger _logger=UtilsLoggers.getI18NLogger();
+  private static final Logger LOGGER=Logger.getLogger(Translator.class);
 
   /**
    * Parent translator. Used to forward translation requests if they're not
@@ -79,7 +77,7 @@ public class Translator
     }
     catch (Exception exception)
     {
-      _logger.error("Translator initialization error",exception);
+      LOGGER.error("Translator initialization error",exception);
     }
   }
 
@@ -110,7 +108,7 @@ public class Translator
     if (msg==null)
     {
       msg=key;
-      _logger.error("Key '"+key+"' not internationalized !");
+      LOGGER.error("Key '"+key+"' not internationalized !");
     }
     return msg;
   }

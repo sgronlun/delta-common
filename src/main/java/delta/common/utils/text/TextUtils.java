@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.files.TextFileReader;
 import delta.common.utils.misc.MiscStringConstants;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * A collection of tool methods related to text management.
@@ -16,7 +15,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class TextUtils
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(TextUtils.class);
 
   /**
    * Reads the contents of a text file as a string.
@@ -97,7 +96,7 @@ public class TextUtils
     }
     catch(Exception e)
     {
-      _logger.error("Error while reading text file contents",e);
+      LOGGER.error("Error while reading text file contents",e);
     }
     return ret;
   }

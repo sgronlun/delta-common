@@ -7,15 +7,13 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * File I/O methods.
  * @author DAM
  */
 public class FileIO
 {
-  private static final Logger _logger=UtilsLoggers.getIOLogger();
+  private static final Logger LOGGER=Logger.getLogger(FileIO.class);
 
   /**
    * Read the contents of a file into a byte buffer.
@@ -34,13 +32,13 @@ public class FileIO
       int readLength=fis.read(ret);
       if (readLength!=l)
       {
-        _logger.error("readLength="+readLength+" != length="+l);
+        LOGGER.error("readLength="+readLength+" != length="+l);
         ret=null;
       }
     }
     catch (IOException ioe)
     {
-      _logger.error("",ioe);
+      LOGGER.error("",ioe);
       ret=null;
     }
     finally
@@ -68,7 +66,7 @@ public class FileIO
     }
     catch (IOException ioe)
     {
-      _logger.error("",ioe);
+      LOGGER.error("",ioe);
     }
     finally
     {

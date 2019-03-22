@@ -4,15 +4,14 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Internationalization test.
  * @author DAM
  */
 public class TestI18n extends TestCase
 {
-  private static final Logger _logger=UtilsLoggers.getI18NLogger();
+  private static final Logger LOGGER=Logger.getLogger(TestI18n.class);
+
   private static final Translator _translator=TranslatorsManager.getInstance().createTranslator(TestI18n.class);
 
   /**
@@ -29,9 +28,9 @@ public class TestI18n extends TestCase
   public void testTranslation()
   {
     String simpleMsg=_translator.translate("test");
-    _logger.info("Translation for 'test' : '"+simpleMsg+"'");
+    LOGGER.info("Translation for 'test' : '"+simpleMsg+"'");
     Object[] params=new String[] {"1", "2", "3"};
     String complexMsg=_translator.translate("test_args",params);
-    _logger.info("Translation for 'test_args' : '"+complexMsg+"'");
+    LOGGER.info("Translation for 'test_args' : '"+complexMsg+"'");
   }
 }

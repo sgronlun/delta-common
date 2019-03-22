@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.io.StreamTools;
 import delta.common.utils.misc.MiscStringConstants;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Writer to write a text file line by line.
@@ -19,7 +18,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class TextFileWriter
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(TextFileWriter.class);
 
   private BufferedWriter _bufferedWriter;
   private OutputStreamWriter _osWriter;
@@ -108,7 +107,7 @@ public class TextFileWriter
     }
     catch (IOException ioException)
     {
-      _logger.error("Cannot open file ["+_file+"]",ioException);
+      LOGGER.error("Cannot open file ["+_file+"]",ioException);
       terminate();
       ret=false;
     }
@@ -130,7 +129,7 @@ public class TextFileWriter
     }
     catch (IOException ioException)
     {
-      _logger.error("Cannot write text to file ["+_file+"]",ioException);
+      LOGGER.error("Cannot write text to file ["+_file+"]",ioException);
     }
     return ret;
   }
@@ -151,7 +150,7 @@ public class TextFileWriter
     }
     catch (IOException ioException)
     {
-      _logger.error("Cannot write text line to file ["+_file+"]",ioException);
+      LOGGER.error("Cannot write text line to file ["+_file+"]",ioException);
     }
     return ret;
   }
@@ -172,7 +171,7 @@ public class TextFileWriter
     }
     catch (IOException ioException)
     {
-      _logger.error("Cannot write a line with a long to file ["+_file+"]", ioException);
+      LOGGER.error("Cannot write a line with a long to file ["+_file+"]", ioException);
     }
     return ret;
   }

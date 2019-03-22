@@ -10,15 +10,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Storage for the data in a table.
  * @author DAM
  */
 public class DataTable
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(DataTable.class);
 
   private Map<String,DataTableColumn<?>> _columnsMap;
   private List<DataTableColumn<?>> _columns;
@@ -65,7 +63,7 @@ public class DataTable
     }
     else
     {
-      _logger.warn("Column ["+name+"] already exists in this table!");
+      LOGGER.warn("Column ["+name+"] already exists in this table!");
     }
     return ret;
   }

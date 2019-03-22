@@ -2,15 +2,13 @@ package delta.common.utils.misc;
 
 import org.apache.log4j.Logger;
 
-import delta.common.utils.traces.UtilsLoggers;
-
 /**
  * Manages sleep time.
  * @author DAM
  */
 public class SleepManager
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(SleepManager.class);
 
   /**
    * Make this thread sleep for a specified amount of time. 
@@ -24,7 +22,7 @@ public class SleepManager
     }
     catch(InterruptedException ie)
     {
-      _logger.error(ie);
+      LOGGER.error(ie);
     }
   }
 }

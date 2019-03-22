@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import delta.common.utils.io.FileIO;
 import delta.common.utils.io.StreamTools;
-import delta.common.utils.traces.UtilsLoggers;
 
 /**
  * Builds archive files.
@@ -19,7 +18,7 @@ import delta.common.utils.traces.UtilsLoggers;
  */
 public class ArchiveBuilder
 {
-  private static final Logger _logger=UtilsLoggers.getUtilsLogger();
+  private static final Logger LOGGER=Logger.getLogger(ArchiveBuilder.class);
 
   private File _archiveFile;
   private FileOutputStream fos;
@@ -51,7 +50,7 @@ public class ArchiveBuilder
     }
     catch (IOException ioe)
     {
-      _logger.error("",ioe);
+      LOGGER.error("",ioe);
       StreamTools.close(jos);
       jos=null;
       ok=false;
