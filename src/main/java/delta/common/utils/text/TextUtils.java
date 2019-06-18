@@ -25,8 +25,18 @@ public class TextUtils
    */
   public static String loadTextFile(File path, String encoding)
   {
-    String ret=null;
     List<String> lines=readAsLines(path,encoding);
+    return concatLines(lines);
+  }
+
+  /**
+   * Concatenate lines into a single string.
+   * @param lines Lines to use.
+   * @return concatenated string.
+   */
+  public static String concatLines(List<String> lines)
+  {
+    String ret=null;
     if ((lines!=null) && (lines.size()>0))
     {
       StringBuilder sb=new StringBuilder();
