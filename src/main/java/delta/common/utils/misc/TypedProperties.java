@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
 import delta.common.utils.io.StreamTools;
-import delta.common.utils.traces.LoggersRegistry;
 
 /**
  * Typed properties access.
@@ -26,7 +25,7 @@ import delta.common.utils.traces.LoggersRegistry;
  */
 public class TypedProperties
 {
-  private static final Logger LOGGER=LoggersRegistry.getLogger(TypedProperties.class.getName());
+  private static final Logger LOGGER=Logger.getLogger(TypedProperties.class);
 
   private Properties _props;
 
