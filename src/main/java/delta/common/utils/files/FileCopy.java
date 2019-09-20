@@ -132,7 +132,7 @@ public abstract class FileCopy
     }
     catch (IOException e)
     {
-      e.printStackTrace();
+      LOGGER.error("File copy error. To: "+to,e);
       result=false;
     }
     finally

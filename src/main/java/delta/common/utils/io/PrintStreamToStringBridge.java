@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.Logger;
+
 /**
  * A tool class that makes a bridge from a print stream to a string.
  * It is used to build a <tt>String</tt> from data written to a <tt>PrintStream</tt>.
@@ -11,6 +13,8 @@ import java.io.UnsupportedEncodingException;
  */
 public class PrintStreamToStringBridge
 {
+  private static final Logger LOGGER=Logger.getLogger(PrintStreamToStringBridge.class);
+
   private static final String DEFAULT_ENCODING="UTF-8";
   private String _encoding;
   private ByteArrayOutputStream _baos;
@@ -39,7 +43,7 @@ public class PrintStreamToStringBridge
       }
       catch(UnsupportedEncodingException e)
       {
-        e.printStackTrace();
+        LOGGER.warn("Unsupported encoding: "+_encoding,e);
       }
     }
     return _ps;
@@ -62,7 +66,7 @@ public class PrintStreamToStringBridge
       }
       catch(UnsupportedEncodingException e)
       {
-        e.printStackTrace();
+        LOGGER.warn("Unsupported encoding: "+_encoding,e);
       }
     }
     return ret;

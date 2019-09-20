@@ -6,12 +6,16 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 
+import org.apache.log4j.Logger;
+
 /**
  * Tool methods related to I/O streams.
  * @author DAM
  */
 public class StreamTools
 {
+  private static final Logger LOGGER=Logger.getLogger(StreamTools.class);
+
   /**
    * Close an input stream.
    * @param is Input stream to close.
@@ -26,7 +30,7 @@ public class StreamTools
       }
       catch(IOException ioe)
       {
-        ioe.printStackTrace();
+        LOGGER.error("Could not close input stream!",ioe);
       }
     }
   }
@@ -45,7 +49,7 @@ public class StreamTools
       }
       catch(IOException ioe)
       {
-        ioe.printStackTrace();
+        LOGGER.error("Could not close output stream!",ioe);
       }
     }
   }
@@ -64,7 +68,7 @@ public class StreamTools
       }
       catch(IOException ioe)
       {
-        ioe.printStackTrace();
+        LOGGER.error("Could not close reader!",ioe);
       }
     }
   }
@@ -83,7 +87,7 @@ public class StreamTools
       }
       catch(IOException ioe)
       {
-        ioe.printStackTrace();
+        LOGGER.error("Could not close writer!",ioe);
       }
     }
   }

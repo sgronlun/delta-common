@@ -454,7 +454,7 @@ public class ExternalCommand
       }
       catch(Exception e)
       {
-        e.printStackTrace();
+        LOGGER.error("Could write text to stdin!",e);
       }
     }
   }

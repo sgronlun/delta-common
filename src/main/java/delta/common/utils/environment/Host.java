@@ -3,12 +3,16 @@ package delta.common.utils.environment;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.apache.log4j.Logger;
+
 /**
  * Represents an host.
  * @author DAM
  */
 public class Host
 {
+  private static final Logger LOGGER=Logger.getLogger(Host.class);
+
   /**
    * Alias for the local host.
    */
@@ -44,9 +48,9 @@ public class Host
       }
       _name=name;
     }
-    catch(UnknownHostException uhe_l)
+    catch(UnknownHostException uhe)
     {
-      uhe_l.printStackTrace(System.err);
+      LOGGER.warn("Unknown host!", uhe);
     }
   }
 
