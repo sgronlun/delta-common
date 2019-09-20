@@ -1,5 +1,6 @@
 package delta.common.utils.text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,47 @@ public class StringTools
     {
       if (i>0) sb.append(", ");
       sb.append(data[i]);
+    }
+    sb.append(']');
+    return sb.toString();
+  }
+
+  /**
+   * Smart toString method, that copes gracefully with arrays.
+   * @param value Value to show.
+   * @return the result string.
+   */
+  public static String smartToString(Object value)
+  {
+    String valueStr=null;
+    if (value!=null)
+    {
+      if (value.getClass().isArray())
+      {
+        valueStr=arrayToString(value);
+      }
+      else
+      {
+        valueStr=value.toString();
+      }
+    }
+    return valueStr;
+  }
+
+  private static String arrayToString(Object array)
+  {
+    StringBuilder sb=new StringBuilder();
+    sb.append('[');
+    int length=Array.getLength(array);
+    for(int i=0;i<length;i++)
+    {
+      if (i>0)
+      {
+        sb.append(',');
+      }
+      Object value=Array.get(array,i);
+      String valueStr=smartToString(value);
+      sb.append(valueStr);
     }
     sb.append(']');
     return sb.toString();
