@@ -75,24 +75,24 @@ public class Configuration
    * @return the value
    * @throws IllegalArgumentException if the arguments are not valid
    */
-  public String getStringValue(String sectionName, String key,String defaultValue)
+  public String getStringValue(String sectionName, String key, String defaultValue)
   {
     String info=defaultValue;
     if (sectionName==null)
     {
-      throw new IllegalArgumentException("section_p==null");
+      throw new IllegalArgumentException("sectionName==null");
     }
     if (key==null)
     {
-      throw new IllegalArgumentException("key_p==null");
+      throw new IllegalArgumentException("key==null");
     }
     if (sectionName.length()==0)
     {
-      throw new IllegalArgumentException("section_p.equals(\"\")");
+      throw new IllegalArgumentException("sectionName.equals(\"\")");
     }
     if (key.length()==0)
     {
-      throw new IllegalArgumentException("key_p.equals(\"\")");
+      throw new IllegalArgumentException("key.equals(\"\")");
     }
 
     HashMap<String,String> section=_infos.get(sectionName);
@@ -191,10 +191,10 @@ public class Configuration
    */
   public String[] getSectionNames()
   {
-    ArrayList<String> sortedSections_l=new ArrayList<String>(_infos.keySet());
-    Collections.sort(sortedSections_l);
-    String[] ret=new String[sortedSections_l.size()];
-    return sortedSections_l.toArray(ret);
+    ArrayList<String> sortedSections=new ArrayList<String>(_infos.keySet());
+    Collections.sort(sortedSections);
+    String[] ret=new String[sortedSections.size()];
+    return sortedSections.toArray(ret);
   }
 
   /**

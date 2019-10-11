@@ -146,19 +146,19 @@ public class TextFileReader
    */
   public String getNextLine()
   {
-    String line_l=null;
+    String line=null;
     try
     {
       if(_bufferedReader.ready())
       {
-        line_l=_bufferedReader.readLine();
+        line=_bufferedReader.readLine();
       }
     }
     catch(IOException ioException)
     {
       LOGGER.error("Error while reading file : "+_path.getAbsolutePath(),ioException);
     }
-    return line_l;
+    return line;
   }
 
   /**

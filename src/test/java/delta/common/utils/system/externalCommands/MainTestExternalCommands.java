@@ -6,7 +6,7 @@ import delta.common.utils.misc.SleepManager;
  * Main class to test external commands.
  * @author DAM
  */
-public class MainTestPDAG
+public class MainTestExternalCommands
 {
   /**
    * Execute a command asynchronously.
@@ -21,8 +21,8 @@ public class MainTestPDAG
     SleepManager.sleep(5000);
     pm.stopProcess();
     System.out.println("End date : "+pm.getEndDate());
-    long duration_l=pm.getEndDate().longValue()-pm.getStartDate().longValue();
-    System.out.println("Duration (ms) = "+duration_l);
+    long duration=pm.getEndDate().longValue()-pm.getStartDate().longValue();
+    System.out.println("Duration (ms) = "+duration);
     return pm.getExecutionStatus();
   }
 
@@ -37,8 +37,8 @@ public class MainTestPDAG
     Integer ret=pm.executeSynchronously();
     System.out.println("Start date : "+pm.getStartDate());
     System.out.println("End date : "+pm.getEndDate());
-    long duration_l=pm.getEndDate().longValue()-pm.getStartDate().longValue();
-    System.out.println("Duration (ms) = "+duration_l);
+    long duration=pm.getEndDate().longValue()-pm.getStartDate().longValue();
+    System.out.println("Duration (ms) = "+duration);
     return ret;
   }
 
@@ -48,6 +48,6 @@ public class MainTestPDAG
    */
   public static void main(String[] args)
   {
-    System.out.println(MainTestPDAG.executeCommandAsynchronous("notepad.exe"));
+    System.out.println(MainTestExternalCommands.executeCommandAsynchronous("notepad.exe"));
   }
 }
