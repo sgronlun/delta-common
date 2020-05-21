@@ -338,13 +338,13 @@ public class TypedProperties
       String[] items=propValue.split(",");
       if ((items!=null) && (items.length==4))
       {
-        int x=NumericTools.parseInt(items[0],-1);
-        int y=NumericTools.parseInt(items[1],-1);
-        int width=NumericTools.parseInt(items[2],-1);
-        int height=NumericTools.parseInt(items[3],-1);
-        if ((x!=-1) && (y!=-1) && (width!=-1) && (height!=-1))
+        Integer x=NumericTools.parseInteger(items[0]);
+        Integer y=NumericTools.parseInteger(items[1]);
+        Integer width=NumericTools.parseInteger(items[2]);
+        Integer height=NumericTools.parseInteger(items[3]);
+        if ((x!=null) && (y!=null) && (width!=null) && (height!=null))
         {
-          r=new Rectangle(x,y,width,height);
+          r=new Rectangle(x.intValue(),y.intValue(),width.intValue(),height.intValue());
         }
       }
       if (r==null)
