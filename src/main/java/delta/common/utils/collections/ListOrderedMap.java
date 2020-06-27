@@ -103,8 +103,36 @@ public class ListOrderedMap<T> implements Iterable<T>
     return _list.size();
   }
 
+  /**
+   * Get an iterator on this container.
+   * @return an iteractor.
+   */
   public Iterator<T> iterator()
   {
     return _list.iterator();
+  }
+
+  /**
+   * Remove all.
+   */
+  public void clear()
+  {
+    _list.clear();
+    _map.clear();
+  }
+
+  /**
+   * Remove an entry using its key.
+   * @param key Key to remove.
+   * @return the removed value or <code>null</code>.
+   */
+  public T remove(String key)
+  {
+    T ret=_map.remove(key);
+    if (ret!=null)
+    {
+      _list.remove(ret);
+    }
+    return ret;
   }
 }
