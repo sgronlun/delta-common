@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 /**
  * Manages a cache that uses weak references.
  * @author DAM
@@ -18,8 +16,6 @@ import org.apache.log4j.Logger;
  */
 public class WeakReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
 {
-  private static final Logger LOGGER=Logger.getLogger(WeakReferencesCache.class);
-
   private HashMap<KEY_TYPE, WeakReference<TYPE>> _objects;
 
   /**

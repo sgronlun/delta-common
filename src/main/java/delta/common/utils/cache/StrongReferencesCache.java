@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 /**
  * Manages a cache that uses strong references.
  * @author DAM
@@ -15,8 +13,6 @@ import org.apache.log4j.Logger;
  */
 public class StrongReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
 {
-  private static final Logger LOGGER=Logger.getLogger(StrongReferencesCache.class);
-
   private HashMap<KEY_TYPE, TYPE> _objects;
 
   /**
