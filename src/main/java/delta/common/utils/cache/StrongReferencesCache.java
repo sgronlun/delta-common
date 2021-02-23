@@ -36,14 +36,7 @@ public class StrongReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
   @Override
   public void registerObject(KEY_TYPE key, TYPE object)
   {
-    if (object!=null)
-    {
-      _objects.put(key, object);
-    }
-    else
-    {
-      LOGGER.error("Cannot register a null object.");
-    }
+    _objects.put(key, object);
   }
 
   /**

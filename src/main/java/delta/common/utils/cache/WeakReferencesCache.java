@@ -39,15 +39,8 @@ public class WeakReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
   @Override
   public void registerObject(KEY_TYPE key, TYPE object)
   {
-    if (object!=null)
-    {
-      WeakReference<TYPE> ref=new WeakReference<TYPE>(object);
-      _objects.put(key, ref);
-    }
-    else
-    {
-      LOGGER.error("Cannot register a null object.");
-    }
+    WeakReference<TYPE> ref=new WeakReference<TYPE>(object);
+    _objects.put(key, ref);
   }
 
   /**
