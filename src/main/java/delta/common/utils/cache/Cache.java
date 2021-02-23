@@ -29,7 +29,14 @@ public abstract class Cache<KEY_TYPE,TYPE>
    * @return an object or <code>null</code> if not found.
    */
   public abstract TYPE getObject(KEY_TYPE key);
-  
+
+  /**
+   * Indicates if this cache has the given key.
+   * @param key Key to use.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public abstract boolean hasObject(KEY_TYPE key);
+
   /**
    * Get the number of items in this cache.
    * @return the number of items in this cache.

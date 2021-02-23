@@ -70,7 +70,13 @@ public class StrongReferencesCache<KEY_TYPE,TYPE> extends Cache<KEY_TYPE,TYPE>
     TYPE ret=_objects.get(key);
     return ret;
   }
-  
+
+  @Override
+  public boolean hasObject(KEY_TYPE key)
+  {
+    return _objects.containsKey(key);
+  }
+
   /**
    * Get the number of items in this cache.
    * @return the number of items in this cache.
