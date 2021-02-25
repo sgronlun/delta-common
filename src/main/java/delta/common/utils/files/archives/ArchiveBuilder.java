@@ -4,8 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.jar.JarOutputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.log4j.Logger;
 
@@ -23,7 +23,7 @@ public class ArchiveBuilder
   private File _archiveFile;
   private FileOutputStream fos;
   private BufferedOutputStream bos;
-  private JarOutputStream jos;
+  private ZipOutputStream jos;
 
   /**
    * Constructor.
@@ -45,7 +45,7 @@ public class ArchiveBuilder
     {
       fos=new FileOutputStream(_archiveFile);
       bos=new BufferedOutputStream(fos);
-      jos=new JarOutputStream(bos);
+      jos=new ZipOutputStream(bos);
       ok=true;
     }
     catch (IOException ioe)
@@ -73,7 +73,32 @@ public class ArchiveBuilder
       entry.setSize(absolute.length());
       byte[] buffer=FileIO.readFile(absolute);
       jos.putNextEntry(entry);
-      jos.write(buffer);
+      jos.write(buffer,0,buffer.length);
+      jos.closeEntry();
+      ok=true;
+    }
+    catch (IOException ioe)
+    {
+      ok=false;
+    }
+    return ok;
+  }
+
+  /**
+   * Add a file to this archive.
+   * @param absolute File to add.
+   * @param archivePath Entry path in the archive.
+   * @return <code>true</code> if it was successfull, <code>false</code> otherwise.
+   */
+  private boolean addDirectoryEntry(File absolute, File archivePath)
+  {
+    boolean ok;
+    try
+    {
+      String path=archivePath.getPath();
+      if (!path.endsWith("/")) path=path+"/";
+      ZipEntry entry=new ZipEntry(path);
+      jos.putNextEntry(entry);
       jos.closeEntry();
       ok=true;
     }
@@ -93,6 +118,11 @@ public class ArchiveBuilder
   public boolean addDirectory(File root, File localRoot)
   {
     boolean ret=true;
+
+    if (localRoot!=null)
+    {
+      addDirectoryEntry(root,localRoot);
+    }
     File[] files=root.listFiles();
     File f;
     String name;

@@ -19,35 +19,38 @@ public class ArchiveDeflater
   private static final Logger LOGGER=Logger.getLogger(ArchiveDeflater.class);
 
   private File _archivePath;
-	private File _root;
+  private File _root;
 
-	/**
-	 * Constructor.
-	 * @param archivePath Archive file.
-	 * @param root Root directory for the output files.
-	 */
-	public ArchiveDeflater(File archivePath, File root)
-	{
-		_archivePath=archivePath;
-		_root=root;
-	}
+  /**
+   * Constructor.
+   * @param archivePath Archive file.
+   * @param root Root directory for the output files.
+   */
+  public ArchiveDeflater(File archivePath, File root)
+  {
+    _archivePath=archivePath;
+    _root=root;
+  }
 
-	/**
-	 * Do the job.
-	 * @return <code>true</code> if it succeeded, <code>false</code> otherwise.
-	 */
+  /**
+   * Do the job.
+   * @return <code>true</code> if it succeeded, <code>false</code> otherwise.
+   */
   public boolean go()
   {
-  	if (!_root.mkdirs())
-  	{
-  	  LOGGER.error("Cannot create root dir ["+_root+"]");
-  		return false;
-  	}
-  	boolean ok=true;
-  	JarFile jarFile=null;
-  	try
+    if (!_root.exists())
     {
-  		jarFile=new JarFile(_archivePath);
+      if (!_root.mkdirs())
+      {
+        LOGGER.error("Cannot create root dir ["+_root+"]");
+        return false;
+      }
+    }
+    boolean ok=true;
+    JarFile jarFile=null;
+    try
+    {
+      jarFile=new JarFile(_archivePath);
       Enumeration<JarEntry> enumeration=jarFile.entries();
       JarEntry e=null;
       InputStream is=null;
@@ -58,12 +61,12 @@ public class ArchiveDeflater
         current=new File(_root,e.getName().replace('/',File.separatorChar));
         if (e.isDirectory())
         {
-        	if (!current.mkdirs())
-        	{
-        		LOGGER.error("Cannot create directory ["+current+"]");
-        		ok=false;
-        		break;
-        	}
+          if (!current.mkdirs())
+          {
+            LOGGER.error("Cannot create directory ["+current+"]");
+            ok=false;
+            break;
+          }
         }
         else
         {
@@ -72,16 +75,16 @@ public class ArchiveDeflater
           ok=FileCopy.copy(is,current);
           if (!ok)
           {
-        		break;
+            break;
           }
         }
       }
       if (jarFile!=null) jarFile.close();
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       LOGGER.error("",e);
-    	ok=false;
+      ok=false;
     }
     return ok;
   }
