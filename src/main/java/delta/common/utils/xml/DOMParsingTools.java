@@ -270,18 +270,23 @@ public abstract class DOMParsingTools
   public static Element parse(URL url)
   {
     if (url==null) return null;
+    InputStream is=null;
     try
     {
-      String uri=url.toURI().toString();
+      is=url.openStream();
       DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
       builder.setEntityResolver(new ClasspathEntityResolver());
-      Document doc=builder.parse(uri);
+      Document doc=builder.parse(is);
       Element root=doc.getDocumentElement();
       return root;
     }
     catch (Exception e)
     {
       LOGGER.error("Parsing error",e);
+    }
+    finally
+    {
+      StreamTools.close(is);
     }
     return null;
   }
