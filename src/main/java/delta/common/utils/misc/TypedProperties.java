@@ -130,6 +130,16 @@ public class TypedProperties
   }
 
   /**
+   * Indicates if this properties set has the given property.
+   * @param name Name of the property to get.
+   * @return <code>true</code> if it does, <code>false</code> otherwise.
+   */
+  public boolean hasProperty(String name)
+  {
+    return _props.containsKey(name);
+  }
+
+  /**
    * Get a typed property value.
    * @param name Property name.
    * @param valueClass Type of the desired value.
@@ -164,6 +174,15 @@ public class TypedProperties
     {
       _props.put(name,value);
     }
+  }
+
+  /**
+   * Add some properties from another properties set.
+   * @param properties Properties to add.
+   */
+  public void addProperties(TypedProperties properties)
+  {
+    _props.putAll(properties._props);
   }
 
   /**
