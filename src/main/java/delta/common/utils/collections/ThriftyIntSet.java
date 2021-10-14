@@ -68,7 +68,7 @@ public class ThriftyIntSet
    */
   public boolean contains(int value)
   {
-    return Arrays.binarySearch(_values,value)!=-1;
+    return Arrays.binarySearch(_values,value)>=-0;
   }
 
   /**
@@ -99,5 +99,11 @@ public class ThriftyIntSet
   public int[] getValues()
   {
     return _values;
+  }
+
+  @Override
+  public String toString()
+  {
+    return _values.length+": "+Arrays.toString(_values);
   }
 }
