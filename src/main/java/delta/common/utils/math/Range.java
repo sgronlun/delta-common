@@ -19,6 +19,17 @@ public class Range
   }
 
   /**
+   * Constructor.
+   * @param min Minimum.
+   * @param max Maximum.
+   */
+  public Range(Integer min, Integer max)
+  {
+    _min=min;
+    _max=max;
+  }
+
+  /**
    * Constructor with both limits.
    * @param min Minimum value (inclusive).
    * @param max Maximum value (inclusive).
@@ -63,6 +74,47 @@ public class Range
       return false;
     }
     return true;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return ((_min!=null)?_min.intValue():0)*17+((_max!=null)?_max.intValue():0);
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (obj instanceof Range)
+    {
+      Range other=(Range)obj;
+      if ((_min==null) && (other._min!=null))
+      {
+        return false;
+      }
+      if ((_min!=null) && (other._min==null))
+      {
+        return false;
+      }
+      if ((_min!=null) && (_min.intValue()!=other._min.intValue()))
+      {
+        return false;
+      }
+      if ((_max==null) && (other._max!=null))
+      {
+        return false;
+      }
+      if ((_max!=null) && (other._max==null))
+      {
+        return false;
+      }
+      if ((_max!=null) && (_max.intValue()!=other._max.intValue()))
+      {
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 
   @Override
