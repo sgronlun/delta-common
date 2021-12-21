@@ -2,8 +2,8 @@ package delta.common.utils.files;
 
 import java.io.File;
 
-import junit.framework.TestCase;
 import delta.common.utils.environment.User;
+import junit.framework.TestCase;
 
 /**
  * Unit test class for the text file writer.

@@ -1,8 +1,8 @@
 package delta.common.utils.i18n;
 
-import junit.framework.TestCase;
-
 import org.apache.log4j.Logger;
+
+import junit.framework.TestCase;
 
 /**
  * Internationalization test.

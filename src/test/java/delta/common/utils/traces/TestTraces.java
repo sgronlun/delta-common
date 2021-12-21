@@ -1,8 +1,8 @@
 package delta.common.utils.traces;
 
-import junit.framework.TestCase;
-
 import org.apache.log4j.Logger;
+
+import junit.framework.TestCase;
 
 /**
  * Traces test.

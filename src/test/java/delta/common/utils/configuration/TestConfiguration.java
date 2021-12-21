@@ -2,10 +2,10 @@ package delta.common.utils.configuration;
 
 import java.io.File;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import delta.common.utils.environment.FileSystem;
 import delta.common.utils.files.TextFileWriter;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 /**
  * Tests for the configuration service.

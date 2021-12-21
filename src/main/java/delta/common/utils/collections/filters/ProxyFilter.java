@@ -1,7 +1,5 @@
 package delta.common.utils.collections.filters;
 
-import delta.common.utils.collections.filters.Filter;
-
 /**
  * Proxy for another filter.
  * @author DAM
