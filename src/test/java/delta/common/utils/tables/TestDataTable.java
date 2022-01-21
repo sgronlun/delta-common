@@ -29,11 +29,11 @@ public class TestDataTable extends TestCase
 
     // Name column
     table.addColumn(NAME_COLUMN,String.class);
-    DataTableColumn<?> nameColumn=table.getColumnByName(NAME_COLUMN);
+    DataTableColumn<?> nameColumn=table.getColumnByKey(NAME_COLUMN);
     Assert.assertNotNull(nameColumn);
     // Date column
     table.addColumn(DATE_COLUMN,Date.class);
-    DataTableColumn<?> dateColumn=table.getColumnByName(DATE_COLUMN);
+    DataTableColumn<?> dateColumn=table.getColumnByKey(DATE_COLUMN);
     Assert.assertNotNull(dateColumn);
 
     return table;
@@ -41,9 +41,9 @@ public class TestDataTable extends TestCase
 
   private void fillTable(DataTable table)
   {
-    DataTableColumn<?> nameColumn=table.getColumnByName(NAME_COLUMN);
+    DataTableColumn<?> nameColumn=table.getColumnByKey(NAME_COLUMN);
     int nameIndex=nameColumn.getIndex();
-    DataTableColumn<?> dateColumn=table.getColumnByName(DATE_COLUMN);
+    DataTableColumn<?> dateColumn=table.getColumnByKey(DATE_COLUMN);
     int dateIndex=dateColumn.getIndex();
     for(int i=0;i<NB_ROWS;i++)
     {

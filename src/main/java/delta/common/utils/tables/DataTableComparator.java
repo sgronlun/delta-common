@@ -18,15 +18,15 @@ public class DataTableComparator implements Comparator<DataTableRow>,Serializabl
   /**
    * Constructor.
    * @param table Associated table.
-   * @param columnName Name of the column to use.
+   * @param columnKey Key of the column to use.
    * @param reverse Sort order (<code>true</code> to reverse natural order).
    */
   @SuppressWarnings("unchecked")
-  public DataTableComparator(DataTable table, String columnName, boolean reverse)
+  public DataTableComparator(DataTable table, String columnKey, boolean reverse)
   {
     _columnIndex=-1;
     _comparator=null;
-    DataTableColumn<?> column=table.getColumnByName(columnName);
+    DataTableColumn<?> column=table.getColumnByKey(columnKey);
     if (column!=null)
     {
       _columnIndex=column.getIndex();

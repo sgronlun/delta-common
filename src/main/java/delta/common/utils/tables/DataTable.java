@@ -52,8 +52,21 @@ public class DataTable
    */
   public <E> DataTableColumn<E> addColumn(String name, Class<E> classOfObjects, Comparator<E> comparator)
   {
+    return addColumn(name,name,classOfObjects,comparator);
+  }
+
+  /**
+   * Add a column.
+   * @param key Identifying key.
+   * @param name Column name.
+   * @param classOfObjects Class of data items in this column.
+   * @param comparator Comparator to use in this column.
+   * @return A data column object. 
+   */
+  public <E> DataTableColumn<E> addColumn(String key, String name, Class<E> classOfObjects, Comparator<E> comparator)
+  {
     DataTableColumn<E> ret=null;
-    DataTableColumn<?> column=getColumnByName(name);
+    DataTableColumn<?> column=getColumnByKey(key);
     if (column==null)
     {
       int index=_columnsMap.size();
@@ -79,13 +92,13 @@ public class DataTable
   }
 
   /**
-   * Get a column using its name.
-   * @param columnName Name of the targeted column.
+   * Get a column using its key.
+   * @param columnKey Key of the targeted column.
    * @return A table column.
    */
-  public DataTableColumn<?> getColumnByName(String columnName)
+  public DataTableColumn<?> getColumnByKey(String columnKey)
   {
-    return _columnsMap.get(columnName);
+    return _columnsMap.get(columnKey);
   }
 
   /**
