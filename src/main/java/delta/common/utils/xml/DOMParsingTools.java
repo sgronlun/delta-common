@@ -56,9 +56,60 @@ public abstract class DOMParsingTools
    * Get a child element by its tag name.
    * @param e Root element.
    * @param tagName Name of tag.
+   * @param recursive Recursive search or not.
+   * @return A child element or <code>null</code> if not found.
+   */
+  public static Element getChildTagByName(Element e,String tagName, boolean recursive)
+  {
+    if (recursive)
+    {
+      return recursive_getChildTagByName(e,tagName);
+    }
+    Element ret=null;
+    NodeList children=e.getChildNodes();
+    int nb=children.getLength();
+    int nbFound=0;
+    for(int i=0;i<nb;i++)
+    {
+      Node child=children.item(i);
+      if (child instanceof Element)
+      {
+        Element childElement=(Element)child;
+        if (tagName.equals(childElement.getTagName()))
+        {
+          if (nbFound==0)
+          {
+            ret=childElement;
+          }
+          nbFound++;
+        }
+      }
+    }
+    if (nbFound>1)
+    {
+      LOGGER.warn("Found more than one child (" + nbFound + "): "+tagName);
+    }
+    return ret;
+  }
+
+  /**
+   * Get a child element by its tag name.
+   * @param e Root element.
+   * @param tagName Name of tag.
    * @return A child element or <code>null</code> if not found.
    */
   public static Element getChildTagByName(Element e,String tagName)
+  {
+    Element withFalse=getChildTagByName(e,tagName,false);
+    Element withTrue=getChildTagByName(e,tagName,true);
+    if (withFalse!=withTrue)
+    {
+      LOGGER.warn("Check recursive flag!");
+    }
+    return withTrue;
+  }
+
+  public static Element recursive_getChildTagByName(Element e,String tagName)
   {
     NodeList nl=e.getElementsByTagName(tagName);
     Element ret=null;
@@ -69,7 +120,7 @@ public abstract class DOMParsingTools
       {
         if (nbPropertiesNodes>1)
         {
-          // todo warn
+          LOGGER.debug("Found more than one child with name: "+tagName);
         }
         ret=(Element)nl.item(0);
       }
