@@ -61,33 +61,40 @@ public abstract class DOMParsingTools
    */
   public static Element getChildTagByName(Element e,String tagName, boolean recursive)
   {
+    Element ret=null;
     if (recursive)
     {
-      return recursive_getChildTagByName(e,tagName);
-    }
-    Element ret=null;
-    NodeList children=e.getChildNodes();
-    int nb=children.getLength();
-    int nbFound=0;
-    for(int i=0;i<nb;i++)
-    {
-      Node child=children.item(i);
-      if (child instanceof Element)
+      NodeList nl=e.getElementsByTagName(tagName);
+      if (nl!=null)
       {
-        Element childElement=(Element)child;
-        if (tagName.equals(childElement.getTagName()))
+        int nbPropertiesNodes=nl.getLength();
+        if (nbPropertiesNodes>=1)
         {
-          if (nbFound==0)
+          if (nbPropertiesNodes>1)
           {
-            ret=childElement;
+            LOGGER.debug("Found more than one child with name: "+tagName);
           }
-          nbFound++;
+          ret=(Element)nl.item(0);
         }
       }
     }
-    if (nbFound>1)
+    else
     {
-      LOGGER.warn("Found more than one child (" + nbFound + "): "+tagName);
+      NodeList children=e.getChildNodes();
+      int nb=children.getLength();
+      for(int i=0;i<nb;i++)
+      {
+        Node child=children.item(i);
+        if (child instanceof Element)
+        {
+          Element childElement=(Element)child;
+          if (tagName.equals(childElement.getTagName()))
+          {
+            ret=childElement;
+            break;
+          }
+        }
+      }
     }
     return ret;
   }
@@ -100,32 +107,7 @@ public abstract class DOMParsingTools
    */
   public static Element getChildTagByName(Element e,String tagName)
   {
-    Element withFalse=getChildTagByName(e,tagName,false);
-    Element withTrue=getChildTagByName(e,tagName,true);
-    if (withFalse!=withTrue)
-    {
-      LOGGER.warn("Check recursive flag!");
-    }
-    return withTrue;
-  }
-
-  public static Element recursive_getChildTagByName(Element e,String tagName)
-  {
-    NodeList nl=e.getElementsByTagName(tagName);
-    Element ret=null;
-    if (nl!=null)
-    {
-      int nbPropertiesNodes=nl.getLength();
-      if (nbPropertiesNodes>=1)
-      {
-        if (nbPropertiesNodes>1)
-        {
-          LOGGER.debug("Found more than one child with name: "+tagName);
-        }
-        ret=(Element)nl.item(0);
-      }
-    }
-    return ret;
+    return getChildTagByName(e,tagName,false);
   }
 
   /**
