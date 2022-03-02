@@ -134,6 +134,23 @@ public class StringTools
   }
 
   /**
+   * Find the string before string <code>after</code> in a line of text. 
+   * @param line Line to use.
+   * @param after String to search.
+   * @return A string or <code>null</code> if <code>after</code> was not found.
+   */
+  public static String findBefore(String line, String after)
+  {
+    String ret=null;
+    int index=line.indexOf(after);
+    if (index!=-1)
+    {
+      ret=line.substring(0,index);
+    }
+    return ret;
+  }
+
+  /**
    * Find the string after string <code>before</code> in a line of text. 
    * @param line Line to use.
    * @param before String to search.
