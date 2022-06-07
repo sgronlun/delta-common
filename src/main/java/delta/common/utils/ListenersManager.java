@@ -11,17 +11,8 @@ import java.util.List;
  */
 public class ListenersManager<L> implements Iterable<L>
 {
-  /**
-   * Get an iterator over the managed listeners.
-   * @return a new iterator.
-   */
-  public Iterator<L> iterator()
-  {
-    return _listeners.iterator();
-  }
-
   private List<L> _listeners;
-  
+
   /**
    * Constructor.
    */
@@ -38,7 +29,7 @@ public class ListenersManager<L> implements Iterable<L>
   {
     _listeners.add(listener);
   }
-  
+
   /**
    * Remove a listener.
    * @param listener Listener to remove.
@@ -47,12 +38,30 @@ public class ListenersManager<L> implements Iterable<L>
   {
     _listeners.remove(listener);
   }
-  
+
   /**
    * Remove all listeners.
    */
   public void removeAllListeners()
   {
     _listeners.clear();
+  }
+
+  /**
+   * Get an iterator over the managed listeners.
+   * @return a new iterator.
+   */
+  public Iterator<L> iterator()
+  {
+    return _listeners.iterator();
+  }
+
+  /**
+   * Get the number of listeners.
+   * @return A listeners count.
+   */
+  public int getListenersCount()
+  {
+    return _listeners.size();
   }
 }
