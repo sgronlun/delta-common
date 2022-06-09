@@ -245,6 +245,27 @@ public abstract class DOMParsingTools
   }
 
   /**
+   * Get an integer attribute from a map of node attributes.
+   * @param attrs Attributes to use.
+   * @param attrName Name of attribute to search.
+   * @param defaultValue Default value (returned if no such attribute is found, or if attribute's value does not parse as an integer).
+   * @return An integer value (found value or default value).
+   */
+  public static Integer getIntegerAttribute(NamedNodeMap attrs, String attrName, Integer defaultValue)
+  {
+    Node tmp=attrs.getNamedItem(attrName);
+    if (tmp!=null)
+    {
+      Integer parsedValue=NumericTools.parseInteger(tmp.getNodeValue(),true);
+      if (parsedValue!=null)
+      {
+        return parsedValue;
+      }
+    }
+    return defaultValue;
+  }
+
+  /**
    * Get a long attribute from a map of node attributes.
    * @param attrs Attributes to use.
    * @param attrName Name of attribute to search.
