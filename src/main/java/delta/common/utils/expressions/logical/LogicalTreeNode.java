@@ -5,12 +5,12 @@ package delta.common.utils.expressions.logical;
  * @param <T> Type of managed data.
  * @author DAM
  */
-public class AbstractLogicalExpression<T>
+public class LogicalTreeNode<T>
 {
   /**
    * Constructor.
    */
-  public AbstractLogicalExpression()
+  public LogicalTreeNode()
   {
     // Nothing!
   }

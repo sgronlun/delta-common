@@ -5,7 +5,7 @@ package delta.common.utils.expressions.logical;
  * @param <T> Type of managed data.
  * @author DAM
  */
-public class SimpleLogicalExpression<T> extends AbstractLogicalExpression<T>
+public class SimpleLogicalTreeNode<T> extends LogicalTreeNode<T>
 {
   private T _value;
 
@@ -13,7 +13,7 @@ public class SimpleLogicalExpression<T> extends AbstractLogicalExpression<T>
    * Constructor.
    * @param value Value to compare to.
    */
-  public SimpleLogicalExpression(T value)
+  public SimpleLogicalTreeNode(T value)
   {
     super();
     _value=value;

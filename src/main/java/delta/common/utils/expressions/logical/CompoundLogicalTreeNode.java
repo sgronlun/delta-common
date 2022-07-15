@@ -10,20 +10,20 @@ import delta.common.utils.collections.filters.Operator;
  * @param <T> Type of managed data.
  * @author DAM
  */
-public class CompoundLogicalExpression<T> extends AbstractLogicalExpression<T>
+public class CompoundLogicalTreeNode<T> extends LogicalTreeNode<T>
 {
   private Operator _operator;
-  private List<AbstractLogicalExpression<T>> _items;
+  private List<LogicalTreeNode<T>> _items;
 
   /**
    * Constructor.
    * @param operator Operator.
    */
-  public CompoundLogicalExpression(Operator operator)
+  public CompoundLogicalTreeNode(Operator operator)
   {
     super();
     _operator=operator;
-    _items=new ArrayList<AbstractLogicalExpression<T>>();
+    _items=new ArrayList<LogicalTreeNode<T>>();
   }
 
   /**
@@ -39,7 +39,7 @@ public class CompoundLogicalExpression<T> extends AbstractLogicalExpression<T>
    * Add a new item.
    * @param item Item to add.
    */
-  public void addItem(AbstractLogicalExpression<T> item)
+  public void addItem(LogicalTreeNode<T> item)
   {
     _items.add(item);
   }
@@ -49,7 +49,7 @@ public class CompoundLogicalExpression<T> extends AbstractLogicalExpression<T>
    * @param oldOne Old one.
    * @param newOne New one.
    */
-  public void replace(AbstractLogicalExpression<T> oldOne, AbstractLogicalExpression<T> newOne)
+  public void replace(LogicalTreeNode<T> oldOne, LogicalTreeNode<T> newOne)
   {
     for(int i=0;i<_items.size();i++)
     {
@@ -64,9 +64,9 @@ public class CompoundLogicalExpression<T> extends AbstractLogicalExpression<T>
    * Get the managed items.
    * @return A list of the managed items.
    */
-  public List<AbstractLogicalExpression<T>> getItems()
+  public List<LogicalTreeNode<T>> getItems()
   {
-    return new ArrayList<AbstractLogicalExpression<T>>(_items);
+    return new ArrayList<LogicalTreeNode<T>>(_items);
   }
 
   @Override
