@@ -26,7 +26,7 @@ public class MainTestValueProvidersAndObservables
     ObservableSimpleIntegerExpression obs=new ObservableSimpleIntegerExpression(expr);
     selectedCountObservable.addObserver(obs);
     Observable<Boolean> buttonStateObservable=obs.getObservable();
-    JButton button=new JButton();
+    final JButton button=new JButton();
     Observer<Boolean> buttonStateUpdater=new Observer<Boolean>()
     {
       @Override
