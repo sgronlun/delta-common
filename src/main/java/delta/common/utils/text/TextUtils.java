@@ -1,6 +1,7 @@
 package delta.common.utils.text;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,19 @@ public class TextUtils
   public static String loadTextFile(File path, String encoding)
   {
     List<String> lines=readAsLines(path,encoding);
+    return concatLines(lines);
+  }
+
+  /**
+   * Reads the contents of a text resource as a string.
+   * @param url URL to read.
+   * @param encoding Encoding to use.
+   * @return a <tt>String</tt> that reflects the contents of the given resource or <code>null</code> if an error occurred.
+   */
+  public static String loadText(URL url, String encoding)
+  {
+    TextFileReader r=new TextFileReader(url,encoding);
+    List<String> lines=readAsLines(r);
     return concatLines(lines);
   }
 
