@@ -1,7 +1,5 @@
 package delta.common.utils.text;
 
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -36,8 +34,7 @@ public class TestStringNormalising extends TestCase {
 				+ "AAEEEIIOOOUUAAOaaaaeeeiiooooouuu" 
 				+ "–—‘’“”•...‰";
 
-		String norm = Normalizer.normalize(utf8string, Normalizer.Form.NFKD);
-		norm = norm.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+		String norm = StringFilter.normalise(utf8string);
 		//System.out.println(expected);
 		//System.out.println(norm);
 		Assert.assertEquals(norm, expected);	

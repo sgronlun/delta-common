@@ -1,5 +1,6 @@
 package delta.common.utils.text;
 
+import java.text.Normalizer;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ public class StringFilter
   private String _model;
   private MatchType _matchType;
   private boolean _ignoreCase;
+  private boolean _normalise;
 
   /**
    * Constructor.
@@ -26,14 +28,30 @@ public class StringFilter
    */
   public StringFilter(String model, MatchType matchType, boolean ignoreCase)
   {
-    _model=model;
-    _matchType=matchType;
-    _ignoreCase=ignoreCase;
-    if (ignoreCase)
-    {
-      _model=model.toUpperCase();
-    }
+      this(model, matchType, ignoreCase, false);
   }
+
+    /**
+     * Constructor.
+     * 
+     * @param model      Model string.
+     * @param matchType  Match type.
+     * @param ignoreCase Indicates if case matters (<code>false</code>) or not
+     *                   (<code>true</code>).
+     * @param normalise  Indicates if international characters (with accents,
+     *                   etc.), matter (<code>false</code>) or not
+     *                   (<code>true</code>).
+     */
+    public StringFilter(String model, MatchType matchType, boolean ignoreCase,
+            boolean normalise) {
+        _model = model;
+        _matchType = matchType;
+        _ignoreCase = ignoreCase;
+        if (ignoreCase) {
+            _model = model.toUpperCase();
+        }
+        this._normalise = normalise;
+    }
 
   /**
    * Tests whether or not the specified string should be selected
@@ -50,6 +68,9 @@ public class StringFilter
       if (_ignoreCase)
       {
         toMatch=stringToTest.toUpperCase();
+      }
+      if (_normalise) {
+          toMatch = normalise(toMatch);
       }
       if (_matchType==MatchType.EQUALS)
       {
@@ -85,6 +106,17 @@ public class StringFilter
     String ret=sb.toString();
     return ret;
   }
+
+    /**
+     * Remove accents and diacritics.
+     * 
+     * @param str the string to normalise.
+     * @return the normalised string.
+     */
+    public static String normalise(String str) {
+        String norm = Normalizer.normalize(str, Normalizer.Form.NFKD);
+        return norm.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+    }
 
   /**
    * Build an instance of this class from a string definition.
