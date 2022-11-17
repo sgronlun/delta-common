@@ -18,7 +18,7 @@ public class StringFilter
   private String _model;
   private MatchType _matchType;
   private boolean _ignoreCase;
-  private boolean _normalise;
+  private boolean _normalize;
 
   /**
    * Constructor.
@@ -28,30 +28,29 @@ public class StringFilter
    */
   public StringFilter(String model, MatchType matchType, boolean ignoreCase)
   {
-      this(model, matchType, ignoreCase, false);
+    this(model,matchType,ignoreCase,false);
   }
 
-    /**
-     * Constructor.
-     * 
-     * @param model      Model string.
-     * @param matchType  Match type.
-     * @param ignoreCase Indicates if case matters (<code>false</code>) or not
-     *                   (<code>true</code>).
-     * @param normalise  Indicates if international characters (with accents,
-     *                   etc.), matter (<code>false</code>) or not
-     *                   (<code>true</code>).
-     */
-    public StringFilter(String model, MatchType matchType, boolean ignoreCase,
-            boolean normalise) {
-        _model = model;
-        _matchType = matchType;
-        _ignoreCase = ignoreCase;
-        if (ignoreCase) {
-            _model = model.toUpperCase();
-        }
-        this._normalise = normalise;
+  /**
+   * Constructor.
+   * @param model Model string.
+   * @param matchType Match type.
+   * @param ignoreCase Indicates if case matters (<code>false</code>) or not
+   * (<code>true</code>).
+   * @param normalize Indicates if international characters (with accents,
+   * etc.), matter (<code>false</code>) or not (<code>true</code>).
+   */
+  public StringFilter(String model, MatchType matchType, boolean ignoreCase, boolean normalize)
+  {
+    _model=model;
+    _matchType=matchType;
+    _ignoreCase=ignoreCase;
+    if (ignoreCase)
+    {
+      _model=model.toUpperCase();
     }
+    _normalize=normalize;
+  }
 
   /**
    * Tests whether or not the specified string should be selected
@@ -69,8 +68,9 @@ public class StringFilter
       {
         toMatch=stringToTest.toUpperCase();
       }
-      if (_normalise) {
-          toMatch = normalise(toMatch);
+      if (_normalize)
+      {
+        toMatch=normalize(toMatch);
       }
       if (_matchType==MatchType.EQUALS)
       {
@@ -107,16 +107,16 @@ public class StringFilter
     return ret;
   }
 
-    /**
-     * Remove accents and diacritics.
-     * 
-     * @param str the string to normalise.
-     * @return the normalised string.
-     */
-    public static String normalise(String str) {
-        String norm = Normalizer.normalize(str, Normalizer.Form.NFKD);
-        return norm.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-    }
+  /**
+   * Remove accents and diacritics.
+   * @param str the string to normalize.
+   * @return the normalized string.
+   */
+  public static String normalize(String str)
+  {
+    String norm=Normalizer.normalize(str,Normalizer.Form.NFKD);
+    return norm.replaceAll("[\\p{InCombiningDiacriticalMarks}]","");
+  }
 
   /**
    * Build an instance of this class from a string definition.
