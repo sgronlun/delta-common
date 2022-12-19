@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<element1 id="1" name="Element 1">
+<child1 id="101" name="Child1-1">
+<childofchild1 id="1010" name="Child 1 of child 1-1"/>
+</child1>
+<child1 id="102" name="Child1-2">
+<childofchild1 id="1020" name="Child 1 of child 1-2"/>
+<childofchild1 id="1021" name="Child 2 of child 1-2"/>
+</child1>
+<child2 id="201" name="Child2-1">
+</child2>
+</element1>
+<element1 id="2" name="Element 2">
+</element1>
+</root>
