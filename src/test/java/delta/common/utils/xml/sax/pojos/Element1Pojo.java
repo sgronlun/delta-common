@@ -3,6 +3,8 @@ package delta.common.utils.xml.sax.pojos;
 import java.util.ArrayList;
 import java.util.List;
 
+import delta.common.utils.io.streams.IndentableStream;
+
 /**
  * Sample element 1 POJO for SAX parsing tests.
  * @author DAM
@@ -55,5 +57,24 @@ public class Element1Pojo extends IdAndName
   public List<Child2Pojo> getChild2List()
   {
     return _child2List;
+  }
+
+  /**
+   * Dump contents to the given stream.
+   * @param out Output stream.
+   */
+  public void dump(IndentableStream out)
+  {
+    out.println(toString());
+    out.incrementIndendationLevel();
+    for(Child1Pojo pojo : _child1List)
+    {
+      pojo.dump(out);
+    }
+    for(Child2Pojo pojo : _child2List)
+    {
+      pojo.dump(out);
+    }
+    out.decrementIndentationLevel();
   }
 }

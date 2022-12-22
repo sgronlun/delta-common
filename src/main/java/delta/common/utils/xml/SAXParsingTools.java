@@ -1,12 +1,14 @@
 package delta.common.utils.xml;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
@@ -21,7 +23,7 @@ public class SAXParsingTools
   private static final Logger LOGGER=Logger.getLogger(SAXParsingTools.class);
 
   /**
-   * Parse the XML file.
+   * Parse a XML file.
    * @param source Source file.
    * @param engine Parsing engine.
    * @return result.
@@ -39,7 +41,32 @@ public class SAXParsingTools
     }
     catch (Exception e)
     {
-      LOGGER.error("Error when loading items file "+source,e);
+      LOGGER.error("Error when loading file "+source,e);
+    }
+    return null;
+  }
+
+  /**
+   * Parse a XML stream.
+   * @param url Input URL.
+   * @param engine Parsing engine.
+   * @return result.
+   */
+  public static <RESULT> RESULT parseFromURL(URL url, SAXParserEngine<RESULT> engine)
+  {
+    try
+    {
+      // Use the default (non-validating) parser
+      SAXParserFactory factory=SAXParserFactory.newInstance();
+      SAXParser saxParser=factory.newSAXParser();
+      InputSource source=new InputSource(url.openStream());
+      saxParser.parse(source,engine);
+      saxParser.reset();
+      return engine.getResult();
+    }
+    catch (Exception e)
+    {
+      LOGGER.error("Error when loading from URL "+url,e);
     }
     return null;
   }

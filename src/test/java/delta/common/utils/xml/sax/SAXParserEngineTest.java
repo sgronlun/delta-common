@@ -1,7 +1,9 @@
 package delta.common.utils.xml.sax;
 
-import java.io.File;
+import java.net.URL;
 
+import delta.common.utils.io.streams.IndentableStream;
+import delta.common.utils.url.URLTools;
 import delta.common.utils.xml.SAXParsingTools;
 import delta.common.utils.xml.sax.pojos.MainPojo;
 import junit.framework.TestCase;
@@ -17,9 +19,10 @@ public class SAXParserEngineTest extends TestCase
    */
   public void testEngine()
   {
-    File from=new File("sample.xml");
     SAXParserEngine<MainPojo> engine=new SAXParserEngine<>(new MainParser());
-    MainPojo result=SAXParsingTools.parseFile(from,engine);
-    System.out.println("Result: "+result);
+    URL url=URLTools.getFromClassPath("sample.xml",getClass());
+    MainPojo result=SAXParsingTools.parseFromURL(url,engine);
+    IndentableStream out=new IndentableStream(System.out);
+    result.dump(out);
   }
 }

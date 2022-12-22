@@ -54,7 +54,7 @@ public class MainParser extends SAXParserValve<MainPojo>
     {
       return _child2Parser;
     }
-    return super.handleStartTag(tagName,attrs);
+    return this;
   }
 
   @Override
