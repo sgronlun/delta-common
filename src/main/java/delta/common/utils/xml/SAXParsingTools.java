@@ -1,9 +1,16 @@
 package delta.common.utils.xml;
 
+import java.io.File;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.apache.log4j.Logger;
 import org.xml.sax.Attributes;
 
 import delta.common.utils.BooleanTools;
 import delta.common.utils.NumericTools;
+import delta.common.utils.xml.sax.SAXParserEngine;
 
 /**
  * SAX parsing tools.
@@ -11,6 +18,32 @@ import delta.common.utils.NumericTools;
  */
 public class SAXParsingTools
 {
+  private static final Logger LOGGER=Logger.getLogger(SAXParsingTools.class);
+
+  /**
+   * Parse the XML file.
+   * @param source Source file.
+   * @param engine Parsing engine.
+   * @return result.
+   */
+  public static <RESULT> RESULT parseFile(File source, SAXParserEngine<RESULT> engine)
+  {
+    try
+    {
+      // Use the default (non-validating) parser
+      SAXParserFactory factory=SAXParserFactory.newInstance();
+      SAXParser saxParser=factory.newSAXParser();
+      saxParser.parse(source,engine);
+      saxParser.reset();
+      return engine.getResult();
+    }
+    catch (Exception e)
+    {
+      LOGGER.error("Error when loading items file "+source,e);
+    }
+    return null;
+  }
+
   /**
    * Get an integer attribute from SAX attributes.
    * @param attrs Attributes to use.

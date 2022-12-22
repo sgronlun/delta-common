@@ -49,6 +49,15 @@ public class SAXParserValve<RESULT>
   }
 
   /**
+   * Set the managed result.
+   * @param result Result to set.
+   */
+  public void setResult(RESULT result)
+  {
+    _result=result;
+  }
+
+  /**
    * Handle the start of a tag.
    * @param tagName Tag name.
    * @param attrs Tag attributes.
@@ -62,9 +71,10 @@ public class SAXParserValve<RESULT>
   /**
    * Handle the end of a tag.
    * @param tagName Tag Name.
+   * @return the valve that will handle the next start/end tag.
    */
-  public void handleEndTag(String tagName)
+  public SAXParserValve<?> handleEndTag(String tagName)
   {
-    // Nothing!
+    return this;
   }
 }

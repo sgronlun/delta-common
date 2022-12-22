@@ -5,23 +5,57 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * @author dmorcellet
+ * SAX parser engine, that uses valves to implement the actual parsing.
+ * @param <RESULT> Type of result.
+ * @author DAM
  */
-public class SAXParserEngine extends DefaultHandler
+public class SAXParserEngine<RESULT> extends DefaultHandler
 {
+  private SAXParserValve<RESULT> _initial;
   private SAXParserValve<?> _current;
 
-  
+  /**
+   * Constructor.
+   * @param initialValve Initial valve.
+   */
+  public SAXParserEngine(SAXParserValve<RESULT> initialValve)
+  {
+    _initial=initialValve;
+    _current=initialValve;
+  }
+
   @Override
   public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException
   {
+    System.out.println("Handling START of tag "+qualifiedName+" with valve: "+_current);
     SAXParserValve<?> next=_current.handleStartTag(qualifiedName,attributes);
-    _current=next;
+    while (next!=_current)
+    {
+      _current=next;
+      System.out.println("Switching to a new valve: "+_current);
+      startElement(uri,localName,qualifiedName,attributes);
+    }
   }
 
   @Override
   public void endElement(String uri, String localName, String qualifiedName)
   {
-    _current.handleEndTag(qualifiedName);
+    System.out.println("Handlng END of tag "+qualifiedName+" with parser: "+_current);
+    SAXParserValve<?> next=_current.handleEndTag(qualifiedName);
+    if (next!=_current)
+    {
+      _current=next;
+      System.out.println("Switching to a new valve: "+_current);
+      endElement(uri,localName,qualifiedName);
+    }
+  }
+
+  /**
+   * Get the parsing result.
+   * @return a result.
+   */
+  public RESULT getResult()
+  {
+    return _initial.getResult();
   }
 }
