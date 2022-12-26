@@ -86,6 +86,23 @@ public class SAXParsingTools
   }
 
   /**
+   * Get  long attribute from SAX attributes.
+   * @param attrs Attributes to use.
+   * @param attrName Name of attribute to search.
+   * @param defaultValue Default value (returned if no such attribute is found, or if attribute's value does not parse as an integer).
+   * @return A long value (found value or default value).
+   */
+  public static long getLongAttribute(Attributes attrs, String attrName, long defaultValue)
+  {
+    String valueStr=attrs.getValue(attrName);
+    if (valueStr!=null)
+    {
+      return NumericTools.parseLong(valueStr,defaultValue);
+    }
+    return defaultValue; 
+  }
+
+  /**
    * Get a float attribute from SAX attributes.
    * @param attrs Attributes to use.
    * @param attrName Name of attribute to search.
