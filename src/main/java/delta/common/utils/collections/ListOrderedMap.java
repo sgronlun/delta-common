@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A collection that merges map and list functionnalities. 
+ * A collection that merges map and list functionalities. 
  * @author DAM
  * @param <T> Type of objects managed by this collection.
  */
