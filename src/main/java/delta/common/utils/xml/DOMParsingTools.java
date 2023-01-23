@@ -317,6 +317,34 @@ public abstract class DOMParsingTools
   }
 
   /**
+   * Get an enum value from a map of node attributes.
+   * @param <T> Enum type.
+   * @param attrs Attributes to use.
+   * @param attrName Name of attribute to search.
+   * @param defaultValue Default value (returned if no such attribute is found, or if attribute's value does not parse correctly).
+   * @param clazz Enum class.
+   * @return An enum value (found value or default value).
+   */
+  public static <T extends Enum<T>> T getEnumAttribute(NamedNodeMap attrs, String attrName, T defaultValue, Class<T> clazz)
+  {
+    T ret=defaultValue;
+    Node tmp=attrs.getNamedItem(attrName);
+    if (tmp!=null)
+    {
+      String value=tmp.getNodeValue();
+      try
+      {
+        ret=Enum.valueOf(clazz,value);
+      }
+      catch(Exception e)
+      {
+        LOGGER.warn("Unsupported value for enum: "+clazz.getName()+": ["+value+"]");
+      }
+    }
+    return ret;
+  }
+  
+  /**
    * Build a DOM tree from an URL.
    * @param url Targeted URL.
    * @return The root element of parsed tree or <code>null</code> if any problem.
