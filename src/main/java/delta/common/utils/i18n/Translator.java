@@ -29,6 +29,10 @@ public class Translator
    */
   private Translator _parent;
   /**
+   * Locale.
+   */
+  private Locale _locale;
+  /**
    * Underlying <tt>ResourceBundle</tt> used to build translated strings.
    */
   private ResourceBundle _messages;
@@ -39,46 +43,45 @@ public class Translator
 
   /**
    * Constructs a new translator using the <tt>ResourceBundle</tt> designated
-   * by <tt>name</tt>, in the default locale, with no parent translator.
-   * @param name of the <tt>ResourceBundle</tt> to use.
-   * @deprecated for backward compatibility with C4I.
+   * by <tt>name</tt>, in the default locale, with the specified
+   * <tt>parent</tt> translator.
+   * @param baseName of the <tt>ResourceBundle</tt> to use.
+   * @param parent translator.
    */
-  @Deprecated
-  Translator(String name)
+  public Translator(String baseName, Translator parent)
   {
-    init(name,null);
+    this(baseName,parent,Locale.getDefault());
   }
 
   /**
    * Constructs a new translator using the <tt>ResourceBundle</tt> designated
-   * by <tt>name</tt>, in the default locale, with the specified
+   * by <tt>name</tt>, in the given locale, with the specified
    * <tt>parent</tt> translator.
-   * @param name of the <tt>ResourceBundle</tt> to use.
+   * @param baseName of the <tt>ResourceBundle</tt> to use.
    * @param parent translator.
+   * @param locale Locale.
    */
-  Translator(String name, Translator parent)
-  {
-    init(name,parent);
-  }
-
-  /**
-   * Initialization routine used by all constructors. Fetches the right
-   * <tt>ResourceBundle</tt>.
-   * @param baseName name of the <tt>ResourceBundle</tt> to use.
-   * @param parent translator.
-   */
-  private void init(String baseName, Translator parent)
+  public Translator(String baseName, Translator parent, Locale locale)
   {
     try
     {
       _parent=parent;
-      Locale locale=Locale.getDefault();
+      _locale=locale;
       _messages=ResourceBundle.getBundle(baseName,locale);
     }
     catch (Exception exception)
     {
       LOGGER.error("Translator initialization error",exception);
     }
+  }
+
+  /**
+   * Get the managed locale.
+   * @return the managed locale.
+   */
+  public Locale getLocale()
+  {
+    return _locale;
   }
 
   /**
