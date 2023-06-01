@@ -23,7 +23,7 @@ public interface Context
   <T> T getValue(String key, Class<T> clazz);
 
   /**
-   * Remove a value.
+   * Remove a value in this context.
    * @param key Key to remove.
    */
   void removeValue(String key);
