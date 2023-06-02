@@ -23,6 +23,13 @@ public interface Context
   <T> T getValue(String key, Class<T> clazz);
 
   /**
+   * Set a context value.
+   * @param key Key to use.
+   * @param value Value to set.
+   */
+  void setValue(String key, Object value);
+
+  /**
    * Remove a value in this context.
    * @param key Key to remove.
    */

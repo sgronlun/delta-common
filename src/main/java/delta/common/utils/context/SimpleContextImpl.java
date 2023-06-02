@@ -47,6 +47,12 @@ public class SimpleContextImpl implements Context
   }
 
   @Override
+  public void setValue(String key, Object value)
+  {
+    _values.put(key,value);
+  }
+
+  @Override
   public void removeValue(String key)
   {
     _values.remove(key);
