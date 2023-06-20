@@ -1,7 +1,9 @@
 package delta.common.utils.context;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Simple context implementation.
@@ -47,6 +49,12 @@ public class SimpleContextImpl implements Context
   }
 
   @Override
+  public boolean hasValue(String key)
+  {
+    return _values.containsKey(key);
+  }
+
+  @Override
   public void setValue(String key, Object value)
   {
     _values.put(key,value);
@@ -56,6 +64,12 @@ public class SimpleContextImpl implements Context
   public void removeValue(String key)
   {
     _values.remove(key);
+  }
+
+  @Override
+  public Set<String> getKeys()
+  {
+    return new HashSet<String>(_values.keySet());
   }
 
   @Override

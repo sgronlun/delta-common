@@ -1,5 +1,7 @@
 package delta.common.utils.context;
 
+import java.util.Set;
+
 /**
  * Context.
  * @author DAM
@@ -23,6 +25,14 @@ public interface Context
   <T> T getValue(String key, Class<T> clazz);
 
   /**
+   * Indicates if this context has a value for the given key.
+   * <p>Note: this will not use the parent context if any.
+   * @param key Key to use.
+   * @return <code>true</code> if so, <code>false</code> otherwise.
+   */
+  boolean hasValue(String key);
+
+  /**
    * Set a context value.
    * @param key Key to use.
    * @param value Value to set.
@@ -34,6 +44,13 @@ public interface Context
    * @param key Key to remove.
    */
   void removeValue(String key);
+
+  /**
+   * Get the managed keys.
+   * <p>Note: this will not use the parent context if any.
+   * @return A set of keys.
+   */
+  Set<String> getKeys();
 
   /**
    * Clear all data in this context.
