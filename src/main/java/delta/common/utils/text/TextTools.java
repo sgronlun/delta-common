@@ -101,4 +101,32 @@ public class TextTools
     }
     return ret;
   }
+
+  /**
+   * Gracefully handle new lines.
+   * @param lines Input lines.
+   * @return a list of lines, with no new line.
+   */
+  public static List<String> handleNewLines(List<String> lines)
+  {
+    List<String> ret=new ArrayList<String>();
+    for(String line : lines)
+    {
+      while(true)
+      {
+        int hasLF=line.indexOf("\n");
+        if (hasLF!=-1)
+        {
+          ret.add(line.substring(0,hasLF).trim());
+          line=line.substring(hasLF+1);
+        }
+        else
+        {
+          ret.add(line);
+          break;
+        }
+      }
+    }
+    return ret;
+  }
 }
