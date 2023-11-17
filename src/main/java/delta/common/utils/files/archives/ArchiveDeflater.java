@@ -75,16 +75,32 @@ public class ArchiveDeflater
           ok=FileCopy.copy(is,current);
           if (!ok)
           {
+            LOGGER.error("Cannot write file: "+current);
+            ok=false;
             break;
           }
+          LOGGER.debug("Wrote file: "+current);
         }
       }
-      if (jarFile!=null) jarFile.close();
     }
     catch (Exception e)
     {
       LOGGER.error("",e);
       ok=false;
+    }
+    finally
+    {
+      if (jarFile!=null)
+      {
+        try
+        {
+          jarFile.close();
+        }
+        catch(Exception e)
+        {
+          // Ignored
+        }
+      }
     }
     return ok;
   }
